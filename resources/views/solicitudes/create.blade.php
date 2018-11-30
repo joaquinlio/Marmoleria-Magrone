@@ -147,7 +147,7 @@
             </button>
         </div>
         <div class="modal-body">
-                <form action="{{ url('pedidos/insertar') }}" enctype="multipart/form-data" method="POST" id="pedido">
+                <form action="{{ url('solicitudes/insertarPedido') }}" enctype="multipart/form-data" method="POST" id="pedido">
                     <div class="form-row">
                         <input type="hidden" name="cliente" id="cliente">
                         <input type="hidden" name="vendedor" id="vendedor">
@@ -173,6 +173,11 @@
                                 <input type="file" class="custom-file-input" name="imagen" id="imagen" lang="es">
                                 <label class="custom-file-label" for="imagen">Seleccionar Archivo</label>
                             </div>
+                        <label for="despacho">Despacho</label>
+                            <select name="despacho" id="despacho" class="custom-select">
+                                <option value="Retirar">A Retirar</option>
+                                <option value="Entregar">A Entregar</option>
+                            </select>
                         <legend class="col-form-label col-sm-2 pt-0">Estado</legend>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" id="espera" name="estado" class="custom-control-input" data-toggle="collapse" href="#esperaEst" role="button" aria-expanded="false" aria-controls="esperaEst" value="espera">
@@ -504,18 +509,19 @@ $('#btnAgregar').click(function() {
         productos = productos.slice(0,-2);
         //console.log(productos);  
         var cliente = $("#idCli").val();
-        var profecional = $("#idPro").val();
+        var profecional;
+        (!$("#idPro").val()) ? profecional = null : profecional = $("#idPro").val() ;
         var vendedor = $("#vendedorSol").val();
         var canalventa = $("#canalventa").val();
         td.push({productos,cliente,profecional,vendedor,canalventa});
         var datos = JSON.stringify(td);
-        console.log(datos);
+        //console.log(datos);
        $.ajax({
             type: "POST",
-            url: '{{ route('presupuestos.insertarPresupuesto') }}',
+            url: '{{ route('solicitudes.insertarPresupuesto') }}',
             data: datos,
             success: function(data) {
-                window.open("http://localhost/marmoleria/public/presupuestos/"+data.pto_id);     
+                window.open("http://localhost/marmoleria/public/solicitudes/"+data.sol_id);     
             }
         })
     });
@@ -541,7 +547,7 @@ $('#btnAgregar').click(function() {
         //console.log(datos);
         $.ajax({
             type: "POST",
-            url: '{{ route('presupuestos.insertar') }}',
+            url: '{{ route('solicitudes.insertarPresupuesto') }}',
             data: datos,
             success: function(data) {
                 window.open("http://localhost/marmoleria/public/presupuestos-pdf/"+data.pto_id);     

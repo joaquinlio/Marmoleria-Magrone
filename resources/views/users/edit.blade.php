@@ -12,6 +12,7 @@
     </ul>
 </div>
     @endif
+    {{ dd($user) }}
     <h1>Editar usuario</h1>
     <form method="POST" action="{{ url("usuarios/{$user->id}") }}">
         {{ method_field('PUT') }}

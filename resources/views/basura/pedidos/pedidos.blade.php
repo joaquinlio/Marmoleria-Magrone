@@ -1,6 +1,14 @@
 @extends('layout')
 @section('title','funciona perro')
 @section('content')
+<style>
+    .productos {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    </style>
 <div class="d-flex justify-content-between align-items-end mb-3">
         <h1 class="pb-1"></h1>
         <p>
@@ -27,9 +35,9 @@
         <td>{{ $pedido->fecha }}</td>
         <td>{{ $pedido->Cliente->nombre }}</td>
         <td>{{ $pedido->Profecional->nombre }}</td>
-        <td>{{ $pedido->productos }}</td>
+        <td class='productos'>{{ $pedido->productos }}</td>
         <td>{{ $pedido->estado }}</td>
-        <td>{{ $pedido->subEstado }}</td>
+        <td class='productos'>{{ $pedido->subEstado }}</td>
         <td><img src="{{$pedido->imagen}}" alt="" class="img-thumbnail" style="width: 70px"><td>
             <a data-toggle="modal">Editar</a>
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#borrar">Borrar</button>

@@ -1,5 +1,5 @@
 @php
-    $productos = explode("/", $presupuesto->productos);
+    $productos = explode("/", $solicitud->productos);
     $numeros = count($productos);
     $todos = 0;
     $opcion1 = 0;
@@ -25,7 +25,7 @@
     } 
     $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-    $time = strtotime($presupuesto->fecha);
+    $time = strtotime($solicitud->fecha);
     $fecha = date('d',$time)." de ".$meses[date('n',$time)-1]. " del ".date('Y',$time);
 
 
@@ -197,39 +197,39 @@
             <h6 style=" font-weight: bold;">Numero:</h6> 
     </div>
     <div id="numero">
-        <input type="text" class="form-control" style=" width: 80px;  font-weight: bold;" value="{{ $presupuesto->pto_id }}">    
+        <input type="text" class="form-control" style=" width: 80px;  font-weight: bold;" value="{{ $solicitud->sol_id }}">    
     </div>
     <hr> 
     <div class="col-colvendedor">
         <strong>Vendedor:</strong> 
     </div>
     <div id="vendedor">   
-      <input type="text" class="form-control" value="{{ $presupuesto->Vendedor->nombre }}">
+      <input type="text" class="form-control" value="{{ $solicitud->Vendedor->nombre }}">
     </div>
     <div class="col-canaldeventa">
         <strong>Canal De Venta:</strong> 
     </div>
     <p id="fecha">ADROGUE @php echo $fecha;@endphp</p>
     <div id="canaldeventa">
-        <input type="text" class="form-control" value="{{ $presupuesto->canaldeventa }}">
+        <input type="text" class="form-control" value="{{ $solicitud->canaldeventa }}">
     </div>
     <div class="col-cliente">
         <strong>Cliente:</strong> 
     </div>
     <div id="cliente">
-        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $presupuesto->Cliente->nombre }}">
+        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $solicitud->Cliente->nombre }}">
     </div>
     <div class="col-direccion">
         <strong>Direccion:</strong> 
     </div>
     <div id="direccion">
-        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $presupuesto->Cliente->direccion }}">
+        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $solicitud->Cliente->direccion }}">
     </div>
     <div class="col-profecional">
         <strong>Profecional:</strong> 
     </div>
     <div id="profecional">
-        <input type="text" class="form-control" style=" width: 400px;" value="{{ $presupuesto->Profecional->nombre }}">
+        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->Profecional->nombre }}">
     </div>
     <div class="col-obra">
         <strong>Obra:</strong> 
@@ -237,7 +237,7 @@
     <div id="obra">
         <input type="text" class="form-control" value="obra">
     </div> 
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm table-bordered text-center">
             <thead>
             <tr class="text-center">
                 <th scope="col">Descripcion</th>

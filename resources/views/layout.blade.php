@@ -19,22 +19,54 @@
   </head>
 
   <body>
-
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Magrone</h5>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark flex-column flex-md-row">
+          <a class="navbar-brand" href="#">Magrone</a>
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('solicitudes.create') }}">Nueva Solicitud</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('productos.index') }}">Productos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('paneldecontrol.index') }}">Control Diario</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Solicitudes</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="p-2 dropdown-item" href="{{ route('presupuestos.index') }}">Presupuestos</a>
+                    <a class="p-2 dropdown-item" href="{{ route('pedidos.index') }}">Pedidos</a>
+                    <a class="p-2 dropdown-item" href="{{ route('solicitudes.index') }}">Todas Las Solicitudes</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('clientes.index') }}">Clientes</a>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input type="text" class="form-control mr-sm-3" id="buscadorSol" autocomplete="off" placeholder="Buscar Solicitud">
+                <button class="btn btn-success my-2 my-sm-0"><a class="text-white" href="{{ route('logout') }}">{{ Auth::user()->name }}</a></button>
+              </form>
+        </nav>
+    <!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal"></h5>
+      <input type="text" class="my-0 mr-md-auto form-control col-3" id="buscadorSol" autocomplete="off" placeholder="Buscar Solicitud Por Numero">
       <nav class="my-2 my-md-0 mr-md-3">
-        <a class="p-2 text-dark" href="{{ route('productos.index') }}">Productos</a>
-        <a class="p-2 text-dark" href="{{ route('presupuestos.index') }}">Presupuestos</a>
-        <a class="p-2 text-dark" href="{{ route('pedidos.index') }}">Pedidos</a>
-        <a class="p-2 text-dark" href="{{ route('clientes.index') }}">Clientes</a>
+        
       </nav>
       <a class="btn btn-outline-primary" href="#">Sign up</a>
-    </div>
-    <div class="container-fluid">
+    </div>-->
+    <div class="">
       @yield('content')
     </div>
     </div>
     <script>
+      $("#buscadorSol").keypress(function(e){
+        if (e.which == 13) {
+          var sol_id = $("#buscadorSol").val();
+          location.href="http://localhost/marmoleria/public/solicitudes/"+sol_id; 
+        } 
+      });
       $('#edit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var id = button.data('id') 
@@ -92,9 +124,12 @@
       $('#borrar').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var id = button.data('id') 
+        var sol_id = button.data('sol_id') 
         var nombre = button.data('nombre')  
         var modal = $(this)
+        modal.find('.modal-body #sol_id').val(sol_id)
         modal.find('.modal-body #id').val(id)
+
         modal.find('.modal-body #nombre').val(nombre)
       })
       $('#nuevoPed').on('show.bs.modal', function (event) {

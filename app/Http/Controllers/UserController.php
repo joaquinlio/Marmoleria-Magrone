@@ -44,6 +44,7 @@ class UserController extends Controller
     }
     public function edit(User $user)
     {
+        dd($user);
       return view('users.edit',['user' => $user]);
     }
 

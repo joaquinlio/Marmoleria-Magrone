@@ -101,7 +101,7 @@
                     <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="" class="btn btn-outline-danger">Borrar</button>
+                    <button type="submit" id="" class="btn btn-outline-warning">Borrar</button>
                     <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>

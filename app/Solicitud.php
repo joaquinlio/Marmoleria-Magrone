@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Solicitud extends Model
 {
-    protected $table = 'pedidos';
-    protected $fillable = ['fecha', 'cliente', 'profecional','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','imagen'];
+    protected $table = 'solicitudes';
+    protected $fillable = ['fecha', 'cliente', 'profecional','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','finalizado','imagen','tipo'];
     protected $primaryKey = 'sol_id';
     public $timestamps = false;
 
@@ -23,5 +23,21 @@ class Solicitud extends Model
     public function vendedor()
     {
         return $this->belongsTo(Vendedor::class,'vendedor');
+    }
+
+    public function scopeEstado($query, $estado)
+    {
+        if($estado)
+            return $query->where('estado', 'LIKE', "%$estado%");
+    }
+    public function scopeFinalizado($query, $estado)
+    {
+        if($estado)
+            return $query->orWhere('finalizado', 'LIKE', "%$estado%");
+    }
+    public function scopeDespacho($query, $estado)
+    {
+        if($estado)
+            return $query->orWhere('despacho', 'LIKE', "%$estado%");
     }
 }

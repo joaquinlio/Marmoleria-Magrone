@@ -1,31 +1,29 @@
 @extends('layout')
 @section('title','funciona perro')
 @section('content')
-<div class="d-flex justify-content-between align-items-end mb-3">
-        <h1 class="pb-1">{{ $title }}</h1>
-        <p>
-            <a class="btn btn-primary" data-toggle="modal" data-target="#nuevoCliente">Nuevo Cliente</a>
-        </p>
-    </div>
-<table class="table table-sm">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Direccion</th>
-        <th scope="col">Entrecalles</th>
-        <th scope="col">Observaciones</th>
-        <th scope="col">Localidad</th>
-        <th scope="col">Partido</th>
-        <th scope="col">Provincia</th>
-        <th scope="col">Telefono1</th>
-        <th scope="col">Telefono2</th>
-        <th scope="col">Factura</th>
-        <th scope="col">Cuit</th>
-        <th scope="col">Razonsocial</th>
-    </tr>
+<table class="table table-sm text-center">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center" scope="col" colspan="14"><h2>{{ $title }}</h2></th>
+        </tr>
     </thead>
     <tbody>
+        <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Entrecalles</th>
+            <th scope="col">Observaciones</th>
+            <th scope="col">Localidad</th>
+            <th scope="col">Partido</th>
+            <th scope="col">Provincia</th>
+            <th scope="col">Telefono1</th>
+            <th scope="col">Telefono2</th>
+            <th scope="col">Factura</th>
+            <th scope="col">Cuit</th>
+            <th scope="col">Razonsocial</th>
+            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoCliente">Nuevo Cliente</button></th>
+        </tr>
     @foreach($clientes as $cliente)
     <tr>
         <th scope="row">{{ $cliente->id }}</th>
@@ -42,8 +40,8 @@
         <td>{{ $cliente->cuit }}</td>
         <td>{{ $cliente->razonsocial }}</td>
         <td>
-            <a  data-id="{{$cliente->id}}"  data-nombre="{{$cliente->nombre}}"  data-direccion="{{$cliente->direccion}}"  data-entrecalles="{{$cliente->entrecalles}}"  data-observaciones="{{$cliente->observaciones}}"  data-localidad="{{$cliente->localidad}}"  data-partido="{{$cliente->partido}}"  data-provincia="{{$cliente->provincia}}"  data-telefono1="{{$cliente->telefono1}}"  data-telefono2="{{$cliente->telefono2}}"  data-factura="{{$cliente->factura}}"  data-cuit="{{$cliente->cuit}}"  data-razonsocial="{{$cliente->razonsocial}}" data-toggle="modal" data-target="#edit" class="btn btn-link">Editar</a>
-            <button type="button" class="btn btn-link" data-id="{{$cliente->id}}" data-nombre="{{$cliente->nombre}}" data-toggle="modal" data-target="#borrar">Borrar</button>
+            <a  data-id="{{$cliente->id}}"  data-nombre="{{$cliente->nombre}}"  data-direccion="{{$cliente->direccion}}"  data-entrecalles="{{$cliente->entrecalles}}"  data-observaciones="{{$cliente->observaciones}}"  data-localidad="{{$cliente->localidad}}"  data-partido="{{$cliente->partido}}"  data-provincia="{{$cliente->provincia}}"  data-telefono1="{{$cliente->telefono1}}"  data-telefono2="{{$cliente->telefono2}}"  data-factura="{{$cliente->factura}}"  data-cuit="{{$cliente->cuit}}"  data-razonsocial="{{$cliente->razonsocial}}" data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
+            <button type="button" class="btn btn-link" data-id="{{$cliente->id}}" data-nombre="{{$cliente->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></button>
         </td>
     </tr>
     @endforeach
@@ -175,7 +173,7 @@
                     <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="" class="btn btn-outline-danger">Borrar</button>
+                    <button type="submit" id="" class="btn btn-outline-warning">Borrar</button>
                     <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>

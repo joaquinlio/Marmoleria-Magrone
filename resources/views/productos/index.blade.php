@@ -1,29 +1,28 @@
 @extends('layout')
 @section('title','funciona perro')
 @section('content')
-<div class="d-flex justify-content-between align-items-end mb-3">
-        <h1 class="pb-1">{{ $title }}</h1>
-        <p>
-            <a class="btn btn-primary" data-toggle="modal" data-target="#nuevoProducto">Nuevo Producto</a>
-        </p>
-    </div>
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Precio</th>
-    </tr>
+<table class="table text-center">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center" scope="col" colspan="4"><h2>{{ $title }}</h2></th>
+        </tr>
     </thead>
     <tbody>
+        <tr>
+            <th scope="col">N° Producto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoProducto">Nuevo Producto</button></th>
+        </tr>
     @foreach($productos as $producto)
     <tr>
         <th scope="row">{{ $producto->id }}</th>
         <td>{{ $producto->nombre }}</td>
         <td>{{ $producto->precio }}</td>
         <td>
-            <a data-toggle="modal" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}" data-precio="{{$producto->precio}}" data-target="#edit" class="btn btn-link">Editar</a>
-            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#borrarProducto" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}">Borrar</button>
+            
+            <a data-toggle="modal" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}" data-precio="{{$producto->precio}}" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#borrarProducto" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}"><i class="far fa-trash-alt"></i></button>
         </td>
     </tr>
     @endforeach
@@ -41,8 +40,6 @@
         <div class="modal-body">
             <form method="POST" action="{{ url('productos/crear') }}">
                 <div class="form-row">
-                      <label>Categoria:</label>
-                      <input type="text" id="categoria" name="categoria" class="form-control" autocomplete="off">
                       <label>Nombre:</label>
                       <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                       <label>Descripcion:</label>
@@ -73,12 +70,8 @@
                     {{ method_field('PUT') }}
                     <div class="form-row">
                         <input type="hidden" name="id" id="id">
-                        <label>Categoria:</label>
-                        <input type="text" id="categoria" name="categoria" class="form-control" autocomplete="off">
                         <label>Nombre:</label>
                         <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
-                        <label>Descripcion:</label>
-                        <input type="text" id="descripcion" name="descripcion" class="form-control" autocomplete="off">
                         <label>Precio:</label>
                         <input type="text" id="precio" name="precio" class="form-control" autocomplete="off">
                     </div>
@@ -109,7 +102,7 @@
                     <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="" class="btn btn-outline-danger">Borrar</button>
+                    <button type="submit" id="" class="btn btn-outline-warning">Borrar</button>
                     <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>
