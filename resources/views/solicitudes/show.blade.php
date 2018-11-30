@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-Solicitud N°{{ $solicitud->sol_id }}
+Sol N°{{ $solicitud->sol_id }}
 @endsection
     
 @section('content') 
@@ -10,42 +10,42 @@ Solicitud N°{{ $solicitud->sol_id }}
     $numeros = count($productos);
     //dd($productos);
     @endphp
-    <div class="d-flex justify-content-between align-items-end mb-3">
-        <h1 class="pb-1">{{ $solicitud->sol_id }}</h1>
-        <h3 class="pb-1">{{ $solicitud->tipo }}</h3>
-        <p>
-            <a class="btn btn-primary" data-toggle="modal" data-target="#nuevoPresupuesto">Nueva Solicitud</a>
-        </p>
-    </div>
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Total</th>
-        <th scope="col">Aplicacion</th>
-        <th scope="col">Opcion</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Sub Estado</th>
-    </tr>
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center" scope="col" colspan="9"><h2>{{ $solicitud->tipo }} N° {{ $solicitud->sol_id }}</h2></th>
+        </tr>
     </thead>
     <tbody>
+        <tr>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Total</th>
+            <th scope="col">Aplicacion</th>
+            <th scope="col">Opcion</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Sub Estado</th>
+            <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Nueva solicitud</a></th>
+        </tr>
+        
         @php
         for ($i=0; $i <$numeros ; $i++) { 
             $producto = explode(",", $productos[$i]);
-            echo "<tr><th>$producto[0]</th>
-            <td>$$producto[1]</td>
-            <td class='precio'>$producto[2]</td>
-            <td class='total'>$producto[3]</td>
-            <td>$producto[4]</td>
-            <td class='$producto[5]'>$producto[5]</td>";
+            echo "
+            <tr>
+                <th>$producto[0]</th>
+                <td>$$producto[1]</td>
+                <td class='precio'>$producto[2]</td>
+                <td class='total'>$producto[3]</td>
+                <td>$producto[4]</td>
+                <td class='$producto[5]'>$producto[5]</td>
+                <td>$solicitud->estado</td>
+                <td>$solicitud->subEstado</td>
+            </tr>";
         }   
         @endphp
-        <td>{{ $solicitud->estado }}</td>
-        <td>{{ $solicitud->subEstado }}</td>
-        <td></td>
-        </tr>
+       
     </tbody>
 </table>
 <h5>Calculo de Subtotales <span id="opcion1" class="badge badge-pill badge-warning"></span><span id="opcion2" class="badge badge-pill badge-warning mr-2"></span><span id="opcion3" class="badge badge-pill badge-warning mr-2"></span></h5>
@@ -60,7 +60,6 @@ Solicitud N°{{ $solicitud->sol_id }}
     });
     $(".opcion1").parent("tr").find(".total").each(function() {
         opcion1 += parseFloat($(this).html());
-        console.log(opcion1);
     }); 
     $(".opcion2").parent("tr").find(".total").each(function() {
         opcion2 += parseFloat($(this).html());

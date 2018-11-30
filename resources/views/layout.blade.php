@@ -64,7 +64,8 @@
       $("#buscadorSol").keypress(function(e){
         if (e.which == 13) {
           var sol_id = $("#buscadorSol").val();
-          location.href="http://localhost/marmoleria/public/solicitudes/"+sol_id; 
+          window.open("http://localhost/marmoleria/public/solicitudes/"+sol_id);
+          //location.href="http://localhost/marmoleria/public/solicitudes/"+sol_id; 
         } 
       });
       $('#edit').on('show.bs.modal', function (event) {

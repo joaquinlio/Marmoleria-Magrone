@@ -77,7 +77,7 @@ $numeros = count($productos);
                 <div class="col-6">
                     <h6>Buscar Cliente:</h6>
                     <div class="input-group mb-3">
-                        <input type="text" id="buscadorCli" class="typeahead form-control mr-sm-2"  placeholder="Buscar Cliente" value="{{ $solicitud->Cliente->nombre }}">
+                        <input type="text" id="buscadorCli" class="typeahead form-control mr-sm-2"  placeholder="Buscar Cliente">
                         <div class="float-right">
                             <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoCliente">
                         </div>
@@ -390,8 +390,8 @@ $numeros = count($productos);
     function modalAltaPedido(cliente,profecional,vendedor,canaldeventa){
         var todos = 0 ;
         var opcion = 0;
-        $(".todos").parent("tr").find(".total").each(function() {
-        todos += parseFloat($(this).html());
+        $(".Todos").parent("tr").find(".total").each(function() {
+            todos += parseFloat($(this).html());
         });
         $(".opcion1").parent("tr").find(".total").each(function() {
             opcion += parseFloat($(this).html());
@@ -545,8 +545,8 @@ $('#btnAgregar').click(function() {
         var opcion3 = 0;
         var opcion4 = 0;
         var todos = 0 ;
-        $(".todos").parent("tr").find(".total").each(function() {
-            console.log(parseFloat($(this).html()));
+        $(".Todos").parent("tr").find(".total").each(function() {
+            todos += parseFloat($(this).html());
         });
         $(".opcion1").parent("tr").find(".total").each(function() {
             opcion1 += parseFloat($(this).html());
