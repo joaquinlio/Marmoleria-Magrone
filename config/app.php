@@ -124,6 +124,10 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        //migraciones sql
+        Way\Generators\GeneratorsServiceProvider::class,
+        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
+        //PDF
         Barryvdh\Snappy\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
