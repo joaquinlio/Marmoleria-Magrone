@@ -26,9 +26,6 @@
                   <a class="nav-link" href="{{ route('solicitudes.create') }}">Nueva Solicitud</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('productos.index') }}">Productos</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="{{ route('paneldecontrol.index') }}">Control Diario</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -42,6 +39,17 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{ route('clientes.index') }}">Clientes</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('productos.index') }}">Productos</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="p-2 dropdown-item" href="{{ route('profecionales.index') }}">Profecionales</a>
+                    <a class="p-2 dropdown-item" href="{{ route('vendedores.index') }}">Vendedores</a>
+                    <a class="p-2 dropdown-item" href="{{ route('solicitudes.index') }}">Canal de Venta</a>
+                  </div>
+                </li>                          
               </ul>
               <form class="form-inline my-2 my-lg-0">
                 <input type="text" class="form-control mr-sm-3" id="buscadorSol" autocomplete="off" placeholder="Buscar Solicitud">

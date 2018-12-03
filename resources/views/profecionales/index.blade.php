@@ -1,31 +1,29 @@
 @extends('layout')
-@section('title','funciona perro')
+@section('title','Profecionales')
 @section('content')
-<div class="d-flex justify-content-between align-items-end mb-3">
-        <h1 class="pb-1">{{ $title }}</h1>
-        <p>
-            <a class="btn btn-primary" data-toggle="modal" data-target="#nuevoProfecional">Nuevo Profecional</a>
-        </p>
-    </div>
-<table class="table table-sm">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Telefono</th>
-        <th scope="col">Email</th>
-    </tr>
+<table class="table table-sm text-center">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2></th>
+        </tr>
     </thead>
     <tbody>
+        <tr>
+            <th scope="col">N° Prof</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Email</th>
+            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoProfecional">Nuevo Profecional</button></th>
+        </tr>    
     @foreach($profecionales as $profecional)
-    <tr class="text-center">
+    <tr>
         <th scope="row">{{ $profecional->id }}</th>
         <td>{{ $profecional->nombre }}</td>
         <td>{{ $profecional->telefono }}</td>
         <td>{{ $profecional->email }}</td>
         <td>
-            <a  data-id="{{$profecional->id}}"  data-nombre="{{$profecional->nombre}}"  data-telefono="{{$profecional->telefono}}"  data-email="{{$profecional->email}}"data-toggle="modal" data-target="#edit" class="btn btn-link">Editar</a>
-            <button type="button" class="btn btn-link" data-id="{{$profecional->id}}" data-nombre="{{$profecional->nombre}}" data-toggle="modal" data-target="#borrar">Borrar</button>
+            <a href="" data-id="{{$profecional->id}}"  data-nombre="{{$profecional->nombre}}"  data-telefono="{{$profecional->telefono}}"  data-email="{{$profecional->email}}"data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
+            <a href="" data-id="{{$profecional->id}}" data-nombre="{{$profecional->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></a>
         </td>
     </tr>
     @endforeach

@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','funciona perro')
+@section('title','Productos')
 @section('content')
 <table class="table text-center">
     <thead class="thead-light">

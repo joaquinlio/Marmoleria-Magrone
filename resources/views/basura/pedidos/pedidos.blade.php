@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','funciona perro')
+@section('title','Pedidos')
 @section('content')
 <style>
     .productos {

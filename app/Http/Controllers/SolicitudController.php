@@ -85,8 +85,54 @@ class SolicitudController extends Controller
     {
         $solicitud = Solicitud::findOrFail($request->sol_id);
 
-        $solicitud->update($request->all());
-
+        //$solicitud->update($request->all());
+        $data = request()->validate([
+            'fecha' => '',
+            'cliente' => 'required',
+            'profecional' => '',
+            'vendedor' => 'required',
+            'productos' => [
+                            'required',
+                            new pedidoVal()
+                            ],
+            'totalPed' => '',
+            'descuento' => '',
+            'senia' => '',
+            'saldo' => '',
+            'despacho' => '',
+            'canaldeventa' => '',
+            'estado' => 'required',
+            'subEstado' => 'required',
+            'imagen' => ''
+            
+        ],[
+            'cliente.required' => 'Cliente no Seleccionado',
+            'estado.required' => 'El campo Estado es Requerido',
+            'subEstado.required' => 'No Selecciono Sub Estado',
+            'vendedor.required' => 'No Selecciono Vendedor',
+            'productos.required' => 'No Seleciono Productos',
+        ]);
+        $subEstado = null;
+        foreach ($data['subEstado'] as $value) {
+            $subEstado .= $value.",";
+        }
+        $subEstado = substr($subEstado, 0, -1);
+        $solicitud->update([
+            'cliente' => $data['cliente'],
+            'profecional' => $data['profecional'],
+            'vendedor' => $data['vendedor'],
+            'productos' => $data['productos'],
+            'totalPed' => $data['totalPed'],
+            'descuento' => $data['descuento'],
+            'senia' => $data['senia'],
+            'saldo' => $data['saldo'],
+            'despacho' => $data['despacho'],
+            'canaldeventa' => $data['canaldeventa'],
+            'estado' => $data['estado'],
+            'subEstado' => $subEstado,
+            'finalizado' => "A Avisar",
+            'tipo' => "Pedido" 
+        ]);
         if($request->file('imagen')){
             $path = Storage::disk('public')->put('imagen',  $request->file('imagen'));
             $solicitud->fill(['imagen' => asset($path)])->save();

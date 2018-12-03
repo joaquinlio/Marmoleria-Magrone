@@ -1,29 +1,27 @@
 @extends('layout')
-@section('title','funciona perro')
+@section('title','Vendedores')
 @section('content')
-<div class="d-flex justify-content-between align-items-end mb-3">
-        <h1 class="pb-1">{{ $title }}</h1>
-        <p>
-            <a class="btn btn-primary" data-toggle="modal" data-target="#nuevoVendedor">Nuevo Vendedor</a>
-        </p>
-    </div>
-<table class="table table-sm">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Telefono</th>
-    </tr>
+<table class="table table-sm text-center">
+    <thead class="thead-ligth">
+        <tr>
+            <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2></th>
+        </tr>
     </thead>
     <tbody>
+        <tr>
+            <th scope="col">N° Vendedor</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Telefono</th>
+            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoVendedor">Nuevo Vendedor</button></th>
+        </tr>
     @foreach($vendedores as $vendedor)
     <tr>
         <th scope="row">{{ $vendedor->id }}</th>
         <td>{{ $vendedor->nombre }}</td>
         <td>{{ $vendedor->telefono }}</td>
         <td>
-            <a  data-id="{{$vendedor->id}}"  data-nombre="{{$vendedor->nombre}}" data-telefono="{{$vendedor->telefono}}"  data-toggle="modal" data-target="#edit" class="btn btn-link">Editar</a>
-            <button type="button" class="btn btn-link" data-id="{{$vendedor->id}}" data-nombre="{{$vendedor->nombre}}" data-toggle="modal" data-target="#borrar">Borrar</button>
+            <a href="" data-id="{{$vendedor->id}}"  data-nombre="{{$vendedor->nombre}}" data-telefono="{{$vendedor->telefono}}"  data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
+            <a href="" class="btn btn-link" data-id="{{$vendedor->id}}" data-nombre="{{$vendedor->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></a>
         </td>
     </tr>
     @endforeach
