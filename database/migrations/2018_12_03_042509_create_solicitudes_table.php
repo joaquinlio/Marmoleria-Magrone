@@ -16,10 +16,10 @@ class CreateSolicitudesTable extends Migration {
 		{
 			$table->integer('sol_id', true);
 			$table->date('fecha');
-			$table->integer('cliente')->index('cliente-fk');
-			$table->integer('profecional')->nullable()->index('profecional-fk');
+			$table->integer('cliente');
+			$table->integer('profecional')->nullable();
 			$table->integer('vendedor');
-			$table->string('productos', 2000)->index('producto-fk');
+			$table->string('productos', 2000);
 			$table->integer('totalPed')->nullable();
 			$table->integer('descuento')->nullable();
 			$table->integer('senia')->nullable();
