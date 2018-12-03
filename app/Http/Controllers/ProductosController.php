@@ -24,17 +24,13 @@ class ProductosController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'categoria' => 'required',
             'nombre' => 'required',
             'precio' => 'required',
-            'descripcion' => ''
         ],[
             'nombre.required' => 'El campo nombre es Requerido'
         ]);
         Producto::create([
-            'categoria'=> $data['categoria'],
             'nombre'=> $data['nombre'],
-            'descripcion'=> $data['descripcion'],
             'precio'=> $data['precio']     
         ]);
         

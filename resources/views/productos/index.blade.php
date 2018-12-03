@@ -42,8 +42,6 @@
                 <div class="form-row">
                       <label>Nombre:</label>
                       <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
-                      <label>Descripcion:</label>
-                      <input type="text" id="descripcion" name="descripcion" class="form-control" autocomplete="off">
                       <label>Precio:</label>
                       <input type="text" id="precio" name="precio" class="form-control" autocomplete="off">
                 </div>         
