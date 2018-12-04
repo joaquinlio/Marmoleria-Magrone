@@ -11,6 +11,7 @@
         white-space: nowrap;
     }
     </style>
+@if ($solicitud->isNotEmpty())
 <div class="table-responsive">
 <table class="table text-center table-hover">
     <thead class="thead-light">
@@ -54,6 +55,7 @@
     </tbody>
 </table>  
 </div>
+@endif
 <div class="modal fade" id="borrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

@@ -43,14 +43,6 @@ class ProductosController extends Controller
 
     public function update(Request $request)
     {
-        /*$data = request()->validate([
-            'categoria' => 'required',
-            'nombre' => 'required',
-            'precio' => 'required',
-            'descripcion' => ''
-        ],[
-            'nombre.required' => 'El campo nombre es Requerido'
-        ]);*/
         $producto = Producto::findOrFail($request->id);
 
         $producto->update($request->all());

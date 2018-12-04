@@ -22,7 +22,7 @@
         <td>
             
             <a data-toggle="modal" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}" data-precio="{{$producto->precio}}" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
-            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#borrarProducto" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}"><i class="far fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#borrar" data-id="{{$producto->id}}" data-nombre="{{$producto->nombre}}"><i class="far fa-trash-alt"></i></button>
         </td>
     </tr>
     @endforeach

@@ -11,6 +11,7 @@
     white-space: nowrap;
 }
 </style>
+@if ($solicitud->isNotEmpty())
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
@@ -44,6 +45,7 @@
     @endforeach
     </tbody>
 </table>
+@endif
 <div class="modal fade" id="nuevoPresupuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
