@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Solicitud extends Model
 {
     protected $table = 'solicitudes';
-    protected $fillable = ['fecha', 'cliente', 'profecional','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','finalizado','imagen','tipo'];
+    protected $fillable = ['fecha', 'cliente', 'profesional','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','finalizado','imagen','tipo'];
     protected $primaryKey = 'sol_id';
     public $timestamps = false;
 
@@ -16,9 +16,9 @@ class Solicitud extends Model
         return $this->belongsTo(Cliente::class,'cliente');
     }
 
-    public function profecional()
+    public function profesional()
     {
-        return $this->belongsTo(Profecional::class,'profecional');
+        return $this->belongsTo(profesional::class,'profesional');
     }
     public function vendedor()
     {

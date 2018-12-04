@@ -21,7 +21,7 @@
         <th scope="col">Nro Pto</th>
         <th scope="col">Fecha</th>
         <th scope="col">Cliente</th>
-        <th scope="col">Profecional</th>
+        <th scope="col">profesional</th>
         <th scope="col">Productos</th>
         <th scope="col">Estado</th>
         <th scope="col">Sub Estado</th>
@@ -34,7 +34,7 @@
         <th scope="row">{{ $pedido->pdo_id }}</th>
         <td>{{ $pedido->fecha }}</td>
         <td>{{ $pedido->Cliente->nombre }}</td>
-        <td>{{ $pedido->Profecional->nombre }}</td>
+        <td>{{ $pedido->profesional->nombre }}</td>
         <td class='productos'>{{ $pedido->productos }}</td>
         <td>{{ $pedido->estado }}</td>
         <td class='productos'>{{ $pedido->subEstado }}</td>

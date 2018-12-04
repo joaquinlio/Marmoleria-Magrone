@@ -113,7 +113,7 @@ CREATE TABLE `pedidos` (
   `pdo_id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `cliente` int(11) NOT NULL,
-  `profecional` int(11) DEFAULT NULL,
+  `profesional` int(11) DEFAULT NULL,
   `vendedor` int(11) NOT NULL,
   `productos` varchar(2000) NOT NULL,
   `totalPed` int(11) DEFAULT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`pdo_id`, `fecha`, `cliente`, `profecional`, `vendedor`, `productos`, `totalPed`, `descuento`, `senia`, `saldo`, `despacho`, `canaldeventa`, `estado`, `subEstado`, `imagen`) VALUES
+INSERT INTO `pedidos` (`pdo_id`, `fecha`, `cliente`, `profesional`, `vendedor`, `productos`, `totalPed`, `descuento`, `senia`, `saldo`, `despacho`, `canaldeventa`, `estado`, `subEstado`, `imagen`) VALUES
 (1, '2018-11-17', 1, 1, 1, 'Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente 8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Ajuste y Colocacion,12000,1,12000,,opcion1,/Ajuste y Colocacion,12000,1,12000,,opcion2,/Ajuste y Colocacion,12000,1,12000,,opcion3,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos', 12000, 10, 300, 10500, 'Retirar', 'adrogue', 'espera', 'medidas', 'http://localhost/marmoleria/public/imagen/jsTnXFedAgdQaNTWGg4uAbq2UxHwMWbE7j75PRh6.jpeg'),
 (5, '2018-11-22', 1, 1, 1, 'Ajuste y Colocacion,12000,1,12000,,Todos', 12000, NULL, NULL, NULL, '', 'adrogue', 'espera', 'asignaciondemateriaprima,Medidas,Materiales Por Parte Del Cliente', NULL),
 (6, '2018-11-26', 1, 1, 1, 'Ajuste y Colocacion,12000,1,12000,,Todos', 12000, 15, 155, 10045, 'Retirar', 'adrogue', 'espera', 'Asignacion De Materia Prima', NULL),
@@ -147,7 +147,7 @@ CREATE TABLE `presupuestos` (
   `pto_id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `cliente` int(11) NOT NULL,
-  `profecional` int(11) NOT NULL,
+  `profesional` int(11) NOT NULL,
   `vendedor` int(11) NOT NULL,
   `productos` varchar(1500) NOT NULL,
   `canaldeventa` varchar(20) NOT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE `presupuestos` (
 -- Volcado de datos para la tabla `presupuestos`
 --
 
-INSERT INTO `presupuestos` (`pto_id`, `fecha`, `cliente`, `profecional`, `vendedor`, `productos`, `canaldeventa`, `estado`) VALUES
+INSERT INTO `presupuestos` (`pto_id`, `fecha`, `cliente`, `profesional`, `vendedor`, `productos`, `canaldeventa`, `estado`) VALUES
 (38, '2018-11-19', 1, 1, 1, 'Ajuste y Colocacion,12000,1,12000,,Todos', 'adrogue', 'a confirmar'),
 (39, '2018-11-19', 1, 1, 1, 'Ajuste y Colocacion,12000,1,12000,,Todos/Ajuste y Colocacion,12000,1,12000,,Todos', 'adrogue', 'a confirmar'),
 (40, '2018-11-19', 1, 1, 1, 'Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Ajuste y Colocacion,12000,1,12000,,opcion1,/Ajuste y Colocacion,12000,1,12000,,opcion2,/Ajuste y Colocacion,12000,1,12000,,opcion3,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos,/Granito-Blanco-20mm,1500,3,4500,8 mesadas segun plano tener en cuenta el pedido del cliente,Todos', 'adrogue', 'a confirmar');
@@ -190,10 +190,10 @@ INSERT INTO `productos/extras` (`id`, `nombre`, `precio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `profecionales`
+-- Estructura de tabla para la tabla `profesionales`
 --
 
-CREATE TABLE `profecionales` (
+CREATE TABLE `profesionales` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `telefono` int(11) NOT NULL,
@@ -201,10 +201,10 @@ CREATE TABLE `profecionales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `profecionales`
+-- Volcado de datos para la tabla `profesionales`
 --
 
-INSERT INTO `profecionales` (`id`, `nombre`, `telefono`, `email`) VALUES
+INSERT INTO `profesionales` (`id`, `nombre`, `telefono`, `email`) VALUES
 (1, 'alberto', 1562569875, 'alberto@gmail.com'),
 (2, 'Jose Armando', 1148956663, 'josearmando@gmail.com'),
 (3, 'Ramirez Pedro', 1524697842, 'ramirezpedrohotmail');
@@ -219,7 +219,7 @@ CREATE TABLE `solicitudes` (
   `sol_id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `cliente` int(11) NOT NULL,
-  `profecional` int(11) DEFAULT NULL,
+  `profesional` int(11) DEFAULT NULL,
   `vendedor` int(11) NOT NULL,
   `productos` varchar(2000) NOT NULL,
   `totalPed` int(11) DEFAULT NULL,
@@ -239,7 +239,7 @@ CREATE TABLE `solicitudes` (
 -- Volcado de datos para la tabla `solicitudes`
 --
 
-INSERT INTO `solicitudes` (`sol_id`, `fecha`, `cliente`, `profecional`, `vendedor`, `productos`, `totalPed`, `descuento`, `senia`, `saldo`, `despacho`, `canaldeventa`, `estado`, `subEstado`, `finalizado`, `imagen`, `tipo`) VALUES
+INSERT INTO `solicitudes` (`sol_id`, `fecha`, `cliente`, `profesional`, `vendedor`, `productos`, `totalPed`, `descuento`, `senia`, `saldo`, `despacho`, `canaldeventa`, `estado`, `subEstado`, `finalizado`, `imagen`, `tipo`) VALUES
 (23, '2018-11-27', 2, 1, 1, 'Granito-Blanco-20mm,1500,3,4500,,Todos,/Ajuste y Colocacion,12000,1,12000,,opcion1', 16500, 15, 155, 10045, 'entregar', 'adrogue', 'espera', 'Asignacion De Materia Prima', 'avisado', 'http://localhost/marmoleria/public/imagen/SYfuCPqJeJJaff0JLDgmyBepd9hQq87Dy97fo6Pq.jpeg', 'Pedido'),
 (25, '2018-11-27', 1, 1, 1, 'Granito-Blanco-20mm,1500,3,4500,,opcion1,/Ajuste y Colocacion,12000,1,12000,,Todos', 16500, NULL, NULL, 4500, 'entregado', 'adrogue', 'a confirmar', NULL, '', NULL, 'Presupuesto'),
 (27, '2018-11-27', 1, 1, 1, 'Ajuste y Colocacion,12000,1,12000,,Todos', NULL, NULL, NULL, NULL, NULL, 'adrogue', 'archivado', NULL, '', NULL, 'Presupuesto'),
@@ -323,7 +323,7 @@ ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`pdo_id`),
   ADD KEY `producto-fk` (`productos`(767)),
   ADD KEY `cliente-fk` (`cliente`),
-  ADD KEY `profecional-fk` (`profecional`);
+  ADD KEY `profesional-fk` (`profesional`);
 
 --
 -- Indices de la tabla `presupuestos`
@@ -332,7 +332,7 @@ ALTER TABLE `presupuestos`
   ADD PRIMARY KEY (`pto_id`),
   ADD KEY `producto-fk` (`productos`(767)),
   ADD KEY `cliente-fk` (`cliente`),
-  ADD KEY `profecional-fk` (`profecional`);
+  ADD KEY `profesional-fk` (`profesional`);
 
 --
 -- Indices de la tabla `productos/extras`
@@ -341,9 +341,9 @@ ALTER TABLE `productos/extras`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `profecionales`
+-- Indices de la tabla `profesionales`
 --
-ALTER TABLE `profecionales`
+ALTER TABLE `profesionales`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -353,7 +353,7 @@ ALTER TABLE `solicitudes`
   ADD PRIMARY KEY (`sol_id`),
   ADD KEY `producto-fk` (`productos`(767)),
   ADD KEY `cliente-fk` (`cliente`),
-  ADD KEY `profecional-fk` (`profecional`);
+  ADD KEY `profesional-fk` (`profesional`);
 
 --
 -- Indices de la tabla `users`
@@ -409,9 +409,9 @@ ALTER TABLE `productos/extras`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT de la tabla `profecionales`
+-- AUTO_INCREMENT de la tabla `profesionales`
 --
-ALTER TABLE `profecionales`
+ALTER TABLE `profesionales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --

@@ -31,7 +31,7 @@ class PedidoController extends Controller
         $data = request()->validate([
             'fecha' => '',
             'cliente' => 'required',
-            'profecional' => '',
+            'profesional' => '',
             'vendedor' => 'required',
             'productos' => [
                             'required',
@@ -62,7 +62,7 @@ class PedidoController extends Controller
         $post = Pedido::create([
             'fecha' => $now->format('Y-m-d'),
             'cliente' => $data['cliente'],
-            'profecional' => $data['profecional'],
+            'profesional' => $data['profesional'],
             'vendedor' => $data['vendedor'],
             'productos' => $data['productos'],
             'totalPed' => $data['totalPed'],

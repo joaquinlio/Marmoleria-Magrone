@@ -92,18 +92,18 @@ $numeros = count($productos);
                     </div>           
                 </div>
                 <div class="col-6">
-                    <h6>Buscar Profecional:</h6>
+                    <h6>Buscar profesional:</h6>
                 <div class="input-group mb-3">
-                    <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar Profecional">
+                    <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional">
                     <div class="float-right">
-                        <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoProfecional">
+                        <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
                     </div>
                 </div>
                 <div id="listadoPro">
-                        <ul class="list-group lead"><input type="hidden" id="idPro" value="{{ $solicitud->Profecional->id }}">
-                            <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->Profecional->nombre }}</li>
-                            <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{ $solicitud->Profecional->telefono }}</li>
-                            <li class="list-group-item"><h6 class="my-0">Email</h6>{{ $solicitud->Profecional->email }}</li>
+                        <ul class="list-group lead"><input type="hidden" id="idPro" value="{{ $solicitud->profesional->id }}">
+                            <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->profesional->nombre }}</li>
+                            <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{ $solicitud->profesional->telefono }}</li>
+                            <li class="list-group-item"><h6 class="my-0">Email</h6>{{ $solicitud->profesional->email }}</li>
                         </ul>       
                 </div>                       
                 </div>
@@ -190,7 +190,7 @@ $numeros = count($productos);
                         <input type="hidden" name="sol_id" id="sol_id">
                         <input type="hidden" name="cliente" id="cliente">
                         <input type="hidden" name="vendedor" id="vendedor">
-                        <input type="hidden" name="profecional" id="profecional">
+                        <input type="hidden" name="profesional" id="profesional">
                         <input type="hidden" name="canaldeventa" id="canaldeventa">
                         <input type="hidden" name="productos" id="productos">
                         <div class="form-group col-6">
@@ -358,17 +358,17 @@ $numeros = count($productos);
               </div>
             </div>
           </div> 
-<div class="modal fade" id="nuevoProfecional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="nuevoprofesional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="">Nuevo Profecional</h5>
+            <h5 class="modal-title" id="">Nuevo profesional</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ url('profecionales/crear') }}">
+            <form method="POST" action="{{ url('profesionales/crear') }}">
                 <div class="form-row">
                     <label>Nombre:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
@@ -387,7 +387,7 @@ $numeros = count($productos);
     </div>
     </div>              
 <script type="text/javascript">
-    function modalAltaPedido(cliente,profecional,vendedor,canaldeventa){
+    function modalAltaPedido(cliente,profesional,vendedor,canaldeventa){
         var todos = 0 ;
         var opcion = 0;
         $(".Todos").parent("tr").find(".total").each(function() {
@@ -415,7 +415,7 @@ $numeros = count($productos);
         $("#sol_id").val({{ $solicitud->sol_id }});
         $("#cliente").val(cliente);
         $("#productos").val(productos);
-        $("#profecional").val(profecional);
+        $("#profesional").val(profesional);
         $("#vendedor").val(vendedor);
         $("#canaldeventa").val(canaldeventa);
         $("#descuento").val({{ $solicitud->descuento }});
@@ -487,7 +487,7 @@ $numeros = count($productos);
                 })   
             }
         });
-    var path3 = "{{ route('profecionales.autocomplete') }}";
+    var path3 = "{{ route('profesionales.autocomplete') }}";
     $('#buscadorPro').typeahead({
     source:  function (query, process) {
     return $.get(path3, { query: query }, function (data) {
@@ -499,7 +499,7 @@ $numeros = count($productos);
                 var data = { nombre : $("#buscadorPro").val() };
                 $.ajax({
                     type: "POST",
-                    url: '{{ route('profecionales.obtenerdetalles') }}',
+                    url: '{{ route('profesionales.obtenerdetalles') }}',
                     data: data,
                     success: function(data) {
                         var obj = JSON.parse(data);
@@ -600,11 +600,11 @@ $('#btnAgregar').click(function() {
         //console.log(productos);  
         var sol_id = {{ $solicitud->sol_id }};
         var cliente = $("#idCli").val();
-        var profecional;
-        (!$("#idPro").val()) ? profecional = null : profecional = $("#idPro").val() ;
+        var profesional;
+        (!$("#idPro").val()) ? profesional = null : profesional = $("#idPro").val() ;
         var vendedor = $("#vendedorSol").val();
         var canalventa = $("#canalventa").val();
-        td.push({sol_id,productos,cliente,profecional,vendedor,canalventa});
+        td.push({sol_id,productos,cliente,profesional,vendedor,canalventa});
         var datos = JSON.stringify(td);
         //console.log(datos);
        $.ajax({

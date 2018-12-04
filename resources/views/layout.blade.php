@@ -45,7 +45,7 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="p-2 dropdown-item" href="{{ route('profecionales.index') }}">Profecionales</a>
+                    <a class="p-2 dropdown-item" href="{{ route('profesionales.index') }}">Profesionales</a>
                     <a class="p-2 dropdown-item" href="{{ route('vendedores.index') }}">Vendedores</a>
                     <a class="p-2 dropdown-item" href="{{ route('solicitudes.index') }}">Canal de Venta</a>
                   </div>
@@ -100,7 +100,7 @@
         var factura = button.data('factura')
         var cuit = button.data('cuit')
         var razonsocial = button.data('razonsocial')
-        //profecional
+        //profesional
         var telefono = button.data('telefono')
         var email = button.data('email')
         var modal = $(this)
@@ -126,7 +126,7 @@
          modal.find('.modal-body #factura').val(factura)
          modal.find('.modal-body #cuit').val(cuit)
          modal.find('.modal-body #razonsocial').val(razonsocial)
-        //profecional
+        //profesional
         modal.find('.modal-body #telefono').val(telefono)
         modal.find('.modal-body #email').val(email)
       })
@@ -171,7 +171,7 @@
         $('#factura').val();
         $('#cuit').val();
         $('#razonsocial').val();
-        //profecional
+        //profesional
         $('#telefono').val();
         $('#email').val();
         //pedido

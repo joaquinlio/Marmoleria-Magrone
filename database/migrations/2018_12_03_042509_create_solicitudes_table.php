@@ -17,7 +17,7 @@ class CreateSolicitudesTable extends Migration {
 			$table->integer('sol_id', true);
 			$table->date('fecha');
 			$table->integer('cliente');
-			$table->integer('profecional')->nullable();
+			$table->integer('profesional')->nullable();
 			$table->integer('vendedor');
 			$table->string('productos', 2000);
 			$table->integer('totalPed')->nullable();

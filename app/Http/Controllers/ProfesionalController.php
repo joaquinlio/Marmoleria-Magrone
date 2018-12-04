@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Profecional;
-class ProfecionalController extends Controller
+use App\profesional;
+class profesionalController extends Controller
 {
     public function index()
     {
-        $profecionales = Profecional::all();
+        $profesionales = profesional::all();
         //dd($productos);
-        $title = 'Listado de Profecionales';
+        $title = 'Listado de profesionales';
         
-    return view('profecionales.index',compact('title','profecionales'));
+    return view('profesionales.index',compact('title','profesionales'));
     }
     public function create()
     {
-        return view('profecionales.create');
+        return view('profesionales.create');
     }
     public function store()
     {
@@ -27,38 +27,38 @@ class ProfecionalController extends Controller
         ],[
             'nombre.required' => 'El campo nombre es Requerido'
         ]);
-        Profecional::create([
+        profesional::create([
             'nombre' => $data['nombre'],
             'telefono' => $data['telefono'],
             'email' => $data['email']    
         ]);
         
-        return redirect()->route('profecionales.index');
+        return redirect()->route('profesionales.index');
     }
     public function update(Request $request)
     {
-        $profecional = Profecional::findOrFail($request->id);
+        $profesional = profesional::findOrFail($request->id);
 
-        $profecional->update($request->all());
+        $profesional->update($request->all());
 
-        return redirect()->route('profecionales.index');
+        return redirect()->route('profesionales.index');
     }
     public function destroy(Request $request)
     {
-        $profecional = Profecional::findOrFail($request->id);
+        $profesional = profesional::findOrFail($request->id);
         
-        $profecional->delete();
-        return redirect()->route('profecionales.index');
+        $profesional->delete();
+        return redirect()->route('profesionales.index');
     }
     public function autocomplete(Request $request)
     {
-        $data = Profecional::select("nombre as name")->where("nombre","LIKE","%{$request->input('query')}%")->get();
+        $data = profesional::select("nombre as name")->where("nombre","LIKE","%{$request->input('query')}%")->get();
         
         return response()->json($data);
     }
     public static function obtenerdetalles(Request $request)
     {
-        $data = Profecional::select()->where("nombre","LIKE","{$request->nombre}")->get();
+        $data = profesional::select()->where("nombre","LIKE","{$request->nombre}")->get();
         return json_encode($data);
     }
 }

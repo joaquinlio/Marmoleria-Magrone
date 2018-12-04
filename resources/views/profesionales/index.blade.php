@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title','Profecionales')
+@section('title','profesionales')
 @section('content')
 <table class="table table-sm text-center">
     <thead class="thead-light">
@@ -13,33 +13,33 @@
             <th scope="col">Nombre</th>
             <th scope="col">Telefono</th>
             <th scope="col">Email</th>
-            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoProfecional">Nuevo Profecional</button></th>
+            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoprofesional">Nuevo profesional</button></th>
         </tr>    
-    @foreach($profecionales as $profecional)
+    @foreach($profesionales as $profesional)
     <tr>
-        <th scope="row">{{ $profecional->id }}</th>
-        <td>{{ $profecional->nombre }}</td>
-        <td>{{ $profecional->telefono }}</td>
-        <td>{{ $profecional->email }}</td>
+        <th scope="row">{{ $profesional->id }}</th>
+        <td>{{ $profesional->nombre }}</td>
+        <td>{{ $profesional->telefono }}</td>
+        <td>{{ $profesional->email }}</td>
         <td>
-            <a href="" data-id="{{$profecional->id}}"  data-nombre="{{$profecional->nombre}}"  data-telefono="{{$profecional->telefono}}"  data-email="{{$profecional->email}}"data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
-            <a href="" data-id="{{$profecional->id}}" data-nombre="{{$profecional->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></a>
+            <a href="" data-id="{{$profesional->id}}"  data-nombre="{{$profesional->nombre}}"  data-telefono="{{$profesional->telefono}}"  data-email="{{$profesional->email}}"data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
+            <a href="" data-id="{{$profesional->id}}" data-nombre="{{$profesional->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></a>
         </td>
     </tr>
     @endforeach
     </tbody>
 </table>
-<div class="modal fade" id="nuevoProfecional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="nuevoprofesional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="">Nuevo Profecional</h5>
+          <h5 class="modal-title" id="">Nuevo profesional</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ url('profecionales/crear') }}">
+            <form method="POST" action="{{ url('profesionales/crear') }}">
                 <div class="form-row">
                     <label>Nombre:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
@@ -67,7 +67,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('profecionales.update','update')}}">
+                <form method="POST" action="{{ route('profesionales.update','update')}}">
                     {{ method_field('PUT') }}
                     <div class="form-row">
                         <input type="hidden" name="id" id="id">
@@ -97,7 +97,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('profecionales.destroy','delete')}}">
+            <form method="POST" action="{{ route('profesionales.destroy','delete')}}">
                 {{ method_field('DELETE') }}
                 <div class="form-row">
                     <input type="hidden" name="id" id="id">

@@ -89,7 +89,7 @@ class SolicitudController extends Controller
         $data = request()->validate([
             'fecha' => '',
             'cliente' => 'required',
-            'profecional' => '',
+            'profesional' => '',
             'vendedor' => 'required',
             'productos' => [
                             'required',
@@ -119,7 +119,7 @@ class SolicitudController extends Controller
         $subEstado = substr($subEstado, 0, -1);
         $solicitud->update([
             'cliente' => $data['cliente'],
-            'profecional' => $data['profecional'],
+            'profesional' => $data['profesional'],
             'vendedor' => $data['vendedor'],
             'productos' => $data['productos'],
             'totalPed' => $data['totalPed'],
@@ -143,12 +143,12 @@ class SolicitudController extends Controller
     public function updatePresupuesto(Request $request)
     {
         $array = json_decode($request->getContent(),true);
-        //$json = '[{"sol_id":25,"productos":"Granito-Blanco-20mm,1500,3,4500,,opcion1,/Ajuste y Colocacion,12000,1,12000,,Todos","cliente":"2","profecional":"1","vendedor":"1","canalventa":"adrogue"}]';
+        //$json = '[{"sol_id":25,"productos":"Granito-Blanco-20mm,1500,3,4500,,opcion1,/Ajuste y Colocacion,12000,1,12000,,Todos","cliente":"2","profesional":"1","vendedor":"1","canalventa":"adrogue"}]';
         //$array = json_decode($json,true);
         foreach($array as $obj){
           $sol_id = $obj['sol_id'];
           $cliente = $obj['cliente'];
-          $profecional = $obj['profecional'];
+          $profesional = $obj['profesional'];
           $vendedor = $obj['vendedor'];
           $productos = $obj['productos'];
           $canalventa = $obj['canalventa'];
@@ -157,7 +157,7 @@ class SolicitudController extends Controller
 
         $solicitud->update([
             'cliente' => $cliente,
-            'profecional' => $profecional,
+            'profesional' => $profesional,
             'vendedor' => $vendedor,
             'productos' => "$productos",
             'canaldeventa' => $canalventa
@@ -179,7 +179,7 @@ class SolicitudController extends Controller
         //$array = json_decode($json,true);
         foreach($array as $obj){
           $cliente = $obj['cliente'];
-          $profecional = $obj['profecional'];
+          $profesional = $obj['profesional'];
           $vendedor = $obj['vendedor'];
           $productos = $obj['productos'];
           $canalventa = $obj['canalventa'];
@@ -188,7 +188,7 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::create([
             'fecha' => $now->format('Y-m-d'),
             'cliente' => $cliente,
-            'profecional' => $profecional,
+            'profesional' => $profesional,
             'vendedor' => $vendedor,
             'productos' => "$productos",
             'canaldeventa' => $canalventa,
@@ -207,7 +207,7 @@ class SolicitudController extends Controller
         $data = request()->validate([
             'fecha' => '',
             'cliente' => 'required',
-            'profecional' => '',
+            'profesional' => '',
             'vendedor' => 'required',
             'productos' => [
                             'required',
@@ -239,7 +239,7 @@ class SolicitudController extends Controller
         $post = Solicitud::create([
             'fecha' => $now->format('Y-m-d'),
             'cliente' => $data['cliente'],
-            'profecional' => $data['profecional'],
+            'profesional' => $data['profesional'],
             'vendedor' => $data['vendedor'],
             'productos' => $data['productos'],
             'totalPed' => $data['totalPed'],

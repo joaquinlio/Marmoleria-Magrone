@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Presupuesto extends Model
 {
     protected $table = 'presupuestos';
-    protected $fillable = ['fecha', 'cliente', 'profecional','vendedor','productos','canaldeventa','estado'];
+    protected $fillable = ['fecha', 'cliente', 'profesional','vendedor','productos','canaldeventa','estado'];
     protected $primaryKey = 'pto_id';
     public $timestamps = false;
 
@@ -16,9 +16,9 @@ class Presupuesto extends Model
         return $this->belongsTo(Cliente::class,'cliente');
     }
 
-    public function profecional()
+    public function profesional()
     {
-        return $this->belongsTo(Profecional::class,'profecional');
+        return $this->belongsTo(profesional::class,'profesional');
     }
 
     public function vendedor()

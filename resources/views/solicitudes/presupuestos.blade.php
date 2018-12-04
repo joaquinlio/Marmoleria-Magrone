@@ -11,7 +11,7 @@
     white-space: nowrap;
 }
 </style>
-@if ($solicitud->isNotEmpty())
+@if ($solicitudes->isNotEmpty())
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
@@ -23,7 +23,7 @@
             <th scope="col">Nro Pto</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cliente</th>
-            <th scope="col">Profecional</th>
+            <th scope="col">Profesional</th>
             <th scope="col">Productos</th>
             <th scope="col">Estado</th>
             <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Nuevo Presupuesto</a></th>
@@ -33,7 +33,7 @@
         <th scope="row">{{ $solicitud->sol_id }}</th>
         <td>{{ $solicitud->fecha }}</td>
         <td>{{ $solicitud->Cliente->nombre }}</td>
-        <td>{{ $solicitud->Profecional->nombre }}</td>
+        <td>{{ $solicitud->Profesional->nombre }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td>{{ $solicitud->estado }}</td>
         <td>

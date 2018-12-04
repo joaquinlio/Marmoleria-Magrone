@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profecional extends Model
+class profesional extends Model
 {
-    protected $table = 'profecionales';
+    protected $table = 'profesionales';
     protected $fillable = ['nombre', 'telefono', 'email'];
     protected $primaryKey = 'id';
     public $timestamps = false;

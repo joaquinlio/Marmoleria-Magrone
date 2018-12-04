@@ -155,11 +155,11 @@
             left: 100px;
             position: absolute;
         } 
-        .col-profecional {
+        .col-profesional {
             top: 300px;
             position: absolute;
         } 
-        #profecional {
+        #profesional {
             top: 300px;
             left: 100px;
             position: absolute;
@@ -225,11 +225,11 @@
     <div id="direccion">
         <input type="text" class="form-control" style=" width: 1000px;" value="{{ $solicitud->Cliente->direccion }}">
     </div>
-    <div class="col-profecional">
-        <strong>Profecional:</strong> 
+    <div class="col-profesional">
+        <strong>profesional:</strong> 
     </div>
-    <div id="profecional">
-        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->Profecional->nombre }}">
+    <div id="profesional">
+        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->profesional->nombre }}">
     </div>
     <div class="col-obra">
         <strong>Obra:</strong> 

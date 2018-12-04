@@ -11,7 +11,7 @@
         white-space: nowrap;
     }
     </style>
-@if ($solicitud->isNotEmpty())
+@if ($solicitudes->isNotEmpty())
 <div class="table-responsive">
 <table class="table text-center table-hover">
     <thead class="thead-light">
@@ -25,7 +25,7 @@
             <th scope="col">NroPto</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cliente</th>
-            <th scope="col">Profecional</th>
+            <th scope="col">profesional</th>
             <th scope="col">Productos</th>
             <th scope="col">Estado</th>
             <th scope="col">SubEstado</th>
@@ -38,7 +38,7 @@
         <th class="align-middle" scope="row">{{ $solicitud->sol_id }}</th>
         <td  class="align-middle">{{ $solicitud->fecha }}</td>
         <td  class="align-middle">{{ $solicitud->Cliente->nombre }}</td>
-        <td  class="align-middle">{{ $solicitud->Profecional->nombre }}</td>
+        <td  class="align-middle">{{ $solicitud->Profesional->nombre }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td  class="align-middle">{{ $solicitud->estado }}</td>
         <td  class="align-middle" class='productos'>{{ $solicitud->subEstado }}</td>

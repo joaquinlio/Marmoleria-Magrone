@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
     protected $table = 'pedidos';
-    protected $fillable = ['fecha', 'cliente', 'profecional','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','imagen'];
+    protected $fillable = ['fecha', 'cliente', 'profesional','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','imagen'];
     protected $primaryKey = 'pdo_id';
     public $timestamps = false;
 
@@ -16,9 +16,9 @@ class Pedido extends Model
         return $this->belongsTo(Cliente::class,'cliente');
     }
 
-    public function profecional()
+    public function profesional()
     {
-        return $this->belongsTo(Profecional::class,'profecional');
+        return $this->belongsTo(profesional::class,'profesional');
     }
     public function vendedor()
     {

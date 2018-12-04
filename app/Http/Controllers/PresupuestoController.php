@@ -36,7 +36,7 @@ class PresupuestoController extends Controller
         $data = request()->validate([
             'fecha' => 'required',
             'cliente' => 'required',
-            'profecional' => '',
+            'profesional' => '',
             'productos' => 'required',
             'estado' => 'required',
             'detalle' => ''
@@ -47,7 +47,7 @@ class PresupuestoController extends Controller
         Presupuesto::create([
             'fecha' => $data['fecha'],
             'cliente' => $data['cliente'],
-            'profecional' => $data['profecional'],
+            'profesional' => $data['profesional'],
             'productos' => $data['productos'],
             'total' => $data['total'],
             'estado' => $data['estado']    
@@ -78,12 +78,12 @@ class PresupuestoController extends Controller
     public static function insertar(Request $request)
     {
         $array = json_decode($request->getContent(),true);
-        //$json = '[{"productos":"","cliente":"1","profecional":"1","vendedor":"1","canalventa":"adrogue"}]';
+        //$json = '[{"productos":"","cliente":"1","profesional":"1","vendedor":"1","canalventa":"adrogue"}]';
         //$array = json_decode($json,true);
         //extract($obj);
         foreach($array as $obj){
           $cliente = $obj['cliente'];
-          $profecional = $obj['profecional'];
+          $profesional = $obj['profesional'];
           $vendedor = $obj['vendedor'];
           $productos = $obj['productos'];
           $canalventa = $obj['canalventa'];
@@ -92,7 +92,7 @@ class PresupuestoController extends Controller
         $presupuesto = Presupuesto::create([
             'fecha' => $now->format('Y-m-d'),
             'cliente' => $cliente,
-            'profecional' => $profecional,
+            'profesional' => $profesional,
             'vendedor' => $vendedor,
             'productos' => "$productos",
             'canaldeventa' => $canalventa,

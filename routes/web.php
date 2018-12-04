@@ -89,21 +89,21 @@ Route::get('clientes/autocomplete','ClienteController@autocomplete')->name('clie
 
 Route::post('clientes/obtenerdetalles','ClienteController@obtenerdetalles')->name('clientes.obtenerdetalles')->middleware('auth');
 
-// ABM Profecionales
+// ABM profesionales
 
-Route::get('/profecionales', 'ProfecionalController@index')->name('profecionales.index')->middleware('auth');
+Route::get('/profesionales', 'profesionalController@index')->name('profesionales.index')->middleware('auth');
 
-Route::get('/profecionales/nuevo','ProfecionalController@create')->name('profecionales.create')->middleware('auth');
+Route::get('/profesionales/nuevo','profesionalController@create')->name('profesionales.create')->middleware('auth');
 
-Route::post('/profecionales/crear','ProfecionalController@store')->name('profecionales.store')->middleware('auth');
+Route::post('/profesionales/crear','profesionalController@store')->name('profesionales.store')->middleware('auth');
 
-Route::put('/profecionales/update','ProfecionalController@update')->name('profecionales.update')->middleware('auth');
+Route::put('/profesionales/update','profesionalController@update')->name('profesionales.update')->middleware('auth');
 
-Route::delete('/profecionales/delete','ProfecionalController@destroy')->name('profecionales.destroy')->middleware('auth');
+Route::delete('/profesionales/delete','profesionalController@destroy')->name('profesionales.destroy')->middleware('auth');
 
-Route::get('profecionales/autocomplete','ProfecionalController@autocomplete')->name('profecionales.autocomplete')->middleware('auth');
+Route::get('profesionales/autocomplete','profesionalController@autocomplete')->name('profesionales.autocomplete')->middleware('auth');
 
-Route::post('profecionales/obtenerdetalles','ProfecionalController@obtenerdetalles')->name('profecionales.obtenerdetalles')->middleware('auth');
+Route::post('profesionales/obtenerdetalles','profesionalController@obtenerdetalles')->name('profesionales.obtenerdetalles')->middleware('auth');
 
 // ABM Vendedores
 
