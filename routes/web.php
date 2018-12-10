@@ -1,7 +1,7 @@
 <?
-/*Route::get('/login', function () {
-    return view('welcome');
-});*/
+Route::get('/', function () {
+    return view('index');
+});
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout')->middleware('auth');
 
 Route::get('/usuarios', 'UserController@index')->name('users.index')->middleware('auth');
@@ -33,6 +33,8 @@ Route::put('/productos/update','ProductosController@update')->name('productos.up
 Route::delete('/productos/delete','ProductosController@destroy')->name('productos.destroy')->middleware('auth');
 
 Route::get('productos/autocomplete','ProductosController@autocomplete')->name('productos.autocomplete')->middleware('auth');
+
+Route::get('productos/buscador','ProductosController@indexBuscador')->name('productos.buscador')->middleware('auth');
 
 Route::post('obtenerdetalles','ProductosController@obtenerdetalles')->name('productos.obtenerdetalles')->middleware('auth');
 
@@ -87,6 +89,8 @@ Route::delete('/clientes/delete','ClienteController@destroy')->name('clientes.de
 
 Route::get('clientes/autocomplete','ClienteController@autocomplete')->name('clientes.autocomplete')->middleware('auth');
 
+Route::get('clientes/buscador','ClienteController@indexBuscador')->name('clientes.buscador')->middleware('auth');
+
 Route::post('clientes/obtenerdetalles','ClienteController@obtenerdetalles')->name('clientes.obtenerdetalles')->middleware('auth');
 
 // ABM profesionales
@@ -102,6 +106,8 @@ Route::put('/profesionales/update','profesionalController@update')->name('profes
 Route::delete('/profesionales/delete','profesionalController@destroy')->name('profesionales.destroy')->middleware('auth');
 
 Route::get('profesionales/autocomplete','profesionalController@autocomplete')->name('profesionales.autocomplete')->middleware('auth');
+
+Route::get('profesionales/buscador','profesionalController@indexBuscador')->name('profesionales.buscador')->middleware('auth');
 
 Route::post('profesionales/obtenerdetalles','profesionalController@obtenerdetalles')->name('profesionales.obtenerdetalles')->middleware('auth');
 
@@ -120,6 +126,18 @@ Route::delete('/vendedores/delete','VendedorController@destroy')->name('vendedor
 Route::get('vendedores/autocomplete','VendedorController@autocomplete')->name('vendedores.autocomplete')->middleware('auth');
 
 Route::post('vendedores/obtenerdetalles','VendedorController@obtenerdetalles')->name('vendedores.obtenerdetalles')->middleware('auth');
+
+// ABM Canaldeventa
+
+Route::get('/canalesdeventa', 'CanaldeventaController@index')->name('canalesdeventa.index')->middleware('auth');
+
+Route::get('/canalesdeventa/nuevo','CanaldeventaController@create')->name('canalesdeventa.create')->middleware('auth');
+
+Route::post('/canalesdeventa/crear','CanaldeventaController@store')->name('canalesdeventa.store')->middleware('auth');
+
+Route::put('/canalesdeventa/update','CanaldeventaController@update')->name('canalesdeventa.update')->middleware('auth');
+
+Route::delete('/canalesdeventa/delete','CanaldeventaController@destroy')->name('canalesdeventa.destroy')->middleware('auth');
 
 //Panel de control
 

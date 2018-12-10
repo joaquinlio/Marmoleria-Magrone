@@ -89,7 +89,9 @@
             </select>
             <label for="canalVenta">Canal De Venta:</label>
             <select name="canalventa" id="canalventa" class="custom-select">
-                <option value="adrogue">Adrogue</option>                 
+                @foreach($canalesdeventa as $canaldeventa)
+                <option value="{{ $canaldeventa->id }}">{{ $canaldeventa->nombre }}</option>                 
+                @endforeach                
             </select>
         </div>
         <div class="btn-group-vertical btn-group-lg container">
@@ -138,7 +140,7 @@
         </div>
       </div>
 <div class="modal fade" id="nuevoPed" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="">Detalles De Pedido</h5>
@@ -149,12 +151,13 @@
         <div class="modal-body">
                 <form action="{{ url('solicitudes/insertarPedido') }}" enctype="multipart/form-data" method="POST" id="pedido">
                     <div class="form-row">
+                        <input type="hidden" name="sol_id" id="sol_id">
                         <input type="hidden" name="cliente" id="cliente">
                         <input type="hidden" name="vendedor" id="vendedor">
                         <input type="hidden" name="profesional" id="profesional">
                         <input type="hidden" name="canaldeventa" id="canaldeventa">
                         <input type="hidden" name="productos" id="productos">
-                        
+                        <div class="form-group col-6">
                         <label for="totalPed">Total Del Pedido</label>
                             <input type="text" name="totalPed" id="totalPed" class="form-control">
                         <label for="descuento">Descuento</label>
@@ -168,64 +171,76 @@
                             <input type="text" name="senia" id="senia" class="form-control" autocomplete="off">
                         <label for="saldo">Saldo</label>
                             <input type="text" name="saldo" id="saldo" class="form-control" autocomplete="off">
-                        <label for="imagen">Imagen</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="imagen" id="imagen" lang="es">
-                                <label class="custom-file-label" for="imagen">Seleccionar Archivo</label>
+                        <label for="detalles">Detalles</label>
+                            <textarea  name="detalles" id="detalles" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="imagen">Imagen</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="imagen" id="imagen" lang="es">
+                                    <label class="custom-file-label" for="imagen">Seleccionar Archivo</label>
+                                </div>
+                            <label for="despacho">Despacho</label>
+                                <select name="despacho" id="despacho" class="custom-select">
+                                    <option value="retirar">A Retirar</option>
+                                    <option value="retirado">Retirado</option>
+                                    <option value="entregar">A Entregar</option>
+                                    <option value="entregado">Entregado</option>
+                                </select>
+                            <legend class="col-form-label">Estado</legend>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="espera" name="estado" class="custom-control-input" data-toggle="collapse" href="#esperaEst" role="button" aria-expanded="false" aria-controls="esperaEst" value="espera">
+                                    <label class="custom-control-label" for="espera">Espera</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="produccion" name="estado" class="custom-control-input"  data-toggle="collapse" href="#produccionEst" role="button" aria-expanded="false" aria-controls="produccionEst" value="produccion">
+                                    <label class="custom-control-label" for="produccion">Produccion</label>
+                                </div>
+                                <label>SubEstado</label>
+                                <div class="collapse" id="esperaEst">
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="AsignacionDeMateriaPrima" name="subEstado[]" value="Asignacion De Materia Prima">
+                                        <label class="custom-control-label" for="AsignacionDeMateriaPrima">Asignacion De Materia Prima</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="Medidas" name="subEstado[]" value="Medidas">
+                                        <label class="custom-control-label" for="Medidas">Medidas</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="Planos" name="subEstado[]" value="Planos">
+                                        <label class="custom-control-label" for="Planos">Planos</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="DemoraEnObra" name="subEstado[]" value="Demora En Obra">
+                                        <label class="custom-control-label" for="DemoraEnObra">Demora En Obra</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="MaterialesPorParteDelCliente" name="subEstado[]" value="Materiales Por Parte Del Cliente">
+                                        <label class="custom-control-label" for="MaterialesPorParteDelCliente">Materiales Por Parte Del Cliente</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="Seña" name="subEstado[]" value="Seña">
+                                        <label class="custom-control-label" for="Seña">Seña</label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="produccionEst">
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="MesaDeCorte" name="subEstado[]" value="Mesa De Corte">
+                                        <label class="custom-control-label" for="MesaDeCorte">Mesa De Corte</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="PulidosyPegados" name="subEstado[]" value="Pulidos y Pegados">
+                                        <label class="custom-control-label" for="PulidosyPegados">Pulidos y Pegados</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="Otros" name="subEstado[]" value="Otros">
+                                        <label class="custom-control-label" for="Otros">Otros</label>
+                                    </div>
+                                </div>
                             </div>
-                        <label for="despacho">Despacho</label>
-                            <select name="despacho" id="despacho" class="custom-select">
-                                <option value="Retirar">A Retirar</option>
-                                <option value="Entregar">A Entregar</option>
-                            </select>
-                        <legend class="col-form-label col-sm-2 pt-0">Estado</legend>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="espera" name="estado" class="custom-control-input" data-toggle="collapse" href="#esperaEst" role="button" aria-expanded="false" aria-controls="esperaEst" value="espera">
-                                <label class="custom-control-label" for="espera">Espera</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="produccion" name="estado" class="custom-control-input"  data-toggle="collapse" href="#produccionEst" role="button" aria-expanded="false" aria-controls="produccionEst" value="produccion">
-                                <label class="custom-control-label" for="produccion">Produccion</label>
-                            </div>
-                            <div class="collapse" id="esperaEst">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="asignaciondemateriaprima" name="subEstado[]" value="Asignacion De Materia Prima">
-                                    <label class="custom-control-label" for="asignaciondemateriaprima">Asignacion De Materia Prima</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="medidas" name="subEstado[]" value="Medidas">
-                                    <label class="custom-control-label" for="medidas">Medidas</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="planos" name="subEstado[]" value="Planos">
-                                    <label class="custom-control-label" for="planos">Planos</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="demoraenobra" name="subEstado[]" value="Demora En Obra">
-                                    <label class="custom-control-label" for="demoraenobra">Demora En Obra</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="materialesporpartedelcliente" name="subEstado[]" value="Materiales Por Parte Del Cliente">
-                                    <label class="custom-control-label" for="materialesporpartedelcliente">Materiales Por Parte Del Cliente</label>
-                                </div>
-                            </div>
-                            <div class="collapse" id="produccionEst">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="mesadecorte" name="subEstado[]" value="mesadecorte">
-                                    <label class="custom-control-label" for="mesadecorte">Mesa De Corte</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="pulidosypegados" name="subEstado[]" value="Pulidos y Pegados">
-                                    <label class="custom-control-label" for="pulidosypegados">Pulidos y Pegados</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="otros" name="subEstado[]" value="Otros">
-                                    <label class="custom-control-label" for="otros">Otros</label>
-                                </div>
-                            </div>    
                         </div>                 
                     <div class="modal-footer">
-                        <button type="submit" id="btnAgregarPdo" class="btn btn-outline-success">Agregar</button>
+                        <button type="submit" id="btnAgregarPdo" class="btn btn-outline-success">Editar</button>
                         <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
@@ -598,10 +613,37 @@ $('#btnAgregar').click(function() {
         $("#saldo").val(saldo);       
     });
     $("#espera").on("click", function(){
-        $("#produccionEst").collapse('hide');    
+        $("#produccionEst").collapse('hide');
+        $("#finalizadoEst").collapse('hide');
+        $("#AsignacionDeMateriaPrima").prop("checked", false);
+        $("#Medidas").prop("checked", false);
+        $("#Planos").prop("checked", false);
+        $("#DemoraEnObra").prop("checked", false);
+        $("#MaterialesPorParteDelCliente").prop("checked", false);
+        $("#Seña").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#PulidosyPegados").prop("checked", false);
+        $("#Otros").prop("checked", false);
+        $("#Avisar").prop("checked", false);
+        $("#Avisado").prop("checked", false); 
+          
     });
     $("#produccion").on("click", function(){
-        $("#esperaEst").collapse('hide');    
+        $("#esperaEst").collapse('hide');
+        $("#finalizadoEst").collapse('hide');
+        $("#AsignacionDeMateriaPrima").prop("checked", false);
+        $("#Medidas").prop("checked", false);
+        $("#Planos").prop("checked", false);
+        $("#DemoraEnObra").prop("checked", false);
+        $("#MaterialesPorParteDelCliente").prop("checked", false);
+        $("#Seña").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#PulidosyPegados").prop("checked", false);
+        $("#Otros").prop("checked", false);
+        $("#Avisar").prop("checked", false);
+        $("#Avisado").prop("checked", false);
     });
     $('.custom-file-input').on('change',function(){
         var fileName = $(this).val();

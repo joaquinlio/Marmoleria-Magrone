@@ -35,7 +35,7 @@
         <th scope="row">{{ $solicitud->sol_id }}</th>
         <td>{{ $solicitud->fecha }}</td>
         <td>{{ $solicitud->Cliente->nombre }}</td>
-        <td>{{ $solicitud->profesional->nombre }}</td>
+        <td>{{ $solicitud->Profesional->nombre }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td>{{ $solicitud->estado }}</td>
         <td class='productos'>{{ $solicitud->subEstado }}</td>
@@ -89,7 +89,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Borrar Producto</h5>
+                <h5 class="modal-title" id="">Borrar Solicitud</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -15,5 +15,10 @@ class Cliente extends Model
     {
     return $this->hasMany(Presupuesto::class);
     }
+    public function scopeNombre($query, $buscadorCli)
+    {
+        if($buscadorCli)
+            return $query->where('nombre', 'LIKE', "%$buscadorCli%");
+    }
 
 }

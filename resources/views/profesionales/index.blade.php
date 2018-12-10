@@ -1,11 +1,24 @@
 @extends('layout')
-@section('title','profesionales')
+@section('title','Profesionales')
 @section('content')
 <table class="table table-sm text-center">
     <thead class="thead-light">
         <tr>
-            <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2></th>
-        </tr>
+            <th class="text-center" scope="col" colspan="12">
+                <h2>{{ $title }}</h2>
+                <form action="{{ route('profesionales.buscador') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="buscadorPro" id="buscadorPro" class="form-control" placeholder="Buscar Profecional" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </th>
+        </tr> 
     </thead>
     <tbody>
         <tr>

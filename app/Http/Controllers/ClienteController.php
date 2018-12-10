@@ -14,6 +14,15 @@ class ClienteController extends Controller
         
     return view('clientes.index',compact('title','clientes'));
     }
+    public function indexBuscador(Request $request)
+    {
+        $clientes = Cliente::orderBy('id')
+                    ->nombre($request->buscadorCli)
+                    ->get();;        
+        $title = 'Listado de Clientes';
+        
+    return view('clientes.index',compact('title','clientes'));
+    }
     public function create()
     {
         return view('clientes.create');

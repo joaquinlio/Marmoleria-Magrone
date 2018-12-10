@@ -2,7 +2,7 @@
 @section('title','Vendedores')
 @section('content')
 <table class="table table-sm text-center">
-    <thead class="thead-ligth">
+    <thead class="thead-light">
         <tr>
             <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2></th>
         </tr>

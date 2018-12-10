@@ -4,8 +4,21 @@
 <table class="table table-sm text-center">
     <thead class="thead-light">
         <tr>
-            <th class="text-center" scope="col" colspan="14"><h2>{{ $title }}</h2></th>
-        </tr>
+            <th class="text-center" scope="col" colspan="14">
+                <h2>{{ $title }}</h2>
+                <form action="{{ route('clientes.buscador') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="buscadorCli" id="buscadorCli" class="form-control" placeholder="Buscar Cliente" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </th>
+        </tr> 
     </thead>
     <tbody>
         <tr>
@@ -64,7 +77,7 @@
                       <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                       <label>Direccion:</label>
                       <input type="text" id="direccion" name="direccion" class="form-control" autocomplete="off">
-                      <label>Entre Calles:</label>
+                      <label>Entrecalles:</label>
                       <input type="text" id="entrecalles" name="entrecalles" class="form-control" autocomplete="off">
                       <label>Observaciones:</label>
                       <input type="text" id="observaciones" name="observaciones" class="form-control" autocomplete="off">

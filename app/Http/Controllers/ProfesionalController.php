@@ -14,6 +14,15 @@ class profesionalController extends Controller
         
     return view('profesionales.index',compact('title','profesionales'));
     }
+    public function indexBuscador(Request $request)
+    {
+        $profesionales = profesional::orderBy('id')
+                    ->nombre($request->buscadorPro)
+                    ->get();;        
+        $title = 'Listado de Profesionales';
+        
+    return view('profesionales.index',compact('title','profesionales'));
+    }
     public function create()
     {
         return view('profesionales.create');
@@ -39,7 +48,7 @@ class profesionalController extends Controller
     {
         $profesional = profesional::findOrFail($request->id);
 
-        $profesional->update($request->all());
+        $Profesional->update($request->all());
 
         return redirect()->route('profesionales.index');
     }
@@ -47,7 +56,7 @@ class profesionalController extends Controller
     {
         $profesional = profesional::findOrFail($request->id);
         
-        $profesional->delete();
+        $Profesional->delete();
         return redirect()->route('profesionales.index');
     }
     public function autocomplete(Request $request)

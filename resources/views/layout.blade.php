@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/iconos.min.css') }}">
     <script src="{{ asset ('js/jquery.min.js') }}"></script>
-    <script src="{{ asset ('js/bootstrap.min.js') }}"></script>
+    <!--<script src="{{ asset ('js/bootstrap.min.js') }}"></script>-->
     <script src="{{ asset ('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset ('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset ('js/typeahead.min.js') }}"></script>
@@ -47,7 +47,7 @@
                   <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="p-2 dropdown-item" href="{{ route('profesionales.index') }}">Profesionales</a>
                     <a class="p-2 dropdown-item" href="{{ route('vendedores.index') }}">Vendedores</a>
-                    <a class="p-2 dropdown-item" href="{{ route('solicitudes.index') }}">Canal de Venta</a>
+                    <a class="p-2 dropdown-item" href="{{ route('canalesdeventa.index') }}">Canal de Venta</a>
                   </div>
                 </li>                          
               </ul>
@@ -72,7 +72,7 @@
       $("#buscadorSol").keypress(function(e){
         if (e.which == 13) {
           var sol_id = $("#buscadorSol").val();
-          window.open("http://localhost/marmoleria/public/solicitudes/"+sol_id);
+          window.open("http://localhost/marmoleria/public/solicitudes/edit/"+sol_id);
           //location.href="http://localhost/marmoleria/public/solicitudes/"+sol_id; 
         } 
       });

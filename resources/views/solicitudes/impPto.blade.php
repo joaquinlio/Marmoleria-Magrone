@@ -229,7 +229,7 @@
         <strong>profesional:</strong> 
     </div>
     <div id="profesional">
-        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->profesional->nombre }}">
+        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->Profesional->nombre }}">
     </div>
     <div class="col-obra">
         <strong>Obra:</strong> 

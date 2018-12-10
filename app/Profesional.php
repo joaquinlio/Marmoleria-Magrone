@@ -19,4 +19,9 @@ class profesional extends Model
     {
     return $this->hasMany(Pedido::class);
     }
+    public function scopeNombre($query, $buscadorPro)
+    {
+        if($buscadorPro)
+            return $query->where('nombre', 'LIKE', "%$buscadorPro%");
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Vendedor;
+use App\Canaldeventa;
 use App\Solicitud;
 use App\Rules\pedidoVal;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -41,7 +42,6 @@ class SolicitudController extends Controller
     public function indexPedEstado($estado)
     {
         /*$solicitudes = Solicitud::select('*')->where('estado', $estado)->orWhere(function($q) use ($estado){
-            $q->where('finalizado','=', $estado);
             $q->orWhere('despacho','=', $estado);
         })->get();*/
         $solicitudes = Solicitud::orderBy('sol_id', 'DESC')
@@ -73,12 +73,15 @@ class SolicitudController extends Controller
     public function create()
     {
         $vendedores=Vendedor::all();
-        return view('solicitudes.create',compact('vendedores'));
+        $canalesdeventa= CanaldeVenta::all();
+        return view('solicitudes.create',compact('vendedores','canalesdeventa'));
     }
     public function edit(Solicitud $solicitud)
     {
      $vendedores=Vendedor::all();
-      return view('solicitudes.edit',['solicitud' => $solicitud],compact('vendedores'));
+     $canalesdeventa= CanaldeVenta::all();
+
+      return view('solicitudes.edit',['solicitud' => $solicitud],compact('vendedores','canalesdeventa'));
     }
 
     public function updatePedido(Request $request)
@@ -86,6 +89,7 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::findOrFail($request->sol_id);
 
         //$solicitud->update($request->all());
+       
         $data = request()->validate([
             'fecha' => '',
             'cliente' => 'required',
@@ -102,21 +106,25 @@ class SolicitudController extends Controller
             'despacho' => '',
             'canaldeventa' => '',
             'estado' => 'required',
-            'subEstado' => 'required',
+            'subEstado' => '',
+            'detalles' => '',
+            'reclamoDet' => '',
             'imagen' => ''
             
         ],[
             'cliente.required' => 'Cliente no Seleccionado',
             'estado.required' => 'El campo Estado es Requerido',
-            'subEstado.required' => 'No Selecciono Sub Estado',
             'vendedor.required' => 'No Selecciono Vendedor',
             'productos.required' => 'No Seleciono Productos',
         ]);
         $subEstado = null;
-        foreach ($data['subEstado'] as $value) {
-            $subEstado .= $value.",";
+        if ($request->has('subEstado')) {
+            foreach ($data['subEstado'] as $value) {
+                $subEstado .= $value.",";
+            }
+            $subEstado = substr($subEstado, 0, -1);
         }
-        $subEstado = substr($subEstado, 0, -1);
+        
         $solicitud->update([
             'cliente' => $data['cliente'],
             'profesional' => $data['profesional'],
@@ -130,9 +138,11 @@ class SolicitudController extends Controller
             'canaldeventa' => $data['canaldeventa'],
             'estado' => $data['estado'],
             'subEstado' => $subEstado,
-            'finalizado' => "A Avisar",
+            'detalles' => $data['detalles'],
+            'reclamoDet' => $data['reclamoDet'],
             'tipo' => "Pedido" 
         ]);
+        //dd($data['reclamoDet']);
         if($request->file('imagen')){
             $path = Storage::disk('public')->put('imagen',  $request->file('imagen'));
             $solicitud->fill(['imagen' => asset($path)])->save();
@@ -193,7 +203,6 @@ class SolicitudController extends Controller
             'productos' => "$productos",
             'canaldeventa' => $canalventa,
             'estado' => "a confirmar",
-            'finalizado' => "A Avisar",
             'tipo' => "Presupuesto"    
             ]);
         $datos = array(
@@ -221,6 +230,7 @@ class SolicitudController extends Controller
             'canaldeventa' => '',
             'estado' => 'required',
             'subEstado' => 'required',
+            'detalles' => 'required',
             'imagen' => ''
             
         ],[
@@ -250,7 +260,7 @@ class SolicitudController extends Controller
             'canaldeventa' => $data['canaldeventa'],
             'estado' => $data['estado'],
             'subEstado' => $subEstado,
-            'finalizado' => "A Avisar",
+            'detalles' => $data['detalles'],
             'tipo' => "Pedido" 
         ]);
         if($request->file('imagen')){

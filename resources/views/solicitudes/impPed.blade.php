@@ -233,7 +233,7 @@
         <strong>profesional:</strong> 
     </div>
     <div id="profesional">
-        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->profesional->nombre }}-{{ $solicitud->profesional->telefono}}-{{ $solicitud->profesional->email }}">
+        <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->Profesional->nombre }}-{{ $solicitud->Profesional->telefono}}-{{ $solicitud->Profesional->email }}">
     </div>
     <div class="col-obra">
         <strong>Obra:</strong> 

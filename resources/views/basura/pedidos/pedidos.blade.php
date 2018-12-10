@@ -34,7 +34,7 @@
         <th scope="row">{{ $pedido->pdo_id }}</th>
         <td>{{ $pedido->fecha }}</td>
         <td>{{ $pedido->Cliente->nombre }}</td>
-        <td>{{ $pedido->profesional->nombre }}</td>
+        <td>{{ $pedido->Profesional->nombre }}</td>
         <td class='productos'>{{ $pedido->productos }}</td>
         <td>{{ $pedido->estado }}</td>
         <td class='productos'>{{ $pedido->subEstado }}</td>

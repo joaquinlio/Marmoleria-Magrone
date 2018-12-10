@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', "Crear Presupuesto")
+@section('title', "Editar Presupuesto")
     
 @section('content')
 @php
@@ -77,7 +77,7 @@ $numeros = count($productos);
                 <div class="col-6">
                     <h6>Buscar Cliente:</h6>
                     <div class="input-group mb-3">
-                        <input type="text" id="buscadorCli" class="typeahead form-control mr-sm-2"  placeholder="Buscar Cliente">
+                        <input type="text" id="buscadorCli" class="typeahead form-control mr-sm-2"  placeholder="Buscar Cliente" autocomplete="off">
                         <div class="float-right">
                             <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoCliente">
                         </div>
@@ -94,16 +94,16 @@ $numeros = count($productos);
                 <div class="col-6">
                     <h6>Buscar profesional:</h6>
                 <div class="input-group mb-3">
-                    <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional">
+                    <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional" autocomplete="off">
                     <div class="float-right">
                         <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
                     </div>
                 </div>
                 <div id="listadoPro">
-                        <ul class="list-group lead"><input type="hidden" id="idPro" value="{{ $solicitud->profesional->id }}">
-                            <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->profesional->nombre }}</li>
-                            <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{ $solicitud->profesional->telefono }}</li>
-                            <li class="list-group-item"><h6 class="my-0">Email</h6>{{ $solicitud->profesional->email }}</li>
+                        <ul class="list-group lead"><input type="hidden" id="idPro" value="{{ $solicitud->Profesional->id }}">
+                            <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->Profesional->nombre }}</li>
+                            <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{ $solicitud->Profesional->telefono }}</li>
+                            <li class="list-group-item"><h6 class="my-0">Email</h6>{{ $solicitud->Profesional->email }}</li>
                         </ul>       
                 </div>                       
                 </div>
@@ -111,6 +111,16 @@ $numeros = count($productos);
     </div>
    <div class="col-md-4 order-md-2 mb-4">  
         <div class="mb-3">
+            <label for="tipo">Tipo:</label>
+                <select name="tipo" id="tipo" class="custom-select mb-3">
+                    @if ($solicitud->tipo == "Pedido")
+                    <option id="tipoPed" value="pedido" selected>Pedido</option>
+                    <option value="presupuesto">Presupuesto</option>
+                    @else
+                    <option id="tipoPed" value="pedido">Pedido</option>
+                    <option value="presupuesto" selected>Presupuesto</option>
+                    @endif 
+                </select>
             <label for="vendedor">Vendedor:</label>
             <select name="vendedorSol" id="vendedorSol" class="custom-select mb-3">
                 @foreach($vendedores as $vendedor)
@@ -119,21 +129,21 @@ $numeros = count($productos);
             </select>
             <label for="canalVenta">Canal De Venta:</label>
             <select name="canalventa" id="canalventa" class="custom-select">
-                <option value="adrogue">Adrogue</option>                 
+                    @foreach($canalesdeventa as $canaldeventa)
+                    <option value="{{ $canaldeventa->id }}">{{ $canaldeventa->nombre }}</option>                 
+                    @endforeach                  
             </select>
             <label for="">Imagen :</label><br>
             <img src="{{$solicitud->imagen}}" alt="" class="img-thumbnail" style="width: 400px"><br>
         </div>
         <div class="btn-group-vertical btn-group-lg container">
             @if ($solicitud->tipo == "Pedido")
-            <button type="button" class="btn btn-outline-info" onclick="modalAltaPedido($('#idCli').val(),$('#idPro').val(),$('#vendedorSol').val(),$('#canalventa').val()); return false">Editar Solicitud</button>
+            <button type="button" class="btn btn-outline-info" id="editarPed">Editar Solicitud</button>
             <button type="button" id="imprimirPed" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button>
             @else
             <button type="button" id="agregarPto" class="btn btn-outline-info">Editar Solicitud</button>
             <button type="button" id="imprimirPto" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button>    
-            @endif 
-            
-            
+            @endif  
         </div>          
     </div>
 </div> 
@@ -176,7 +186,7 @@ $numeros = count($productos);
         </div>
       </div>
 <div class="modal fade" id="nuevoPed" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="">Detalles De Pedido</h5>
@@ -207,6 +217,8 @@ $numeros = count($productos);
                             <input type="text" name="senia" id="senia" class="form-control" autocomplete="off">
                         <label for="saldo">Saldo</label>
                             <input type="text" name="saldo" id="saldo" class="form-control" autocomplete="off">
+                        <label for="detalles">Detalles</label>
+                            <textarea  name="detalles" id="detalles" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="form-group col-6">
                             <label for="imagen">Imagen</label>
@@ -221,7 +233,7 @@ $numeros = count($productos);
                                     <option value="entregar">A Entregar</option>
                                     <option value="entregado">Entregado</option>
                                 </select>
-                            <legend class="col-form-label col-2 pt-2">Estado</legend>
+                            <legend class="col-form-label">Estado</legend>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="espera" name="estado" class="custom-control-input" data-toggle="collapse" href="#esperaEst" role="button" aria-expanded="false" aria-controls="esperaEst" value="espera">
                                     <label class="custom-control-label" for="espera">Espera</label>
@@ -230,42 +242,69 @@ $numeros = count($productos);
                                     <input type="radio" id="produccion" name="estado" class="custom-control-input"  data-toggle="collapse" href="#produccionEst" role="button" aria-expanded="false" aria-controls="produccionEst" value="produccion">
                                     <label class="custom-control-label" for="produccion">Produccion</label>
                                 </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="finalizado" name="estado" class="custom-control-input"  data-toggle="collapse" href="#finalizadoEst" role="button" aria-expanded="false" aria-controls="finalizadoEst" value="finalizado">
+                                    <label class="custom-control-label" for="finalizado">Finalizado</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="reclamo" name="estado" class="custom-control-input" data-toggle="collapse" href="#reclamoEst" role="button" aria-expanded="false" aria-controls="reclamoEst"  value="reclamo">
+                                    <label class="custom-control-label" for="reclamo">Reclamo</label>
+                                </div>
+                                <label>SubEstado</label>
                                 <div class="collapse" id="esperaEst">
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="asignaciondemateriaprima" name="subEstado[]" value="Asignacion De Materia Prima">
-                                        <label class="custom-control-label" for="asignaciondemateriaprima">Asignacion De Materia Prima</label>
+                                        <input type="checkbox" class="custom-control-input" id="AsignacionDeMateriaPrima" name="subEstado[]" value="Asignacion De Materia Prima">
+                                        <label class="custom-control-label" for="AsignacionDeMateriaPrima">Asignacion De Materia Prima</label>
                                     </div>
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="medidas" name="subEstado[]" value="Medidas">
-                                        <label class="custom-control-label" for="medidas">Medidas</label>
+                                        <input type="checkbox" class="custom-control-input" id="Medidas" name="subEstado[]" value="Medidas">
+                                        <label class="custom-control-label" for="Medidas">Medidas</label>
                                     </div>
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="planos" name="subEstado[]" value="Planos">
-                                        <label class="custom-control-label" for="planos">Planos</label>
+                                        <input type="checkbox" class="custom-control-input" id="Planos" name="subEstado[]" value="Planos">
+                                        <label class="custom-control-label" for="Planos">Planos</label>
                                     </div>
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="demoraenobra" name="subEstado[]" value="Demora En Obra">
-                                        <label class="custom-control-label" for="demoraenobra">Demora En Obra</label>
+                                        <input type="checkbox" class="custom-control-input" id="DemoraEnObra" name="subEstado[]" value="Demora En Obra">
+                                        <label class="custom-control-label" for="DemoraEnObra">Demora En Obra</label>
                                     </div>
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="materialesporpartedelcliente" name="subEstado[]" value="Materiales Por Parte Del Cliente">
-                                        <label class="custom-control-label" for="materialesporpartedelcliente">Materiales Por Parte Del Cliente</label>
+                                        <input type="checkbox" class="custom-control-input" id="MaterialesPorParteDelCliente" name="subEstado[]" value="Materiales Por Parte Del Cliente">
+                                        <label class="custom-control-label" for="MaterialesPorParteDelCliente">Materiales Por Parte Del Cliente</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="Seña" name="subEstado[]" value="Seña">
+                                        <label class="custom-control-label" for="Seña">Seña</label>
                                     </div>
                                 </div>
                                 <div class="collapse" id="produccionEst">
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="mesadecorte" name="subEstado[]" value="mesadecorte">
-                                        <label class="custom-control-label" for="mesadecorte">Mesa De Corte</label>
+                                        <input type="checkbox" class="custom-control-input" id="MesaDeCorte" name="subEstado[]" value="Mesa De Corte">
+                                        <label class="custom-control-label" for="MesaDeCorte">Mesa De Corte</label>
                                     </div>
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="pulidosypegados" name="subEstado[]" value="Pulidos y Pegados">
-                                        <label class="custom-control-label" for="pulidosypegados">Pulidos y Pegados</label>
+                                        <input type="checkbox" class="custom-control-input" id="PulidosyPegados" name="subEstado[]" value="Pulidos y Pegados">
+                                        <label class="custom-control-label" for="PulidosyPegados">Pulidos y Pegados</label>
                                     </div>
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="otros" name="subEstado[]" value="Otros">
-                                        <label class="custom-control-label" for="otros">Otros</label>
+                                        <input type="checkbox" class="custom-control-input" id="Otros" name="subEstado[]" value="Otros">
+                                        <label class="custom-control-label" for="Otros">Otros</label>
                                     </div>
-                                </div>  
+                                </div>
+                                <div class="collapse" id="finalizadoEst">
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="avisar" name="subEstado[]" value="avisar">
+                                        <label class="custom-control-label" for="avisar">Avisar</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="avisado" name="subEstado[]" value="avisado">
+                                        <label class="custom-control-label" for="avisado">Avisado</label>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="reclamoEst">
+                                    <textarea  name="reclamoDet" id="reclamoDet" class="form-control" rows="3" placeholder="Detallar Reclamo"></textarea>
+                                </div> 
+                                   
                             </div>
                         </div>                 
                     <div class="modal-footer">
@@ -387,8 +426,12 @@ $numeros = count($productos);
     </div>
     </div>              
 <script type="text/javascript">
-    function modalAltaPedido(cliente,profesional,vendedor,canaldeventa){
-        var todos = 0 ;
+Number.prototype.format = function(n, x) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&.');
+};
+function editarPed() {
+    var todos = 0 ;
         var opcion = 0;
         $(".Todos").parent("tr").find(".total").each(function() {
             todos += parseFloat($(this).html());
@@ -413,24 +456,33 @@ $numeros = count($productos);
         }
         productos = productos.slice(0,-2);
         $("#sol_id").val({{ $solicitud->sol_id }});
-        $("#cliente").val(cliente);
+        $("#cliente").val($("#idCli").val());
         $("#productos").val(productos);
-        $("#profesional").val(profesional);
-        $("#vendedor").val(vendedor);
-        $("#canaldeventa").val(canaldeventa);
+        $("#profesional").val($("#idPro").val());
+        $("#vendedor").val($("#vendedorSol").val());
+        $("#canaldeventa").val("{{ $solicitud->canaldeventa }}");
         $("#descuento").val({{ $solicitud->descuento }});
         $("#senia").val({{ $solicitud->senia }});
         $("#despacho").val('{{ $solicitud->despacho }}');
-
+        $("#detalles").val('{{ $solicitud->detalles }}');
+        $("#{{ $solicitud->estado }}").prop("checked", true);
+        @php
+        $subEstados = str_replace(' ', '', $solicitud->subEstado);
+        $subEstados = explode(",", $subEstados);
+        $numeros = count($subEstados);
+        for ($i=0; $i <$numeros ; $i++) { 
+         echo '$("#'.$subEstados[$i].'").prop("checked", true);';
+        }   
+        @endphp
         $("#totalPed").val({{ $solicitud->totalPed }});
-        var total = {{ $solicitud->totalPed }};  
-        var descuento = total / 100 * $("#descuento").val();
-        var seña =  $("#senia").val();
-        var saldo = total - descuento ;
-        saldo = saldo - seña; 
-        $("#saldo").val(saldo); 
+        $("#saldo").val({{ $solicitud->saldo }}); 
         $("#nuevoPed").modal('show');
-    }
+}
+$(document).ready(function(){
+    $("#editarPed").on("click", function(){
+        editarPed();
+    });
+});
     var path = "{{ route('productos.autocomplete') }}";
     $('#buscador').typeahead({
         source:  function (query, process) {
@@ -513,9 +565,9 @@ $numeros = count($productos);
 $('#btnAgregar').click(function() {
     var id = $('#id').val();  
     var producto = $('#producto').val();
-    var precio = $('#precio').val();
+    var precio =  Number($('#precio').val());
     var cantidad = $('#cantidad').val();
-    var total = $('#total').val();
+    var total = Number($('#total').val());
     var aplicacion = $('#aplicacion').val();
     var opcion = $('#opcion').val();
     if (opcion !== "Todos") {
@@ -586,7 +638,41 @@ $('#btnAgregar').click(function() {
             }            
   });
     $('#agregarPto').click(function() {
-        var td = [];
+        if ($("#tipo option:selected").text() == "Pedido") {
+            var todos = 0 ;
+        var opcion = 0;
+        $(".Todos").parent("tr").find(".total").each(function() {
+            todos += parseFloat($(this).html());
+        });
+        $(".opcion1").parent("tr").find(".total").each(function() {
+            opcion += parseFloat($(this).html());
+        }); 
+        $(".opcion2").parent("tr").find(".total").each(function() {
+            opcion += parseFloat($(this).html());
+        }); 
+        $(".opcion3").parent("tr").find(".total").each(function() {
+            opcion += parseFloat($(this).html());
+        });
+        var productos = "";
+        var elementosTD = document.getElementsByTagName("td");
+        for(i=0;i<elementosTD.length;i++){
+            productos += elementosTD[i].textContent;
+            productos += ",";
+            if (elementosTD[i].textContent == "Todos"  || elementosTD[i].textContent == "opcion1" || elementosTD[i].textContent == "opcion2" || elementosTD[i].textContent == "opcion3") {
+            productos+= "/";
+            }
+        }
+        productos = productos.slice(0,-2);
+        $("#sol_id").val({{ $solicitud->sol_id }});
+        $("#cliente").val($("#idCli").val());
+        $("#productos").val(productos);
+        $("#profesional").val($("#idPro").val());
+        $("#vendedor").val($("#vendedorSol").val());
+        $("#canaldeventa").val("{{ $solicitud->canaldeventa }}");
+        $("#totalPed").val({{ $solicitud->totalPed }});
+        $("#nuevoPed").modal('show');
+        }else {
+            var td = [];
         var productos = "";
         var elementosTD = document.getElementsByTagName("td");
         for(i=0;i<elementosTD.length;i++){
@@ -615,6 +701,8 @@ $('#btnAgregar').click(function() {
                 location.href='{{ route('solicitudes.index') }}';     
             }
         })
+        }
+        
     });
     $('#imprimirPto').click(function() {
         window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");     
@@ -631,10 +719,73 @@ $('#btnAgregar').click(function() {
         $("#saldo").val(saldo);       
     });
     $("#espera").on("click", function(){
-        $("#produccionEst").collapse('hide');    
+        $("#produccionEst").collapse('hide');
+        $("#finalizadoEst").collapse('hide');
+        $("#reclamoDet").collapse('hide');
+        $("#AsignacionDeMateriaPrima").prop("checked", false);
+        $("#Medidas").prop("checked", false);
+        $("#Planos").prop("checked", false);
+        $("#DemoraEnObra").prop("checked", false);
+        $("#MaterialesPorParteDelCliente").prop("checked", false);
+        $("#Seña").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#PulidosyPegados").prop("checked", false);
+        $("#Otros").prop("checked", false);
+        $("#Avisar").prop("checked", false);
+        $("#Avisado").prop("checked", false); 
+          
     });
     $("#produccion").on("click", function(){
-        $("#esperaEst").collapse('hide');    
+        $("#esperaEst").collapse('hide');
+        $("#finalizadoEst").collapse('hide');
+        $("#reclamoDet").collapse('hide');
+        $("#AsignacionDeMateriaPrima").prop("checked", false);
+        $("#Medidas").prop("checked", false);
+        $("#Planos").prop("checked", false);
+        $("#DemoraEnObra").prop("checked", false);
+        $("#MaterialesPorParteDelCliente").prop("checked", false);
+        $("#Seña").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#PulidosyPegados").prop("checked", false);
+        $("#Otros").prop("checked", false);
+        $("#Avisar").prop("checked", false);
+        $("#Avisado").prop("checked", false);
+    });
+    $("#finalizado").on("click", function(){
+        $("#esperaEst").collapse('hide');
+        $("#produccionEst").collapse('hide');
+        $("#reclamoDet").collapse('hide');
+        $("#AsignacionDeMateriaPrima").prop("checked", false);
+        $("#Medidas").prop("checked", false);
+        $("#Planos").prop("checked", false);
+        $("#DemoraEnObra").prop("checked", false);
+        $("#MaterialesPorParteDelCliente").prop("checked", false);
+        $("#Seña").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#PulidosyPegados").prop("checked", false);
+        $("#Otros").prop("checked", false);
+        $("#Avisar").prop("checked", false);
+        $("#Avisado").prop("checked", false);
+    });
+    $("#reclamo").on("click", function(){
+        $("#esperaEst").collapse('hide');
+        $("#produccionEst").collapse('hide');
+        $("#finalizadoEst").collapse('hide'); 
+        $("#AsignacionDeMateriaPrima").prop("checked", false);
+        $("#Medidas").prop("checked", false);
+        $("#Planos").prop("checked", false);
+        $("#DemoraEnObra").prop("checked", false);
+        $("#MaterialesPorParteDelCliente").prop("checked", false);
+        $("#Seña").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#MesaDeCorte").prop("checked", false);
+        $("#PulidosyPegados").prop("checked", false);
+        $("#Otros").prop("checked", false);
+        $("#Avisar").prop("checked", false);
+        $("#Avisado").prop("checked", false);   
     });
     $('.custom-file-input').on('change',function(){
         var fileName = $(this).val();

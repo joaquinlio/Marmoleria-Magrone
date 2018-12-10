@@ -17,6 +17,15 @@ class ProductosController extends Controller
         
     return view('productos.index',compact('title','productos'));
     }
+    public function indexBuscador(Request $request)
+    {
+        $productos = Producto::orderBy('id')
+                    ->nombre($request->buscadorPro)
+                    ->get();;        
+        $title = 'Listado de Productos';
+        
+    return view('productos.index',compact('title','productos'));
+    }
     public function create()
     {
         return view('productos.create');
