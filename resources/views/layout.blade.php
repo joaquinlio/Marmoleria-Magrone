@@ -19,67 +19,54 @@
   </head>
 
   <body>
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark flex-column flex-md-row">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
           <a class="navbar-brand" href="#">Magrone</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarsExample03">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('solicitudes.create') }}">Nueva Solicitud</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('paneldecontrol.index') }}">Control Diario</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Solicitudes</a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="p-2 dropdown-item" href="{{ route('presupuestos.index') }}">Presupuestos</a>
-                    <a class="p-2 dropdown-item" href="{{ route('pedidos.index') }}">Pedidos</a>
-                    <a class="p-2 dropdown-item" href="{{ route('solicitudes.index') }}">Todas Las Solicitudes</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('clientes.index') }}">Clientes</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('productos.index') }}">Productos</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="p-2 dropdown-item" href="{{ route('profesionales.index') }}">Profesionales</a>
-                    <a class="p-2 dropdown-item" href="{{ route('vendedores.index') }}">Vendedores</a>
-                    <a class="p-2 dropdown-item" href="{{ route('canalesdeventa.index') }}">Canal de Venta</a>
-                  </div>
-                </li>                          
-              </ul>
-              <form class="form-inline my-2 my-lg-0" action="{{ route('solicitudes.buscador') }}" method="GET" class="form-inline">
-                <div class="form-group">
-                    <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-success my-2 my-sm-0"><a class="text-white" href="{{ route('logout') }}">{{ Auth::user()->name }}</a></button>
-                </div>
-            </form>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('solicitudes.create') }}">Nueva Solicitud</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('paneldecontrol.index') }}">Control Diario</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Solicitudes</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="p-2 dropdown-item" href="{{ route('presupuestos.index') }}">Presupuestos</a>
+                      <a class="p-2 dropdown-item" href="{{ route('pedidos.index') }}">Pedidos</a>
+                      <a class="p-2 dropdown-item" href="{{ route('solicitudes.index') }}">Todas Las Solicitudes</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('clientes.index') }}">Clientes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('productos.index') }}">Productos</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="p-2 dropdown-item" href="{{ route('profesionales.index') }}">Profesionales</a>
+                      <a class="p-2 dropdown-item" href="{{ route('vendedores.index') }}">Vendedores</a>
+                      <a class="p-2 dropdown-item" href="{{ route('canalesdeventa.index') }}">Canal de Venta</a>
+                    </div>
+                  </li>                          
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="{{ route('solicitudes.buscador') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-success my-2 my-sm-0"><a class="text-white" href="{{ route('logout') }}">{{ Auth::user()->name }}</a></button>
+                    </div>
+                </form>
+          </div>
         </nav>
-    <!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal"></h5>
-      <input type="text" class="my-0 mr-md-auto form-control col-3" id="buscadorSol" autocomplete="off" placeholder="Buscar Solicitud Por Numero">
-      <nav class="my-2 my-md-0 mr-md-3">
-        
-      </nav>
-      <a class="btn btn-outline-primary" href="#">Sign up</a>
-    </div>-->
-    <div class="">
       @yield('content')
-    </div>
-    </div>
     <script>
-      /*$("#buscadorSol").keypress(function(e){
-        if (e.which == 13) {
-          var sol_id = $("#buscadorSol").val();
-          window.open("http://localhost/marmoleria/public/solicitudes/edit/"+sol_id);
-          //location.href="http://localhost/marmoleria/public/solicitudes/"+sol_id; 
-        } 
-      });*/
       $('#edit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var id = button.data('id') 

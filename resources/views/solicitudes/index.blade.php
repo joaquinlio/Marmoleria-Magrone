@@ -11,6 +11,7 @@
     white-space: nowrap;
 }
 </style>
+<div class="table-responsive">
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
@@ -62,6 +63,7 @@
     @endforeach
     </tbody>
 </table>
+</div>
 <div class="modal fade" id="nuevosolicitud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

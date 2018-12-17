@@ -26,11 +26,11 @@ $numeros = count($productos);
     text-overflow: ellipsis;
 }
 </style>
+<div class="container">
 <div class="row">
     <h1 class="display-3 mx-auto text-center">Editar Solicitud</h1>
 </div>
-<div class="row">
-        
+<div class="row">   
     <div class="col-md-8 order-md-1">
         <h4>Agregar Productos</h4>
         <div class="input-group mb-3">
@@ -161,6 +161,7 @@ $numeros = count($productos);
         </div>          
     </div>
 </div> 
+</div>
 <div class="modal fade" id="cargar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -641,8 +642,7 @@ $('#btnAgregar').click(function() {
         });
         $(".opcion4").parent("tr").find(".total").each(function() {
             opcion4 += parseFloat($(this).html());
-        }); 
-        console.log(todos);   
+        });    
             if (opcion1 != 0) {
                 opcion1 = opcion1 + todos;
                 $("#opcion1").html("Opcion 1:$"+ opcion1); 

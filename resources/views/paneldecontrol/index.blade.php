@@ -1,7 +1,8 @@
 @extends('layout')
 @section('title','Panel De Control')
 @section('content')
-<main role="main" class="container">
+<div class="container">
+    <div class="table-responsive">
     <table class="table table-borderless text-center">
         <thead>
             <tr>
@@ -41,5 +42,6 @@
           </tr>
         </tbody>
       </table>
-</main>                        
+    </div> 
+</div>                       
 @endsection

@@ -208,10 +208,14 @@
         <input type="text" class="form-control" style=" width: 1000px;" value="{{ $solicitud->Cliente->direccion}}-{{ $solicitud->Cliente->localidad  }}">
     </div>
     <div class="col-profesional">
-        <strong>profesional:</strong> 
+        <strong>Profesional:</strong> 
     </div>
     <div id="profesional">
+        @if ($solicitud->profesional != null)
         <input type="text" class="form-control" style=" width: 400px;" value="{{ $solicitud->Profesional->nombre }}-{{ $solicitud->Profesional->telefono}}-{{ $solicitud->Profesional->email }}">
+        @else
+        <input type="text" class="form-control" style=" width: 400px;">
+        @endif
     </div>
     <div class="col-obra">
         <strong>Obra:</strong> 
