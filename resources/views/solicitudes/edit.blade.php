@@ -4,7 +4,7 @@
     
 @section('content')
 @php
-//dd($solicitud->Cliente->nombre);
+//dd($solicitud->cliente);
 $productos = explode("/", $solicitud->productos);
 $numeros = count($productos);
 @endphp 
@@ -84,7 +84,9 @@ $numeros = count($productos);
                     </div>            
                     <div id="listadoCli">
                             <ul class="list-group lead">
-                                <input type="hidden" id="idCli" value="{{ $solicitud->Cliente->id }}">
+                                <input type="hidden" id="idCli" value="{{ $solicitud->cliente }}">
+                                <input type="hidden" id="nomCliente" value="{{ $solicitud->nomCli }}">
+
                                 <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->Cliente->nombre }}</li>
                                 <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{$solicitud->Cliente->telefono1 }}</li>
                                 <li class="list-group-item"><h6 class="my-0">Factura</h6>{{ $solicitud->Cliente->factura }}</li>
@@ -100,11 +102,15 @@ $numeros = count($productos);
                     </div>
                 </div>
                 <div id="listadoPro">
-                        <ul class="list-group lead"><input type="hidden" id="idPro" value="{{ $solicitud->Profesional->id }}">
+                        @if ($solicitud->profesional != null)
+                        <ul class="list-group lead">
+                            <input type="hidden" id="idPro" value="{{ $solicitud->profesional }}">
+                            <input type="hidden" id="nomProfecional" value="{{ $solicitud->nomPro }}">
                             <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->Profesional->nombre }}</li>
                             <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{ $solicitud->Profesional->telefono }}</li>
                             <li class="list-group-item"><h6 class="my-0">Email</h6>{{ $solicitud->Profesional->email }}</li>
-                        </ul>       
+                        </ul> 
+                        @endif      
                 </div>                       
                 </div>
             </div>  
@@ -124,13 +130,21 @@ $numeros = count($productos);
             <label for="vendedor">Vendedor:</label>
             <select name="vendedorSol" id="vendedorSol" class="custom-select mb-3">
                 @foreach($vendedores as $vendedor)
-                <option value="{{ $vendedor->id }}">{{ $vendedor->nombre }}</option>                 
+                    @if ($vendedor->nombre == $solicitud->vendedor )
+                        <option value="{{ $vendedor->nombre }}" selected>{{ $vendedor->nombre }}</option>
+                    @else
+                    <option value="{{ $vendedor->nombre }}">{{ $vendedor->nombre }}</option> 
+                    @endif              
                 @endforeach
             </select>
             <label for="canalVenta">Canal De Venta:</label>
             <select name="canalventa" id="canalventa" class="custom-select">
                     @foreach($canalesdeventa as $canaldeventa)
-                    <option value="{{ $canaldeventa->id }}">{{ $canaldeventa->nombre }}</option>                 
+                    @if ($canaldeventa->nombre == $solicitud->canaldeventa )
+                    <option value="{{ $canaldeventa->nombre }}" selected>{{ $canaldeventa->nombre }}</option>
+                    @else
+                    <option value="{{ $canaldeventa->nombre }}">{{ $canaldeventa->nombre }}</option> 
+                    @endif                 
                     @endforeach                  
             </select>
             <label for="">Imagen :</label><br>
@@ -175,6 +189,7 @@ $numeros = count($productos);
                                 <option value="opcion1">Opcion 1</option>
                                 <option value="opcion2">Opcion 2</option>
                                 <option value="opcion3">Opcion 3</option>
+                                <option value="opcion4">Opcion 4</option>
                             </select>  
                     </div>
                     <div class="modal-footer">
@@ -199,13 +214,15 @@ $numeros = count($productos);
                     <div class="form-row">
                         <input type="hidden" name="sol_id" id="sol_id">
                         <input type="hidden" name="cliente" id="cliente">
+                        <input type="hidden" name="nomCli" id="nomCli">
                         <input type="hidden" name="vendedor" id="vendedor">
                         <input type="hidden" name="profesional" id="profesional">
+                        <input type="hidden" name="nomPro" id="nomPro">
                         <input type="hidden" name="canaldeventa" id="canaldeventa">
                         <input type="hidden" name="productos" id="productos">
                         <div class="form-group col-6">
                         <label for="totalPed">Total Del Pedido</label>
-                            <input type="text" name="totalPed" id="totalPed" class="form-control" value="{{ $solicitud->totalPed }}">
+                            <input type="text" name="totalPed" id="totalPed" class="form-control">
                         <label for="descuento">Descuento</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -236,21 +253,21 @@ $numeros = count($productos);
                             <legend class="col-form-label">Estado</legend>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="espera" name="estado" class="custom-control-input" data-toggle="collapse" href="#esperaEst" role="button" aria-expanded="false" aria-controls="esperaEst" value="espera">
-                                    <label class="custom-control-label" for="espera">Espera</label>
+                                    <label class="custom-control-label" for="espera"><strong>Espera</strong></label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="produccion" name="estado" class="custom-control-input"  data-toggle="collapse" href="#produccionEst" role="button" aria-expanded="false" aria-controls="produccionEst" value="produccion">
-                                    <label class="custom-control-label" for="produccion">Produccion</label>
+                                    <label class="custom-control-label" for="produccion"><strong>Produccion</strong></label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="finalizado" name="estado" class="custom-control-input"  data-toggle="collapse" href="#finalizadoEst" role="button" aria-expanded="false" aria-controls="finalizadoEst" value="finalizado">
-                                    <label class="custom-control-label" for="finalizado">Finalizado</label>
+                                    <label class="custom-control-label" for="finalizado"><strong>Finalizado</strong></label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="reclamo" name="estado" class="custom-control-input" data-toggle="collapse" href="#reclamoEst" role="button" aria-expanded="false" aria-controls="reclamoEst"  value="reclamo">
-                                    <label class="custom-control-label" for="reclamo">Reclamo</label>
+                                    <label class="custom-control-label" for="reclamo"><strong>Reclamo</strong></label>
                                 </div>
-                                <label>SubEstado</label>
+                                <legend class="col-form-label">Sub Estado</legend>
                                 <div class="collapse" id="esperaEst">
                                     <div class="custom-control custom-checkbox custom-control-inline">
                                         <input type="checkbox" class="custom-control-input" id="AsignacionDeMateriaPrima" name="subEstado[]" value="Asignacion De Materia Prima">
@@ -457,10 +474,12 @@ function editarPed() {
         productos = productos.slice(0,-2);
         $("#sol_id").val({{ $solicitud->sol_id }});
         $("#cliente").val($("#idCli").val());
+        $("#nomCli").val($("#nomCliente").val());
+        $("#nomPro").val($("#nomProfecional").val());
         $("#productos").val(productos);
         $("#profesional").val($("#idPro").val());
         $("#vendedor").val($("#vendedorSol").val());
-        $("#canaldeventa").val("{{ $solicitud->canaldeventa }}");
+        $("#canaldeventa").val($("#canalventa").val());
         $("#descuento").val({{ $solicitud->descuento }});
         $("#senia").val({{ $solicitud->senia }});
         $("#despacho").val('{{ $solicitud->despacho }}');
@@ -474,8 +493,13 @@ function editarPed() {
          echo '$("#'.$subEstados[$i].'").prop("checked", true);';
         }   
         @endphp
-        $("#totalPed").val({{ $solicitud->totalPed }});
-        $("#saldo").val({{ $solicitud->saldo }}); 
+        $("#totalPed").val(todos + opcion);
+        var total = todos + opcion;
+        var descuento = total / 100 * $("#descuento").val();
+        var seña =  $("#senia").val();
+        var saldo = total - descuento ;
+        saldo = saldo - seña; 
+        $("#saldo").val(saldo);
         $("#nuevoPed").modal('show');
 }
 $(document).ready(function(){
@@ -514,7 +538,7 @@ $(document).ready(function(){
         $('#cantidad').val('');
         $('#total').val('');
         $('#aplicacion').val('');
-        $('#opcion').val('');
+        $('#opcion').val('Todos');
         $('#buscador').val('');
     });
     var path2 = "{{ route('clientes.autocomplete') }}";
@@ -534,7 +558,7 @@ $(document).ready(function(){
                     success: function(data) {
                         var obj = JSON.parse(data);
                         //console.log(obj);
-                        $("#listadoCli").html('<ul class="list-group lead"><input type="hidden" id="idCli" value="'+ obj[0]["id"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono1"] +'</li><li class="list-group-item"><h6 class="my-0">Factura</h6>'+ obj[0]["factura"] +'</li></ul>');
+                        $("#listadoCli").html('<ul class="list-group lead"><input type="hidden" id="idCli" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomCliente" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono1"] +'</li><li class="list-group-item"><h6 class="my-0">Factura</h6>'+ obj[0]["factura"] +'</li></ul>');
                     }
                 })   
             }
@@ -556,7 +580,7 @@ $(document).ready(function(){
                     success: function(data) {
                         var obj = JSON.parse(data);
                         //console.log(obj);
-                        $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
+                        $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomProfecional" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
                     }
                 })   
             }
@@ -565,15 +589,18 @@ $(document).ready(function(){
 $('#btnAgregar').click(function() {
     var id = $('#id').val();  
     var producto = $('#producto').val();
-    var precio =  Number($('#precio').val());
+    var precio = $("#precio").val();
+    precio = precio.replace(".", "")
+    precio = precio.replace(",", ".")
+    precio =  parseFloat(precio);
     var cantidad = $('#cantidad').val();
-    var total = Number($('#total').val());
+    var total = $('#total').val();
     var aplicacion = $('#aplicacion').val();
     var opcion = $('#opcion').val();
     if (opcion !== "Todos") {
         var clase = opcion;
     }else{
-        var clase = "todos";
+        var clase = "Todos";
     }
     var i = 0;
   var fila = '<tr class="producto" id="row'+i+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + i + '" class="far fa-times-circle btn_remove"></i></td></tr>';
@@ -586,10 +613,13 @@ $('#btnAgregar').click(function() {
         $('#row' + button_id + '').remove(); 
         var nFilas = $("#presupuestos tr").length;
     });
-    $("#cantidad").on("change", function(){
-        precio = $("#precio").val();
+    $("#cantidad,#precio").on("change", function(){
+        var precio = $("#precio").val();
+        precio = precio.replace(".", "")
+        precio = precio.replace(",", ".")
         cantidad = $("#cantidad").val();
-        $("#total").val( precio * cantidad);        
+        //console.log(precio);
+        $("#total").val( precio * cantidad);         
     });
     $('#presupuestos').on('DOMSubtreeModified',function() {
         var opcion1 = 0;
@@ -611,7 +641,8 @@ $('#btnAgregar').click(function() {
         });
         $(".opcion4").parent("tr").find(".total").each(function() {
             opcion4 += parseFloat($(this).html());
-        });    
+        }); 
+        console.log(todos);   
             if (opcion1 != 0) {
                 opcion1 = opcion1 + todos;
                 $("#opcion1").html("Opcion 1:$"+ opcion1); 
@@ -668,7 +699,7 @@ $('#btnAgregar').click(function() {
         $("#productos").val(productos);
         $("#profesional").val($("#idPro").val());
         $("#vendedor").val($("#vendedorSol").val());
-        $("#canaldeventa").val("{{ $solicitud->canaldeventa }}");
+        $("#canaldeventa").val($("#canalventa").val());
         $("#totalPed").val({{ $solicitud->totalPed }});
         $("#nuevoPed").modal('show');
         }else {
@@ -721,7 +752,7 @@ $('#btnAgregar').click(function() {
     $("#espera").on("click", function(){
         $("#produccionEst").collapse('hide');
         $("#finalizadoEst").collapse('hide');
-        $("#reclamoDet").collapse('hide');
+        $("#reclamoEst").collapse('hide');
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);
@@ -739,7 +770,7 @@ $('#btnAgregar').click(function() {
     $("#produccion").on("click", function(){
         $("#esperaEst").collapse('hide');
         $("#finalizadoEst").collapse('hide');
-        $("#reclamoDet").collapse('hide');
+        $("#reclamoEst").collapse('hide');
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);
@@ -756,7 +787,7 @@ $('#btnAgregar').click(function() {
     $("#finalizado").on("click", function(){
         $("#esperaEst").collapse('hide');
         $("#produccionEst").collapse('hide');
-        $("#reclamoDet").collapse('hide');
+        $("#reclamoEst").collapse('hide');
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);
@@ -773,7 +804,7 @@ $('#btnAgregar').click(function() {
     $("#reclamo").on("click", function(){
         $("#esperaEst").collapse('hide');
         $("#produccionEst").collapse('hide');
-        $("#finalizadoEst").collapse('hide'); 
+        $("#reclamoEst").collapse('hide'); 
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);

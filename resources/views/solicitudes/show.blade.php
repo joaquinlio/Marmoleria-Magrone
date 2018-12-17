@@ -19,17 +19,17 @@ Sol N°{{ $solicitud->sol_id }}
       </div>
       <div class="col-md-4 mb-3">
         <label for="cliente">Cliente</label>
-        <input type="text" class="form-control" id="cliente" placeholder="" value="{{ $solicitud->Cliente->nombre }}">
+        <input type="text" class="form-control" id="cliente" placeholder="" value="{{ $solicitud->nomCli }}">
       </div>
       <div class="col-md-4 mb-3">
         <label for="fecha">Profecional</label>
-        <input type="text" class="form-control" id="fecha" placeholder="" value="{{ $solicitud->Profesional->nombre }}">
+        <input type="text" class="form-control" id="fecha" placeholder="" value="{{ $solicitud->nomPro }}">
       </div>
     </div>
     <div class="row">
         <div class="col-md-4 mb-3">
           <label for="fecha">Vendedor</label>
-          <input type="text" class="form-control" id="fecha" placeholder="" value="{{ $solicitud->Vendedor->nombre }}">
+          <input type="text" class="form-control" id="fecha" placeholder="" value="{{ $solicitud->vendedor }}">
         </div>
         <div class="col-md-4 mb-3">
           <label for="despacho">Despacho</label>
@@ -97,7 +97,6 @@ Sol N°{{ $solicitud->sol_id }}
             <th scope="col">Estado</th>
             <th scope="col">Sub Estado</th>
         </tr>
-        
         @php
         for ($i=0; $i <$numeros ; $i++) { 
             $producto = explode(",", $productos[$i]);
@@ -107,12 +106,13 @@ Sol N°{{ $solicitud->sol_id }}
             $total = number_format($totalInt,2,",",".");
             echo "
             <tr>
+                <input type='hidden' class='total' value='$producto[3]'><input type='hidden' class='$producto[5]' value='$producto[5]'>
                 <th>$producto[0]</th>
                 <td>$$precio</td>
                 <td>$producto[2]</td>
-                <td class='total'>$total</td>
+                <td>$total</td>
                 <td>$producto[4]</td>
-                <td class='$producto[5]'>$producto[5]</td>
+                <td>$producto[5]</td>
                 <td>$solicitud->estado</td>
                 <td>$solicitud->subEstado</td>
             </tr>";

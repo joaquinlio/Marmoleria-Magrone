@@ -33,8 +33,8 @@
     <tr>
         <th scope="row">{{ $pedido->pdo_id }}</th>
         <td>{{ $pedido->fecha }}</td>
-        <td>{{ $pedido->Cliente->nombre }}</td>
-        <td>{{ $pedido->Profesional->nombre }}</td>
+        <td>{{ $pedido->cliente }}</td>
+        <td>{{ $pedido->profesional }}</td>
         <td class='productos'>{{ $pedido->productos }}</td>
         <td>{{ $pedido->estado }}</td>
         <td class='productos'>{{ $pedido->subEstado }}</td>

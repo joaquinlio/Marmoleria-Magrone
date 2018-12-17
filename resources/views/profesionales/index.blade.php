@@ -54,6 +54,7 @@
         <div class="modal-body">
             <form method="POST" action="{{ url('profesionales/crear') }}">
                 <div class="form-row">
+                    <input type="hidden" name="newProf" value="true">
                     <label>Nombre:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                     <label>Telefono:</label>

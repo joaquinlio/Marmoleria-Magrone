@@ -1,28 +1,6 @@
 @php
     $productos = explode("/", $solicitud->productos);
     $numeros = count($productos);
-    $todos = 0;
-    $opcion1 = 0;
-    $opcion2 = 0;
-    $opcion3 = 0;
-    for ($i=0; $i <$numeros ; $i++) { 
-        $producto = explode(",", $productos[$i]);
-       if ($producto[5] == "Todos") {
-          $todos = $todos + $producto[3];
-       }
-       if ($producto[5] == "opcion1") {
-          $opcion1 = $opcion1 + $producto[3];
-          $opcion1 = $opcion1 + $todos;
-       }
-       if ($producto[5] == "opcion2") {
-          $opcion2 = $opcion2 + $producto[3];
-          $opcion2 = $opcion2 + $todos;
-       }
-       if ($producto[5] == "opcion3") {
-          $opcion3 = $opcion3 + $producto[3];
-          $opcion3 = $opcion3 + $todos;
-       }
-    }
     $totalPed = number_format($solicitud->totalPed,2,",",".");
     $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -201,14 +179,14 @@
             <h6 style=" font-weight: bold;">Numero:</h6> 
     </div>
     <div id="numero">
-        <input type="text" class="form-control" style=" width: 80px;  font-weight: bold;" value="{{ $solicitud->pdo_id}}">    
+        <input type="text" class="form-control" style=" width: 80px;  font-weight: bold;" value="{{ $solicitud->sol_id}}">    
     </div>
     <hr> 
     <div class="col-colvendedor">
         <strong>Vendedor:</strong> 
     </div>
     <div id="vendedor">   
-      <input type="text" class="form-control" value="{{ $solicitud->Vendedor->nombre }}">
+      <input type="text" class="form-control" value="{{ $solicitud->vendedor }}">
     </div>
     <div class="col-canaldeventa">
         <strong>Canal De Venta:</strong> 
@@ -261,7 +239,8 @@
                     echo "<tr><th>$producto[0]</th>
                     <td>$$producto[1]</td>
                     <td class='cantidad'>$producto[2]</td>
-                    <td class='total'>$$total</td>
+                    <td>$$total</td>
+                    <td class='total' style='display:none;'>$producto[3]</td>
                     <td class='aplicacion'><span class='text-overflow'>$producto[4]</span></td>
                     <td class='$producto[5]'>$producto[5]</td></tr>";
                 }   
@@ -286,6 +265,10 @@
                 <tr>
                 <th>Descuento:</th>
                 <td>{{ $solicitud->descuento }}%</td>
+                <td>@php
+                    $descuento =  $solicitud->totalPed / 100 * $solicitud->descuento;
+                   echo "$".$descuento;
+                @endphp</td>
                 </tr>
                 <tr>
                 <th>Saldo del Pedido:</th>

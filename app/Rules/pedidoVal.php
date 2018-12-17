@@ -34,6 +34,6 @@ class pedidoVal implements Rule
      */
     public function message()
     {
-        return 'Selecionar solo Una Opcion para Generar Pedido';
+        return 'Selecionar solo Opcion 1 para Generar Pedido';
     }
 }

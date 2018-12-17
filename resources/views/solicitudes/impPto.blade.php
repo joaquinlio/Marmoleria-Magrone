@@ -1,28 +1,6 @@
 @php
-    $productos = explode("/", $solicitud->productos);
+   $productos = explode("/", $solicitud->productos);
     $numeros = count($productos);
-    $todos = 0;
-    $opcion1 = 0;
-    $opcion2 = 0;
-    $opcion3 = 0;
-    for ($i=0; $i <$numeros ; $i++) { 
-        $producto = explode(",", $productos[$i]);
-       if ($producto[5] == "Todos") {
-          $todos = $todos + $producto[3];
-       }
-       if ($producto[5] == "opcion1") {
-          $opcion1 = $opcion1 + $producto[3];
-          $opcion1 = $opcion1 + $todos;
-       }
-       if ($producto[5] == "opcion2") {
-          $opcion2 = $opcion2 + $producto[3];
-          $opcion2 = $opcion2 + $todos;
-       }
-       if ($producto[5] == "opcion3") {
-          $opcion3 = $opcion3 + $producto[3];
-          $opcion3 = $opcion3 + $todos;
-       }
-    } 
     $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
     $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
     $time = strtotime($solicitud->fecha);
@@ -37,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <script src="{{ asset ('js/jquery.min.js') }}"></script>
   </head>
   <style>
         #presupuesto {
@@ -204,7 +183,7 @@
         <strong>Vendedor:</strong> 
     </div>
     <div id="vendedor">   
-      <input type="text" class="form-control" value="{{ $solicitud->Vendedor->nombre }}">
+      <input type="text" class="form-control" value="{{ $solicitud->vendedor }}">
     </div>
     <div class="col-canaldeventa">
         <strong>Canal De Venta:</strong> 
@@ -237,7 +216,7 @@
     <div id="obra">
         <input type="text" class="form-control" value="obra">
     </div> 
-    <table class="table table-sm table-bordered text-center">
+    <table id="presupuestos" class="table table-sm table-bordered">
             <thead>
             <tr class="text-center">
                 <th scope="col">Descripcion</th>
@@ -257,7 +236,8 @@
                     echo "<tr><th>$producto[0]</th>
                     <td>$$producto[1]</td>
                     <td class='cantidad'>$producto[2]</td>
-                    <td class='total'>$$total</td>
+                    <td>$$total</td>
+                    <td class='total' style='display:none;'>$producto[3]</td>
                     <td class='aplicacion'><span class='text-overflow'>$producto[4]</span></td>
                     <td class='$producto[5]'>$producto[5]</td></tr>";
                 }   
@@ -273,20 +253,81 @@
                     <th scope="col">OPCION 1</th>
                     <th scope="col">OPCION 2</th>
                     <th scope="col">OPCION 3</th>
+                    <th scope="col">OPCION 4</th>
                 </tr>
             </thead>
             <tbody>
-                <td>$ @php echo $opcion1;@endphp</td>
-                <td>$ @php echo $opcion2;@endphp</td>
-                <td>$ @php echo $opcion3;@endphp</td>   
+                <td id="opcion1"></td>
+                <td id="opcion2"></td>
+                <td id="opcion3"></td>
+                <td id="opcion4"></td>   
             </tbody> 
         </table>
         <h6 id="leyenda">LEYENDA:</h6>
         <p id="leyendatext">*Presupuesto valido por 10 dias | Presupuesto: sujeto a medicion definitiva en obra | No incluye: acarreo por escalera ni izaje por exterior | Condiciones de venta: Seña por anticipo del 60% y saldo a contra entrega | Stock: a confirmar en el momento del anticipo | Formas de pago: Efectivo,cheques,transferencia,tarjeta de debito y credito*.</p>
         <div id="firmas">
-        <h6 id="confirmacion">Conformidad Del Cliente:</h6>
+        <h6 id="confirmacion">Conformidad del Cliente:</h6>
         <h6 id="firma">FIRMA:</h6>
         <h6 id="aclaracion">ACLARACION:</h6>
         </div>      
   </body>
 </html>
+<script>
+var fNumber = {
+sepMil: ".", // separador para los miles
+sepDec: ',', // separador para los decimales
+formatear:function (num){
+num +='';
+var splitStr = num.split('.');
+var splitLeft = splitStr[0];
+var splitRight = splitStr.length > 1 ? this.sepDec + splitStr[1] : '';
+var regx = /(\d+)(\d{3})/;
+while (regx.test(splitLeft)) {
+splitLeft = splitLeft.replace(regx, '$1' + this.sepMil + '$2');
+}
+return this.simbol + splitLeft + splitRight;
+},
+go:function(num, simbol){
+this.simbol = simbol ||'';
+return this.formatear(num);
+}
+} 
+        var opcion1 = 0;
+        var opcion2 = 0;
+        var opcion3 = 0;
+        var opcion4 = 0;
+        var todos = 0;
+        $(".Todos").parent("tr").find(".total").each(function() {
+            todos += parseFloat($(this).html());  
+        });
+        $(".opcion1").parent("tr").find(".total").each(function() {
+            opcion1 += parseFloat($(this).html());
+        }); 
+        $(".opcion2").parent("tr").find(".total").each(function() {
+            opcion2 += parseFloat($(this).html());
+        }); 
+        $(".opcion3").parent("tr").find(".total").each(function() {
+            opcion3 += parseFloat($(this).html());
+        });
+        $(".opcion4").parent("tr").find(".total").each(function() {
+            opcion4 += parseFloat($(this).html());
+        }); 
+        //console.log(todos,"-",opcion1,"-",opcion2,"-",opcion3,"-",opcion4)   
+            if (opcion1 != 0) {
+                opcion1 = opcion1 + todos;
+                //opcion1 = new Intl.NumberFormat().format(opcion1);
+                $("#opcion1").html("$"+fNumber.go(opcion1)); 
+            }
+            if (opcion2 != 0) {
+                opcion2 = opcion2 + todos;
+                $("#opcion2").html("$"+fNumber.go(opcion2));
+            }
+            if (opcion3 != 0) {
+                opcion3 = opcion3 + todos;
+                $("#opcion3").html("$"+fNumber.go(opcion3));
+            }
+            if (opcion4 != 0) {
+                opcion4 = opcion4 + todos;
+                $("#opcion4").html("$"+fNumber.go(opcion4));
+            }           
+</script>

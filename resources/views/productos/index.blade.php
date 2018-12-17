@@ -15,8 +15,19 @@
                                 <i class="fas fa-search"></i>
                         </button>
                     </div>
-
                 </form>
+                @if ($errors->any())
+        <div class="alert alert-warning alert-dismissible fade show">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+        @endif
             </th>
         </tr>   
     </thead>
@@ -53,6 +64,7 @@
         <div class="modal-body">
             <form method="POST" action="{{ url('productos/crear') }}">
                 <div class="form-row">
+                    <input type="hidden" name="newPro" value="true">
                       <label>Nombre:</label>
                       <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
                       <label>Precio:</label>

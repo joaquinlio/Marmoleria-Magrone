@@ -14,7 +14,18 @@
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
-            <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2></th>
+            <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2>
+                    <form action="{{ route('solicitudes.buscador') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +33,8 @@
             <th scope="col">Nro Sol</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cliente</th>
-            <th scope="col">profesional</th>
+            <th scope="col">Profesional</th>
+            <th scope="col">Vendedor</th>
             <th scope="col">Productos</th>
             <th scope="col">Estado</th>
             <th scope="col">Sub Estado</th>
@@ -34,8 +46,9 @@
     <tr>
         <th scope="row">{{ $solicitud->sol_id }}</th>
         <td>{{ $solicitud->fecha }}</td>
-        <td>{{ $solicitud->Cliente->nombre }}</td>
-        <td>{{ $solicitud->Profesional->nombre }}</td>
+        <td>{{ $solicitud->nomCli }}</td>
+        <td>{{ $solicitud->nomPro }}</td>
+        <td>{{ $solicitud->vendedor }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td>{{ $solicitud->estado }}</td>
         <td class='productos'>{{ $solicitud->subEstado }}</td>

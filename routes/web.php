@@ -72,7 +72,7 @@ Route::delete('/solicitudes/delete','SolicitudController@destroy')->name('solici
 
 Route::post('/solicitudes/insertarPresupuesto','SolicitudController@insertarPresupuesto')->name('solicitudes.insertarPresupuesto')->middleware('auth');
 
-Route::post('solicitudes/buscardor','SolicitudController@buscardor')->name('solicitudes.buscardor')->middleware('auth');
+Route::get('solicitudes/buscador','SolicitudController@buscador')->name('solicitudes.buscador')->middleware('auth');
 
 Route::post('/solicitudes/insertarPedido','SolicitudController@insertarPedido')->name('solicitudes.insertarPedido')->middleware('auth');
 // ABM Cliente

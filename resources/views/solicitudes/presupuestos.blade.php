@@ -32,8 +32,8 @@
     <tr>
         <th scope="row">{{ $solicitud->sol_id }}</th>
         <td>{{ $solicitud->fecha }}</td>
-        <td>{{ $solicitud->Cliente->nombre }}</td>
-        <td>{{ $solicitud->Profesional->nombre }}</td>
+        <td>{{ $solicitud->nomCli }}</td>
+        <td>{{ $solicitud->nomPro }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td>{{ $solicitud->estado }}</td>
         <td>

@@ -51,10 +51,14 @@
                   </div>
                 </li>                          
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input type="text" class="form-control mr-sm-3" id="buscadorSol" autocomplete="off" placeholder="Buscar Solicitud">
-                <button class="btn btn-success my-2 my-sm-0"><a class="text-white" href="{{ route('logout') }}">{{ Auth::user()->name }}</a></button>
-              </form>
+              <form class="form-inline my-2 my-lg-0" action="{{ route('solicitudes.buscador') }}" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-success my-2 my-sm-0"><a class="text-white" href="{{ route('logout') }}">{{ Auth::user()->name }}</a></button>
+                </div>
+            </form>
         </nav>
     <!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
       <h5 class="my-0 mr-md-auto font-weight-normal"></h5>
@@ -69,13 +73,13 @@
     </div>
     </div>
     <script>
-      $("#buscadorSol").keypress(function(e){
+      /*$("#buscadorSol").keypress(function(e){
         if (e.which == 13) {
           var sol_id = $("#buscadorSol").val();
           window.open("http://localhost/marmoleria/public/solicitudes/edit/"+sol_id);
           //location.href="http://localhost/marmoleria/public/solicitudes/"+sol_id; 
         } 
-      });
+      });*/
       $('#edit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var id = button.data('id') 

@@ -70,7 +70,7 @@
                 <div class="col-6">
                     <h6>Buscar Profesional:</h6>
                 <div class="input-group mb-3">
-                    <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional">
+                    <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional" autocomplete="off">
                     <div class="float-right">
                         <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
                     </div>
@@ -84,13 +84,13 @@
             <label for="vendedor">Vendedor:</label>
             <select name="vendedorSol" id="vendedorSol" class="custom-select mb-3">
                 @foreach($vendedores as $vendedor)
-                <option value="{{ $vendedor->id }}">{{ $vendedor->nombre }}</option>                 
+                <option value="{{ $vendedor->nombre }}">{{ $vendedor->nombre }}</option>                 
                 @endforeach
             </select>
             <label for="canalVenta">Canal De Venta:</label>
             <select name="canalventa" id="canalventa" class="custom-select">
                 @foreach($canalesdeventa as $canaldeventa)
-                <option value="{{ $canaldeventa->id }}">{{ $canaldeventa->nombre }}</option>                 
+                <option value="{{ $canaldeventa->nombre }}">{{ $canaldeventa->nombre }}</option>                 
                 @endforeach                
             </select>
         </div>
@@ -129,6 +129,7 @@
                                 <option value="opcion1">Opcion 1</option>
                                 <option value="opcion2">Opcion 2</option>
                                 <option value="opcion3">Opcion 3</option>
+                                <option value="opcion4">Opcion 4</option>
                             </select>  
                     </div>
                     <div class="modal-footer">
@@ -151,12 +152,14 @@
         <div class="modal-body">
                 <form action="{{ url('solicitudes/insertarPedido') }}" enctype="multipart/form-data" method="POST" id="pedido">
                     <div class="form-row">
-                        <input type="hidden" name="sol_id" id="sol_id">
-                        <input type="hidden" name="cliente" id="cliente">
-                        <input type="hidden" name="vendedor" id="vendedor">
-                        <input type="hidden" name="profesional" id="profesional">
-                        <input type="hidden" name="canaldeventa" id="canaldeventa">
-                        <input type="hidden" name="productos" id="productos">
+                            <input type="hidden" name="sol_id" id="sol_id">
+                            <input type="hidden" name="cliente" id="cliente">
+                            <input type="hidden" name="nomCli" id="nomCli">
+                            <input type="hidden" name="vendedor" id="vendedor">
+                            <input type="hidden" name="profesional" id="profesional">
+                            <input type="hidden" name="nomPro" id="nomPro">
+                            <input type="hidden" name="canaldeventa" id="canaldeventa">
+                            <input type="hidden" name="productos" id="productos">
                         <div class="form-group col-6">
                         <label for="totalPed">Total Del Pedido</label>
                             <input type="text" name="totalPed" id="totalPed" class="form-control">
@@ -183,9 +186,7 @@
                             <label for="despacho">Despacho</label>
                                 <select name="despacho" id="despacho" class="custom-select">
                                     <option value="retirar">A Retirar</option>
-                                    <option value="retirado">Retirado</option>
                                     <option value="entregar">A Entregar</option>
-                                    <option value="entregado">Entregado</option>
                                 </select>
                             <legend class="col-form-label">Estado</legend>
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -196,7 +197,7 @@
                                     <input type="radio" id="produccion" name="estado" class="custom-control-input"  data-toggle="collapse" href="#produccionEst" role="button" aria-expanded="false" aria-controls="produccionEst" value="produccion">
                                     <label class="custom-control-label" for="produccion">Produccion</label>
                                 </div>
-                                <label>SubEstado</label>
+                                <legend class="col-form-label">Sub Estado</legend>
                                 <div class="collapse" id="esperaEst">
                                     <div class="custom-control custom-checkbox custom-control-inline">
                                         <input type="checkbox" class="custom-control-input" id="AsignacionDeMateriaPrima" name="subEstado[]" value="Asignacion De Materia Prima">
@@ -258,17 +259,15 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('productos/crear') }}">
+                    <form>
                         <div class="form-row">
                               <label>Nombre:</label>
-                              <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
-                              <label>Descripcion:</label>
-                              <input type="text" id="descripcion" name="descripcion" class="form-control" autocomplete="off">
+                              <input type="text" id="nombrePro" name="nombrePro" class="form-control" autocomplete="off">
                               <label>Precio:</label>
-                              <input type="text" id="precio" name="precio" class="form-control" autocomplete="off">
+                              <input type="text" id="precioPro" name="precioPro" class="form-control" autocomplete="off">
                         </div>         
                         <div class="modal-footer">
-                            <button type="submit" id="btnEditarST" class="btn btn-outline-success">Agregar</button>
+                            <button type="button" id="btnProd" class="btn btn-outline-success">Agregar</button>
                             <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
@@ -286,11 +285,11 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ url('clientes/crear') }}">
+                    <form>
                         <div class="form-row">
                             <div class="form-gruop col-6">
                               <label>Nombre:</label>
-                              <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
+                              <input type="text" id="nombreCli" name="nombre" class="form-control" autocomplete="off">
                               <label>Direccion:</label>
                               <input type="text" id="direccion" name="direccion" class="form-control" autocomplete="off">
                               <label>Entre Calles:</label>
@@ -321,7 +320,7 @@
                             </div>
                         </div>         
                         <div class="modal-footer">
-                            <button type="submit" id="btnEditarST" class="btn btn-outline-success">Agregar</button>
+                            <button type="button" id="btnCli" class="btn btn-outline-success">Agregar</button>
                             <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                         </div>
                     </form>
@@ -339,17 +338,17 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ url('profesionales/crear') }}">
+            <form>
                 <div class="form-row">
                     <label>Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
+                    <input type="text" id="nombreProf" name="nombreProf" class="form-control" autocomplete="off">
                     <label>Telefono:</label>
-                    <input type="text" id="telefono" name="telefono" class="form-control" autocomplete="off">
+                    <input type="text" id="telefonoProf" name="telefonoProf" class="form-control" autocomplete="off">
                     <label>Email:</label>
-                    <input type="text" id="email" name="email" class="form-control" autocomplete="off">
+                    <input type="text" id="emailProf" name="emailProf" class="form-control" autocomplete="off">
                 </div>         
                 <div class="modal-footer">
-                    <button type="submit" id="btnEditarST" class="btn btn-outline-success">Agregar</button>
+                    <button type="button" id="btnProf" class="btn btn-outline-success">Agregar</button>
                     <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>
@@ -367,14 +366,15 @@
         }
     }).on('keypress', function(e) {
             if (e.which == 13) {   
-                var data = { nombre : $("#buscador").val() };
+                var datos = { nombre : $("#buscador").val() };
+                //console.log(datos);
                 $.ajax({
                     type: "POST",
                     url: '{{ route('productos.obtenerdetalles') }}',
-                    data: data,
+                    data: datos,
                     success: function(data) {
                         var obj = JSON.parse(data);
-                        //console.log(obj);
+                        //console.log(data);
                         $("#id").val(obj[0]["id"])                  
                         $("#producto").val(obj[0]["nombre"])
                         $("#precio").val(obj[0]["precio"])
@@ -389,7 +389,7 @@
         $('#cantidad').val('');
         $('#total').val('');
         $('#aplicacion').val('');
-        $('#opcion').val('');
+        $('#opcion').val('Todos');
         $('#buscador').val('');
     });
     var path2 = "{{ route('clientes.autocomplete') }}";
@@ -409,7 +409,7 @@
                     success: function(data) {
                         var obj = JSON.parse(data);
                         //console.log(obj);
-                        $("#listadoCli").html('<ul class="list-group lead"><input type="hidden" id="idCli" value="'+ obj[0]["id"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono1"] +'</li><li class="list-group-item"><h6 class="my-0">Factura</h6>'+ obj[0]["factura"] +'</li></ul>');
+                        $("#listadoCli").html('<ul class="list-group lead"><input type="hidden" id="idCli" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomCliente" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono1"] +'</li><li class="list-group-item"><h6 class="my-0">Factura</h6>'+ obj[0]["factura"] +'</li></ul>');
                     }
                 })   
             }
@@ -431,7 +431,7 @@
                     success: function(data) {
                         var obj = JSON.parse(data);
                         //console.log(obj);
-                        $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
+                        $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomProfecional" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
                     }
                 })   
             }
@@ -440,7 +440,10 @@
 $('#btnAgregar').click(function() {
     var id = $('#id').val();  
     var producto = $('#producto').val();
-    var precio = $('#precio').val();
+    var precio = $("#precio").val();
+    precio = precio.replace(".", "")
+    precio = precio.replace(",", ".")
+    precio =  parseFloat(precio);
     var cantidad = $('#cantidad').val();
     var total = $('#total').val();
     var aplicacion = $('#aplicacion').val();
@@ -448,20 +451,27 @@ $('#btnAgregar').click(function() {
     if (opcion !== "Todos") {
         var clase = opcion;
     }else{
-        var clase = "todos";
+        var clase = "Todos";
     }
   var fila = '<tr class="producto" id="row'+id+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + id + '" class="far fa-times-circle btn_remove"></i></td></tr>';
   $('#cargar').modal('toggle');
-  $('#presupuestos tr:first').after(fila);
+  if (clase !== "Todos") {
+    $('#presupuestos tr:first').after(fila);  
+  }else{
+    $('#presupuestos tr:last').after(fila);
+  }
   });     
     $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");
         $('#row' + button_id + '').remove(); 
         var nFilas = $("#presupuestos tr").length;
     });
-    $("#cantidad").on("change", function(){
-        precio = $("#precio").val();
+    $("#cantidad,#precio").on("change", function(){
+        var precio = $("#precio").val();
+        precio = precio.replace(".", "")
+        precio = precio.replace(",", ".")
         cantidad = $("#cantidad").val();
+        //console.log(precio);
         $("#total").val( precio * cantidad);        
     });
     $('#presupuestos').on('DOMSubtreeModified',function() {
@@ -471,7 +481,7 @@ $('#btnAgregar').click(function() {
         var opcion4 = 0;
         var todos = 0 ;
         $(".todos").parent("tr").find(".total").each(function() {
-        todos += parseFloat($(this).html());
+            todos += parseFloat($(this).html());
         });
         $(".opcion1").parent("tr").find(".total").each(function() {
             opcion1 += parseFloat($(this).html());
@@ -509,7 +519,7 @@ $('#btnAgregar').click(function() {
             }else{
                 $("#opcion4").html("Opcion 4:$");
             }            
-  });
+        });
     $('#agregarPto').click(function() {
         var td = [];
         var productos = "";
@@ -524,11 +534,14 @@ $('#btnAgregar').click(function() {
         productos = productos.slice(0,-2);
         //console.log(productos);  
         var cliente = $("#idCli").val();
+        var nomCli = $("#nomCliente").val();
         var profesional;
+        var nomPro;
         (!$("#idPro").val()) ? profesional = null : profesional = $("#idPro").val() ;
+        (!$("#nomPro").val()) ? nomPro = null : nomPro = $("#nomPro").val() ;
         var vendedor = $("#vendedorSol").val();
         var canalventa = $("#canalventa").val();
-        td.push({productos,cliente,profesional,vendedor,canalventa});
+        td.push({productos,cliente,nomCli,profesional,nomPro,vendedor,canalventa});
         var datos = JSON.stringify(td);
         //console.log(datos);
        $.ajax({
@@ -565,7 +578,7 @@ $('#btnAgregar').click(function() {
             url: '{{ route('solicitudes.insertarPresupuesto') }}',
             data: datos,
             success: function(data) {
-                window.open("http://localhost/marmoleria/public/presupuestos-pdf/"+data.pto_id);     
+                window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id);     
             }
         })
     });
@@ -584,6 +597,9 @@ $('#btnAgregar').click(function() {
         $(".opcion3").parent("tr").find(".total").each(function() {
             opcion += parseFloat($(this).html());
         });
+        $(".opcion4").parent("tr").find(".total").each(function() {
+            opcion += parseFloat($(this).html());
+        });
         var productos = "";
         var elementosTD = document.getElementsByTagName("td");
         for(i=0;i<elementosTD.length;i++){
@@ -600,7 +616,8 @@ $('#btnAgregar').click(function() {
         $("#profesional").val(profesional);
         $("#vendedor").val(vendedor);
         $("#canaldeventa").val(canaldeventa);
-
+        $("#nomCli").val($("#nomCliente").val());
+        $("#nomPro").val($("#nomProfecional").val());
         $("#totalPed").val(todos + opcion);
         $("#nuevoPed").modal('show');
     }
@@ -615,6 +632,7 @@ $('#btnAgregar').click(function() {
     $("#espera").on("click", function(){
         $("#produccionEst").collapse('hide');
         $("#finalizadoEst").collapse('hide');
+        $("#reclamoEst").collapse('hide');
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);
@@ -632,6 +650,7 @@ $('#btnAgregar').click(function() {
     $("#produccion").on("click", function(){
         $("#esperaEst").collapse('hide');
         $("#finalizadoEst").collapse('hide');
+        $("#reclamoEst").collapse('hide');
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);
@@ -649,6 +668,58 @@ $('#btnAgregar').click(function() {
         var fileName = $(this).val();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     })
-    
+    $("#btnProd").on("click", function(){
+        var datos = {
+          nombre:$('#nombrePro').val(),
+          precio:$('#precioPro').val()
+        }; 
+        $.ajax({
+            type: "POST",
+            url: '{{ url('productos/crear') }}',
+            data: datos,
+            success: function() {
+                $('#nuevoProducto').modal('hide');   
+            }
+        })      
+    });
+    $("#btnProf").on("click", function(){
+        var datos = {
+          nombre:$('#nombreProf').val(),
+          telefono:$('#telefonoProf').val(),
+          email:$('#emailProf').val()
+        }; 
+        $.ajax({
+            type: "POST",
+            url: '{{ url('profesionales/crear') }}',
+            data: datos,
+            success: function() {
+                $('#nuevoprofesional').modal('hide');   
+            }
+        })      
+    });
+    $("#btnCli").on("click", function(){
+        var datos = {
+        nombre: $('#nombreCli').val(),
+        direccion: $('#direccion').val(),
+        entrecalles: $('#entrecalles').val(),
+        observaciones: $('#observaciones').val(),
+        localidad: $('#localidad').val(),
+        partido:$('#partido').val(),
+        provincia: $('#provincia').val(),
+        telefono1:$('#telefono1').val(),
+        telefono2: $('#telefono2').val(),
+        factura: $('#factura').val(),
+        cuit: $('#cuit').val(),
+        razonsocial: $('#razonsocial').val()
+        }; 
+        $.ajax({
+            type: "POST",
+            url: '{{ url('clientes/crear') }}',
+            data: datos,
+            success: function() {
+                $('#nuevoCliente').modal('hide');   
+            }
+        })      
+    });
 </script>   
 @endsection

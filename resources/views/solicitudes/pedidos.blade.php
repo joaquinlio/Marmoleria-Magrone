@@ -37,8 +37,8 @@
     <tr>
         <th class="align-middle" scope="row">{{ $solicitud->sol_id }}</th>
         <td  class="align-middle">{{ $solicitud->fecha }}</td>
-        <td  class="align-middle">{{ $solicitud->Cliente->nombre }}</td>
-        <td  class="align-middle">{{ $solicitud->Profesional->nombre }}</td>
+        <td  class="align-middle">{{ $solicitud->nomCli }}</td>
+        <td  class="align-middle">{{ $solicitud->nomPro }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td  class="align-middle">{{ $solicitud->estado }}</td>
         <td  class="align-middle" class='productos'>{{ $solicitud->subEstado }}</td>

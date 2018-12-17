@@ -34,15 +34,15 @@ class ProductosController extends Controller
     {
         $data = request()->validate([
             'nombre' => 'required',
-            'precio' => 'required',
+            'precio' => 'required'
         ],[
-            'nombre.required' => 'El campo nombre es Requerido'
+            'nombre.required' => 'El campo nombre es Requerido',
+            'precio.required' => 'El campo precio es Requerido'
         ]);
         Producto::create([
             'nombre'=> $data['nombre'],
             'precio'=> $data['precio']     
         ]);
-        
         return redirect()->route('productos.index');
     }
     public function edit(Producto $producto)
@@ -73,7 +73,9 @@ class ProductosController extends Controller
     }
     public static function obtenerdetalles(Request $request)
     {
-        $data = Producto::select()->where("productos/extras.nombre","LIKE","{$request->nombre}")->get();
+        $data = Producto::select()->where("productos/extras.nombre","LIKE","%{$request->nombre}%")->get();
+        /*$data = Producto::select()->where("productos/extras.nombre","LIKE","ACERO INOXIDABLE 304 18-8 - 40 -")->get();
+        dd(json_encode($data));*/
         return json_encode($data);
     }
 }

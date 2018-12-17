@@ -208,7 +208,7 @@
         <strong>Vendedor:</strong> 
     </div>
     <div id="vendedor">   
-      <input type="text" class="form-control" value="{{ $pedido->Vendedor->nombre }}">
+      <input type="text" class="form-control" value="{{ $pedido->vendedor }}">
     </div>
     <div class="col-canaldeventa">
         <strong>Canal De Venta:</strong> 
@@ -221,7 +221,7 @@
         <strong>Cliente:</strong> 
     </div>
     <div id="cliente">
-        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $pedido->Cliente->nombre }}-{{ $pedido->Cliente->telefono1}}">
+        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $pedido->cliente }}-{{ $pedido->Cliente->telefono1}}">
     </div>
     <div class="col-direccion">
         <strong>Direccion:</strong> 
@@ -233,7 +233,7 @@
         <strong>profesional:</strong> 
     </div>
     <div id="profesional">
-        <input type="text" class="form-control" style=" width: 400px;" value="{{ $pedido->Profesional->nombre }}-{{ $pedido->Profesional->telefono}}-{{ $pedido->Profesional->email }}">
+        <input type="text" class="form-control" style=" width: 400px;" value="{{ $pedido->profesional }}-{{ $pedido->Profesional->telefono}}-{{ $pedido->Profesional->email }}">
     </div>
     <div class="col-obra">
         <strong>Obra:</strong> 
