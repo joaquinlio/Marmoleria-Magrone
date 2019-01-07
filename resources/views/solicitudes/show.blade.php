@@ -22,7 +22,7 @@ Sol N°{{ $solicitud->sol_id }}
         <input type="text" class="form-control" id="cliente" placeholder="" value="{{ $solicitud->nomCli }}">
       </div>
       <div class="col-md-4 mb-3">
-        <label for="fecha">Profecional</label>
+        <label for="fecha">Profesional</label>
         <input type="text" class="form-control" id="fecha" placeholder="" value="{{ $solicitud->nomPro }}">
       </div>
     </div>
@@ -104,18 +104,13 @@ Sol N°{{ $solicitud->sol_id }}
             $precio = number_format($precioInt,2,",",".");
             $totalInt = (int) $producto[3];
             $total = number_format($totalInt,2,",",".");
-            echo "
-            <tr>
-                <input type='hidden' class='total' value='$producto[3]'><input type='hidden' class='$producto[5]' value='$producto[5]'>
-                <th>$producto[0]</th>
-                <td>$$precio</td>
-                <td>$producto[2]</td>
-                <td>$total</td>
-                <td>$producto[4]</td>
-                <td>$producto[5]</td>
-                <td>$solicitud->estado</td>
-                <td>$solicitud->subEstado</td>
-            </tr>";
+            echo "<tr><th>$producto[0]</th>
+                <td>$$producto[1]</td>
+                <td class='cantidad'>$producto[2]</td>
+                <td>$$total</td>
+                <td class='total' style='display:none;'>$producto[3]</td>
+                <td class='aplicacion'><span class='text-overflow'>$producto[4]</span></td>
+                <td class='$producto[5]'>$producto[5]</td></tr>";
         }   
         @endphp
        

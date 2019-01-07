@@ -8,7 +8,7 @@
                 <h2>{{ $title }}</h2>
                 <form action="{{ route('profesionales.buscador') }}" method="GET" class="form-inline">
                     <div class="form-group">
-                        <input type="text" name="buscadorPro" id="buscadorPro" class="form-control" placeholder="Buscar Profecional" autocomplete="off">
+                        <input type="text" name="buscadorPro" id="buscadorPro" class="form-control" placeholder="Buscar Profesional" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default">

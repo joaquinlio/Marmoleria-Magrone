@@ -15,7 +15,7 @@
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
-            <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2>
+            <th class="text-center" scope="col" colspan="13"><h2>{{ $title }}</h2>
                     <form action="{{ route('solicitudes.buscador') }}" method="GET" class="form-inline">
                     <div class="form-group">
                         <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
@@ -39,7 +39,9 @@
             <th scope="col">Productos</th>
             <th scope="col">Estado</th>
             <th scope="col">Sub Estado</th>
-            <th scope="col">imagen</th>
+            <th scope="col">Canal De Venta</th>
+            <th scope="col">Obra</th>
+            <th scope="col">Imagen</th>
             <th scope="col">Tipo</th>
             <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Nuevo solicitud</a></th>
         </tr>
@@ -53,6 +55,8 @@
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td>{{ $solicitud->estado }}</td>
         <td class='productos'>{{ $solicitud->subEstado }}</td>
+        <td>{{ $solicitud->canaldeventa }}</td>
+        <td>{{ $solicitud->obra }}</td>
         <td><img src="{{$solicitud->imagen}}" alt="" class="img-thumbnail" style="width: 70px"></td>
         <td>{{ $solicitud->tipo }}</td>
         <td>

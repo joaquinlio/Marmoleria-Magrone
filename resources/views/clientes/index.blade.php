@@ -2,7 +2,7 @@
 @section('title','Clientes')
 @section('content')
 <table class="table table-sm text-center">
-    <thead class="thead-light">
+    <thead class="thead-light"> 
         <tr>
             <th class="text-center" scope="col" colspan="14">
                 <h2>{{ $title }}</h2>
@@ -19,47 +19,55 @@
                 </form>
             </th>
         </tr> 
+        
     </thead>
-    <tbody>
-        <tr>
-            <th scope="col">N°</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Entrecalles</th>
-            <th scope="col">Observaciones</th>
-            <th scope="col">Localidad</th>
-            <th scope="col">Partido</th>
-            <th scope="col">Provincia</th>
-            <th scope="col">Telefono1</th>
-            <th scope="col">Telefono2</th>
-            <th scope="col">Factura</th>
-            <th scope="col">Cuit</th>
-            <th scope="col">Razonsocial</th>
-            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoCliente">Nuevo Cliente</button></th>
-        </tr>
-    @foreach($clientes as $cliente)
-    <tr>
-        <th scope="row">{{ $cliente->id }}</th>
-        <td>{{ $cliente->nombre }}</td>
-        <td>{{ $cliente->direccion }}</td>
-        <td>{{ $cliente->entrecalles }}</td>
-        <td>{{ $cliente->observaciones }}</td>
-        <td>{{ $cliente->localidad }}</td>
-        <td>{{ $cliente->partido }}</td>
-        <td>{{ $cliente->provincia }}</td>
-        <td>{{ $cliente->telefono1 }}</td>
-        <td>{{ $cliente->telefono2 }}</td>
-        <td>{{ $cliente->factura }}</td>
-        <td>{{ $cliente->cuit }}</td>
-        <td>{{ $cliente->razonsocial }}</td>
-        <td>
-            <a  data-id="{{$cliente->id}}"  data-nombre="{{$cliente->nombre}}"  data-direccion="{{$cliente->direccion}}"  data-entrecalles="{{$cliente->entrecalles}}"  data-observaciones="{{$cliente->observaciones}}"  data-localidad="{{$cliente->localidad}}"  data-partido="{{$cliente->partido}}"  data-provincia="{{$cliente->provincia}}"  data-telefono1="{{$cliente->telefono1}}"  data-telefono2="{{$cliente->telefono2}}"  data-factura="{{$cliente->factura}}"  data-cuit="{{$cliente->cuit}}"  data-razonsocial="{{$cliente->razonsocial}}" data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
-            <button type="button" class="btn btn-link" data-id="{{$cliente->id}}" data-nombre="{{$cliente->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></button>
-        </td>
-    </tr>
-    @endforeach
-    </tbody>
 </table>
+<div class="table-responsive">
+    <table class="table table-sm text-center">
+        <thead class="thead-light">
+            
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Entrecalles</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col">Localidad</th>
+                <th scope="col">Partido</th>
+                <th scope="col">Provincia</th>
+                <th scope="col">Telefono1</th>
+                <th scope="col">Telefono2</th>
+                <th scope="col">Factura</th>
+                <th scope="col">Cuit</th>
+                <th scope="col">Razonsocial</th>
+                <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoCliente">Nuevo Cliente</button></th>
+            </tr>
+        @foreach($clientes as $cliente)
+        <tr>
+            <th scope="row">{{ $cliente->id }}</th>
+            <td>{{ $cliente->nombre }}</td>
+            <td>{{ $cliente->direccion }}</td>
+            <td>{{ $cliente->entrecalles }}</td>
+            <td>{{ $cliente->observaciones }}</td>
+            <td>{{ $cliente->localidad }}</td>
+            <td>{{ $cliente->partido }}</td>
+            <td>{{ $cliente->provincia }}</td>
+            <td>{{ $cliente->telefono1 }}</td>
+            <td>{{ $cliente->telefono2 }}</td>
+            <td>{{ $cliente->factura }}</td>
+            <td>{{ $cliente->cuit }}</td>
+            <td>{{ $cliente->razonsocial }}</td>
+            <td>
+                <a  data-id="{{$cliente->id}}"  data-nombre="{{$cliente->nombre}}"  data-direccion="{{$cliente->direccion}}"  data-entrecalles="{{$cliente->entrecalles}}"  data-observaciones="{{$cliente->observaciones}}"  data-localidad="{{$cliente->localidad}}"  data-partido="{{$cliente->partido}}"  data-provincia="{{$cliente->provincia}}"  data-telefono1="{{$cliente->telefono1}}"  data-telefono2="{{$cliente->telefono2}}"  data-factura="{{$cliente->factura}}"  data-cuit="{{$cliente->cuit}}"  data-razonsocial="{{$cliente->razonsocial}}" data-toggle="modal" data-target="#edit" class="btn btn-link"><i class="far fa-edit"></i></a>
+                <button type="button" class="btn btn-link" data-id="{{$cliente->id}}" data-nombre="{{$cliente->nombre}}" data-toggle="modal" data-target="#borrar"><i class="far fa-trash-alt"></i></button>
+            </td>
+        </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
 <div class="modal fade" id="nuevoCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">

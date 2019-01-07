@@ -36,7 +36,7 @@
             position: absolute;
         }
         .table {
-            top: 380px;
+            top: 400px;
             position: absolute;
         }
         .aplicacion {
@@ -147,13 +147,26 @@
             position: absolute;
         } 
         .col-obra {
-            top: 300px;
-            left: 640px; 
+            top: 350px;
             position: absolute;
         } 
         #obra {
+            top: 350px;
+            left: 100px;
+            position: absolute;
+        } 
+        .col-observacion {
             top: 300px;
-            left: 700px;
+            left: 520px; 
+            position: absolute;
+        } 
+        #observacion {
+            top: 300px;
+            left: 650px;
+            position: absolute;
+        } 
+        #imagen {
+            top: 2000px;
             position: absolute;
         } 
         </style>
@@ -221,8 +234,14 @@
         <strong>Obra:</strong> 
     </div>
     <div id="obra">
-        <input type="text" class="form-control" value="obra">
-    </div> 
+        <input type="text" class="form-control" value="{{ $solicitud->obra }}">
+    </div>
+    <div class="col-observacion">
+        <strong>Observacion:</strong> 
+    </div>
+    <div id="observacion">
+        <textarea class="form-control" rows="3"  style=" width: 450px;">{{ $solicitud->observacion }}</textarea>
+    </div>  
     <table class="table table-sm table-bordered ">
             <thead>
             <tr class="text-center">
@@ -285,6 +304,16 @@
         <h6 id="confirmacion">Conformidad Del Cliente:</h6>
         <h6 id="firma">FIRMA:</h6>
         <h6 id="aclaracion">ACLARACION:</h6>
-        </div>      
+        </div>
+        @if ($solicitud->imagen)
+        <img id="imagen" src="{{ $solicitud->imagen }}" alt="" style="width:100%;"> 
+        @endif   
   </body>
 </html>
+<script>
+        $(document).ready(function(){
+            window.addEventListener("afterprint", function(){
+                this.close();
+            }, false);
+        });
+    </script>

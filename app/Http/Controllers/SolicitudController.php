@@ -71,6 +71,11 @@ class SolicitudController extends Controller
         $pdf = SnappyPdf::loadView('solicitudes.impPed',compact('solicitud'));
         return $pdf->inline();
     }
+    public function imgPed($id)
+    {      
+        $solicitud = Solicitud::find($id); 
+        return view('solicitudes.impImg',compact('solicitud'));
+    }
     public function create()
     {
         $vendedores=Vendedor::all();
@@ -108,9 +113,11 @@ class SolicitudController extends Controller
             'saldo' => '',
             'despacho' => '',
             'canaldeventa' => '',
+            'obra' => '',
             'estado' => 'required',
             'subEstado' => '',
             'detalles' => '',
+            'observacion' => '',
             'reclamoDet' => '',
             'imagen' => ''
             
@@ -140,9 +147,11 @@ class SolicitudController extends Controller
             'saldo' => $data['saldo'],
             'despacho' => $data['despacho'],
             'canaldeventa' => $data['canaldeventa'],
+            'obra' => $data['obra'],
             'estado' => $data['estado'],
             'subEstado' => $subEstado,
             'detalles' => $data['detalles'],
+            'observacion' => $data['observacion'],
             'reclamoDet' => $data['reclamoDet'],
             'tipo' => "Pedido" 
         ]);
@@ -166,6 +175,8 @@ class SolicitudController extends Controller
           $vendedor = $obj['vendedor'];
           $productos = $obj['productos'];
           $canalventa = $obj['canalventa'];
+          $observacion = $obj['observacion'];
+          $obra= $obj['obra'];
         }
         $solicitud = Solicitud::findOrFail($sol_id);
 
@@ -174,9 +185,11 @@ class SolicitudController extends Controller
             'profesional' => $profesional,
             'vendedor' => "$vendedor",
             'productos' => "$productos",
-            'canaldeventa' => "$canalventa"
+            'canaldeventa' => "$canalventa",
+            'observacion' => "$observacion",
+            'obra' => "$obra"
             ]);
-        return response()->json($array);
+        return response()->json($solicitud->sol_id);
         //return redirect()->route('solicitudes.index');
     }
     public function destroy(Request $request)
@@ -189,7 +202,7 @@ class SolicitudController extends Controller
      public static function insertarPresupuesto(Request $request)
     {
         $array = json_decode($request->getContent(),true);
-        //$json = '[{"productos":"Granito-Blanco-20mm,1500,3,4500,,opcion1,/Ajuste y Colocacion,12000,1,12000,,Todos","cliente":"Carlos Lio","profesional":"1","vendedor":"1","canalventa":"adrogue"}]';
+        //$json = '[{"productos":"Granito-Blanco-20mm,1500,3,4500,,opcion1,/Ajuste y Colocacion,12000,1,12000,,Todos","cliente":"1","nomCli":"Carlos Lio","profesional":"1","nomPro":"alberto","vendedor":"1","canalventa":"adrogue"}]';
         //$array = json_decode($json,true);
         foreach($array as $obj){
           $cliente = $obj['cliente'];
@@ -199,6 +212,8 @@ class SolicitudController extends Controller
           $vendedor = $obj['vendedor'];
           $productos = $obj['productos'];
           $canalventa = $obj['canalventa'];
+          $observacion = $obj['observacion'];
+          $obra= $obj['obra'];
         }
         $now = new \DateTime();
         $solicitud = Solicitud::create([
@@ -210,8 +225,10 @@ class SolicitudController extends Controller
             'vendedor' => "$vendedor",
             'productos' => "$productos",
             'canaldeventa' => "$canalventa",
+            'observacion' => "$observacion",
             'estado' => "a confirmar",
-            'tipo' => "Presupuesto"    
+            'tipo' => "Presupuesto",
+            'obra' => "$obra"    
             ]);
         $datos = array(
             'sol_id' => $solicitud->sol_id
@@ -238,9 +255,11 @@ class SolicitudController extends Controller
             'saldo' => '',
             'despacho' => '',
             'canaldeventa' => '',
+            'obra' => '',
+            'observacion' => '',
             'estado' => 'required',
             'subEstado' => 'required',
-            'detalles' => 'required',
+            'detalles' => '',
             'imagen' => ''
             
         ],[
@@ -270,6 +289,8 @@ class SolicitudController extends Controller
             'saldo' => $data['saldo'],
             'despacho' => $data['despacho'],
             'canaldeventa' => $data['canaldeventa'],
+            'obra' => $data['obra'],
+            'observacion' => $data['observacion'],
             'estado' => $data['estado'],
             'subEstado' => $subEstado,
             'detalles' => $data['detalles'],
@@ -280,20 +301,21 @@ class SolicitudController extends Controller
             $post->fill(['imagen' => asset($path)])->save();
         }
         $solicitud = Solicitud::find($post->sol_id);
-        return view('solicitudes.show',compact('solicitud'));
-        //dd($request->request);
+        $pdf = SnappyPdf::loadView('solicitudes.impPed',compact('solicitud'));
+        return $pdf->inline();
     }
     public function buscador(Request $request)
     {
-        $solicitudes = Solicitud::orderBy('sol_id', 'DESC')
+        $solicitudes = Solicitud::orderBy('sol_id')
         ->id($request->buscadorSol)
-        ->productos($request->buscadorSol)
+        //->productos($request->buscadorSol)
         ->cliente($request->buscadorSol)
         ->profesional($request->buscadorSol)
         ->vendedor($request->buscadorSol)
         ->estado($request->buscadorSol)
         ->finalizado($request->buscadorSol)
         ->despacho($request->buscadorSol)
+        ->obra($request->buscadorSol)
         ->get();
         $title = 'Listado de Solicitudes';
         //dd($solicitudes);

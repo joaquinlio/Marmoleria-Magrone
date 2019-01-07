@@ -38,7 +38,7 @@
               <ul class="list-group">
                 <li class="list-group-item"><a href="{{ route('productos.index')}}">Productos</a></li>
                 <li class="list-group-item"><a href="{{ route('clientes.index')}}">Clientes</a></li>
-                <li class="list-group-item"><a href="{{ route('profesionales.index')}}">Profecionales</a></li>
+                <li class="list-group-item"><a href="{{ route('profesionales.index')}}">Profesionales</a></li>
                 <li class="list-group-item"><a href="{{ route('vendedores.index')}}">Vendedores</a></li>
                 <li class="list-group-item"><a href="{{ route('canalesdeventa.index')}}">Canal de Venta</a></li>
               </ul> 

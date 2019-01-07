@@ -25,11 +25,13 @@
             <th scope="col">NroPto</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cliente</th>
-            <th scope="col">profesional</th>
+            <th scope="col">Profesional</th>
             <th scope="col">Productos</th>
             <th scope="col">Estado</th>
             <th scope="col">SubEstado</th>
-            <th scope="col">imagen</th>
+            <th scope="col">Canal De Venta</th>
+            <th scope="col">Obra</th>
+            <th scope="col">Imagen</th>
             <th scope="col">Finalizado</th>
             <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Nuevo Pedido</a></th>
         </tr>
@@ -42,6 +44,8 @@
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td  class="align-middle">{{ $solicitud->estado }}</td>
         <td  class="align-middle" class='productos'>{{ $solicitud->subEstado }}</td>
+        <td>{{ $solicitud->canaldeventa }}</td>
+        <td>{{ $solicitud->obra }}</td>
         <td  class="align-middle"><img src="{{$solicitud->imagen}}" alt="" class="img-thumbnail" style="width: 70px"></td>
         <td  class="align-middle">{{ $solicitud->finalizado }}</td>
         <td  class="align-middle">

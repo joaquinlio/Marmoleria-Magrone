@@ -15,7 +15,7 @@
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
-            <th class="text-center" scope="col" colspan="7"><h2>{{ $title }}</h2></th>
+            <th class="text-center" scope="col" colspan="9"><h2>{{ $title }}</h2></th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +26,8 @@
             <th scope="col">Profesional</th>
             <th scope="col">Productos</th>
             <th scope="col">Estado</th>
+            <th scope="col">Canal De Venta</th>
+            <th scope="col">Obra</th>
             <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Nuevo Presupuesto</a></th>
         </tr>        
     @foreach($solicitudes  as $solicitud)
@@ -36,6 +38,8 @@
         <td>{{ $solicitud->nomPro }}</td>
         <td class='productos'>{{ $solicitud->productos }}</td>
         <td>{{ $solicitud->estado }}</td>
+        <td>{{ $solicitud->canaldeventa }}</td>
+        <td>{{ $solicitud->obra }}</td>
         <td>
             <a href="{{ route('solicitudes.show', $solicitud) }}"><i class="far fa-eye"></i></a>
             <a  href="{{ route('solicitudes.edit', $solicitud) }}"><i class="far fa-edit"></i></a>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Solicitud extends Model
 {
     protected $table = 'solicitudes';
-    protected $fillable = ['fecha', 'cliente','nomCli', 'profesional','nomPro','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','estado','subEstado','detalles','reclamoDet','imagen','tipo'];
+    protected $fillable = ['fecha', 'cliente','nomCli', 'profesional','nomPro','vendedor','productos','totalPed','descuento','senia','saldo','despacho','canaldeventa','obra','observacion','estado','subEstado','detalles','reclamoDet','imagen','tipo'];
     protected $primaryKey = 'sol_id';
     public $timestamps = false;
 
@@ -63,5 +63,10 @@ class Solicitud extends Model
     {
         if($estado)
             return $query->orWhere('despacho', 'LIKE', "%$estado%");
+    }
+    public function scopeObra($query, $estado)
+    {
+        if($estado)
+            return $query->orWhere('obra', 'LIKE', "%$estado%");
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="table-responsive">
-    <table class="table table-borderless text-center">
+    <table class="table table-hover table-bordered text-center">
         <thead>
             <tr>
               <th class="text-center" scope="col" colspan="4"><h2>Control Diario</h2></th>
@@ -29,15 +29,15 @@
             <td><a href="{{ route('pedEstado.index','entregado') }}">Entregados</a></td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
+            <td style="visibility:hidden;"></td>
+            <td style="visibility:hidden;"></td>
             <td><a href="{{ route('pedEstado.index','reclamo') }}">Reclamos</a></td>
             <td><a href="{{ route('pedEstado.index','retirar') }}">A Retirar</a></td>
           </tr>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
+              <td style="visibility:hidden;"></td>
+              <td style="visibility:hidden;"></td>
+              <td style="visibility:hidden;"></td>
             <td><a href="{{ route('pedEstado.index','retirado') }}">Retirado</a></td>
           </tr>
         </tbody>

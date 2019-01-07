@@ -1,7 +1,7 @@
 <?
 Route::get('/', function () {
     return view('index');
-});
+})->middleware('auth');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout')->middleware('auth');
 
 Route::get('/usuarios', 'UserController@index')->name('users.index')->middleware('auth');
@@ -54,9 +54,11 @@ Route::get('/solicitudes/pto/{estado}', 'SolicitudController@indexPtoEstado')->n
 
 Route::get('/solicitudes/ped/{estado}', 'SolicitudController@indexPedEstado')->name('pedEstado.index')->middleware('auth');
     
-Route::get('solicitudes/pto/pdf/{id}', 'SolicitudController@pdfPto')->name('solicitudes.pdf')->middleware('auth');
+Route::get('solicitudes/pto/pdf/{id}', 'SolicitudController@pdfPto')->name('solicitudes.pto')->middleware('auth');
 
-Route::get('solicitudes/ped/pdf/{id}', 'SolicitudController@pdfPed')->name('solicitudes.pdf')->middleware('auth');
+Route::get('solicitudes/ped/pdf/{id}', 'SolicitudController@pdfPed')->name('solicitudes.ped')->middleware('auth');
+
+Route::get('solicitudes/ped/img/{id}', 'SolicitudController@imgPed')->name('solicitudes.pedImg')->middleware('auth');
 
 Route::get('/solicitudes/nuevo','SolicitudController@create')->name('solicitudes.create')->middleware('auth');
 

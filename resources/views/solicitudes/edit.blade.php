@@ -105,7 +105,7 @@ $numeros = count($productos);
                         @if ($solicitud->profesional != null)
                         <ul class="list-group lead">
                             <input type="hidden" id="idPro" value="{{ $solicitud->profesional }}">
-                            <input type="hidden" id="nomProfecional" value="{{ $solicitud->nomPro }}">
+                            <input type="hidden" id="nomProfesional" value="{{ $solicitud->nomPro }}">
                             <li class="list-group-item"><h6 class="my-0">Nombre</h6>{{ $solicitud->Profesional->nombre }}</li>
                             <li class="list-group-item"><h6 class="my-0">Telefono</h6>{{ $solicitud->Profesional->telefono }}</li>
                             <li class="list-group-item"><h6 class="my-0">Email</h6>{{ $solicitud->Profesional->email }}</li>
@@ -117,46 +117,42 @@ $numeros = count($productos);
     </div>
    <div class="col-md-4 order-md-2 mb-4">  
         <div class="mb-3">
-            <label for="tipo">Tipo:</label>
-                <select name="tipo" id="tipo" class="custom-select mb-3">
-                    @if ($solicitud->tipo == "Pedido")
-                    <option id="tipoPed" value="pedido" selected>Pedido</option>
-                    <option value="presupuesto">Presupuesto</option>
-                    @else
-                    <option id="tipoPed" value="pedido">Pedido</option>
-                    <option value="presupuesto" selected>Presupuesto</option>
-                    @endif 
-                </select>
             <label for="vendedor">Vendedor:</label>
-            <select name="vendedorSol" id="vendedorSol" class="custom-select mb-3">
-                @foreach($vendedores as $vendedor)
-                    @if ($vendedor->nombre == $solicitud->vendedor )
-                        <option value="{{ $vendedor->nombre }}" selected>{{ $vendedor->nombre }}</option>
-                    @else
-                    <option value="{{ $vendedor->nombre }}">{{ $vendedor->nombre }}</option> 
-                    @endif              
-                @endforeach
-            </select>
+                <select name="vendedorSol" id="vendedorSol" class="custom-select mb-3">
+                    @foreach($vendedores as $vendedor)
+                        @if ($vendedor->nombre == $solicitud->vendedor )
+                            <option value="{{ $vendedor->nombre }}" selected>{{ $vendedor->nombre }}</option>
+                        @else
+                        <option value="{{ $vendedor->nombre }}">{{ $vendedor->nombre }}</option> 
+                        @endif              
+                    @endforeach
+                </select>
             <label for="canalVenta">Canal De Venta:</label>
-            <select name="canalventa" id="canalventa" class="custom-select">
-                    @foreach($canalesdeventa as $canaldeventa)
-                    @if ($canaldeventa->nombre == $solicitud->canaldeventa )
-                    <option value="{{ $canaldeventa->nombre }}" selected>{{ $canaldeventa->nombre }}</option>
-                    @else
-                    <option value="{{ $canaldeventa->nombre }}">{{ $canaldeventa->nombre }}</option> 
-                    @endif                 
-                    @endforeach                  
-            </select>
+                <select name="canalventa" id="canalventa" class="custom-select">
+                        @foreach($canalesdeventa as $canaldeventa)
+                        @if ($canaldeventa->nombre == $solicitud->canaldeventa )
+                        <option value="{{ $canaldeventa->nombre }}" selected>{{ $canaldeventa->nombre }}</option>
+                        @else
+                        <option value="{{ $canaldeventa->nombre }}">{{ $canaldeventa->nombre }}</option> 
+                        @endif                 
+                        @endforeach                  
+                </select> 
+            <label for="obras">Obra:</label>
+                <input type="text" name="obras" id="obras" class="form-control" value="{{ $solicitud->obra }}">
+            <label for="observacion">Observacion:</label>
+                <textarea  name="observa" id="observa" class="form-control" rows="3">{{ $solicitud->observacion }}</textarea>
             <label for="">Imagen :</label><br>
-            <img src="{{$solicitud->imagen}}" alt="" class="img-thumbnail" style="width: 400px"><br>
+                <img src="{{$solicitud->imagen}}" alt="" class="img-thumbnail" style="width: 400px"><br>
         </div>
         <div class="btn-group-vertical btn-group-lg container">
             @if ($solicitud->tipo == "Pedido")
             <button type="button" class="btn btn-outline-info" id="editarPed">Editar Solicitud</button>
-            <button type="button" id="imprimirPed" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button>
+            <button type="button" id="imprimirPed" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button> 
             @else
             <button type="button" id="agregarPto" class="btn btn-outline-info">Editar Solicitud</button>
-            <button type="button" id="imprimirPto" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button>    
+            <button type="button" id="imprimirPto" class="btn btn-outline-info">Guardar/Imprimir PDF</button>
+            <button type="button" class="btn btn-outline-info" id="editarPed">Cambiar a Pedido</button>
+            <button type="button" class="btn btn-outline-info" id="archivar">Archivar</button>     
             @endif  
         </div>          
     </div>
@@ -187,7 +183,7 @@ $numeros = count($productos);
                         <label>Opcion:</label>
                             <select name="opcion" id="opcion" class="custom-select">
                                 <option value="Todos">Todos</option>
-                                <option value="opcion1">Opcion 1</option>
+                                <option value="opcion1" selected>Opcion 1</option>
                                 <option value="opcion2">Opcion 2</option>
                                 <option value="opcion3">Opcion 3</option>
                                 <option value="opcion4">Opcion 4</option>
@@ -220,6 +216,8 @@ $numeros = count($productos);
                         <input type="hidden" name="profesional" id="profesional">
                         <input type="hidden" name="nomPro" id="nomPro">
                         <input type="hidden" name="canaldeventa" id="canaldeventa">
+                        <input type="hidden" name="obra" id="obra">
+                        <input type="hidden" name="observacion" id="observacion">
                         <input type="hidden" name="productos" id="productos">
                         <div class="form-group col-6">
                         <label for="totalPed">Total Del Pedido</label>
@@ -310,14 +308,22 @@ $numeros = count($productos);
                                     </div>
                                 </div>
                                 <div class="collapse" id="finalizadoEst">
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="avisar" name="subEstado[]" value="avisar">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" name="subEstado[]" id="avisar" class="custom-control-input" value="avisar">
                                         <label class="custom-control-label" for="avisar">Avisar</label>
                                     </div>
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" id="avisado" name="subEstado[]" value="avisado">
+                                    <!--<div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="Avisar" name="subEstado[]" value="avisar">
+                                        <label class="custom-control-label" for="Avisar">Avisar</label>
+                                    </div>-->
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" name="subEstado[]" id="avisado" class="custom-control-input" value="avisado">
                                         <label class="custom-control-label" for="avisado">Avisado</label>
                                     </div>
+                                    <!--<div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" id="avisado" name="subEstado[]" value="avisado">
+                                        <label class="custom-control-label" for="avisado">Avisado</label>
+                                    </div>-->
                                 </div>
                                 <div class="collapse" id="reclamoEst">
                                     <textarea  name="reclamoDet" id="reclamoDet" class="form-control" rows="3" placeholder="Detallar Reclamo"></textarea>
@@ -448,66 +454,6 @@ Number.prototype.format = function(n, x) {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&.');
 };
-function editarPed() {
-    var todos = 0 ;
-        var opcion = 0;
-        $(".Todos").parent("tr").find(".total").each(function() {
-            todos += parseFloat($(this).html());
-        });
-        $(".opcion1").parent("tr").find(".total").each(function() {
-            opcion += parseFloat($(this).html());
-        }); 
-        $(".opcion2").parent("tr").find(".total").each(function() {
-            opcion += parseFloat($(this).html());
-        }); 
-        $(".opcion3").parent("tr").find(".total").each(function() {
-            opcion += parseFloat($(this).html());
-        });
-        var productos = "";
-        var elementosTD = document.getElementsByTagName("td");
-        for(i=0;i<elementosTD.length;i++){
-            productos += elementosTD[i].textContent;
-            productos += ",";
-            if (elementosTD[i].textContent == "Todos"  || elementosTD[i].textContent == "opcion1" || elementosTD[i].textContent == "opcion2" || elementosTD[i].textContent == "opcion3") {
-            productos+= "/";
-            }
-        }
-        productos = productos.slice(0,-2);
-        $("#sol_id").val({{ $solicitud->sol_id }});
-        $("#cliente").val($("#idCli").val());
-        $("#nomCli").val($("#nomCliente").val());
-        $("#nomPro").val($("#nomProfecional").val());
-        $("#productos").val(productos);
-        $("#profesional").val($("#idPro").val());
-        $("#vendedor").val($("#vendedorSol").val());
-        $("#canaldeventa").val($("#canalventa").val());
-        $("#descuento").val({{ $solicitud->descuento }});
-        $("#senia").val({{ $solicitud->senia }});
-        $("#despacho").val('{{ $solicitud->despacho }}');
-        $("#detalles").val('{{ $solicitud->detalles }}');
-        $("#{{ $solicitud->estado }}").prop("checked", true);
-        @php
-        $subEstados = str_replace(' ', '', $solicitud->subEstado);
-        $subEstados = explode(",", $subEstados);
-        $numeros = count($subEstados);
-        for ($i=0; $i <$numeros ; $i++) { 
-         echo '$("#'.$subEstados[$i].'").prop("checked", true);';
-        }   
-        @endphp
-        $("#totalPed").val(todos + opcion);
-        var total = todos + opcion;
-        var descuento = total / 100 * $("#descuento").val();
-        var seña =  $("#senia").val();
-        var saldo = total - descuento ;
-        saldo = saldo - seña; 
-        $("#saldo").val(saldo);
-        $("#nuevoPed").modal('show');
-}
-$(document).ready(function(){
-    $("#editarPed").on("click", function(){
-        editarPed();
-    });
-});
     var path = "{{ route('productos.autocomplete') }}";
     $('#buscador').typeahead({
         source:  function (query, process) {
@@ -539,7 +485,7 @@ $(document).ready(function(){
         $('#cantidad').val('');
         $('#total').val('');
         $('#aplicacion').val('');
-        $('#opcion').val('Todos');
+        $('#opcion').val('opcion1');
         $('#buscador').val('');
     });
     var path2 = "{{ route('clientes.autocomplete') }}";
@@ -581,7 +527,7 @@ $(document).ready(function(){
                     success: function(data) {
                         var obj = JSON.parse(data);
                         //console.log(obj);
-                        $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomProfecional" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
+                        $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomProfesional" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
                     }
                 })   
             }
@@ -606,7 +552,7 @@ $('#btnAgregar').click(function() {
     var i = 0;
   var fila = '<tr class="producto" id="row'+i+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + i + '" class="far fa-times-circle btn_remove"></i></td></tr>';
   $('#cargar').modal('toggle');
-  $('#presupuestos tr:first').after(fila);
+  $('#presupuestos tr:last').after(fila);
   i++;
   });     
     $(document).on('click', '.btn_remove', function() {
@@ -668,9 +614,8 @@ $('#btnAgregar').click(function() {
                 $("#opcion4").html("Opcion 4:$");
             }            
   });
-    $('#agregarPto').click(function() {
-        if ($("#tipo option:selected").text() == "Pedido") {
-            var todos = 0 ;
+    $('#editarPed').click(function() {
+        var todos = 0 ;
         var opcion = 0;
         $(".Todos").parent("tr").find(".total").each(function() {
             todos += parseFloat($(this).html());
@@ -696,14 +641,41 @@ $('#btnAgregar').click(function() {
         productos = productos.slice(0,-2);
         $("#sol_id").val({{ $solicitud->sol_id }});
         $("#cliente").val($("#idCli").val());
+        $("#nomCli").val($("#nomCliente").val());
+        $("#nomPro").val($("#nomProfesional").val());
         $("#productos").val(productos);
         $("#profesional").val($("#idPro").val());
         $("#vendedor").val($("#vendedorSol").val());
         $("#canaldeventa").val($("#canalventa").val());
-        $("#totalPed").val({{ $solicitud->totalPed }});
+        $("#obra").val($("#obras").val());
+        $("#observacion").val($("#observa").val());
+        $("#descuento").val({{ $solicitud->descuento }});
+        $("#senia").val({{ $solicitud->senia }});
+        $("#despacho").val('{{ $solicitud->despacho }}');
+        $("#detalles").val('{{ $solicitud->detalles }}');
+        $("#{{ $solicitud->estado }}").prop("checked", true);
+        @php
+        if ($solicitud->subEstado != null) {
+            $subEstados = str_replace(' ', '', $solicitud->subEstado);
+            $subEstados = explode(",", $subEstados);
+            $numeros = count($subEstados);
+            for ($i=0; $i <$numeros ; $i++) { 
+            echo '$("#'.$subEstados[$i].'").prop("checked", true);';
+            }       
+        }
+        @endphp
+        $("#totalPed").val(todos + opcion);
+        var total = todos + opcion;
+        var descuento = total / 100 * $("#descuento").val();
+        var seña =  $("#senia").val();
+        var saldo = total - descuento ;
+        saldo = saldo - seña; 
+        $("#saldo").val(saldo);
         $("#nuevoPed").modal('show');
-        }else {
-            var td = [];
+    });
+
+    $('#agregarPto').click(function() {
+        var td = [];
         var productos = "";
         var elementosTD = document.getElementsByTagName("td");
         for(i=0;i<elementosTD.length;i++){
@@ -721,7 +693,10 @@ $('#btnAgregar').click(function() {
         (!$("#idPro").val()) ? profesional = null : profesional = $("#idPro").val() ;
         var vendedor = $("#vendedorSol").val();
         var canalventa = $("#canalventa").val();
-        td.push({sol_id,productos,cliente,profesional,vendedor,canalventa});
+        var observacion =$("#observa").val();
+        var obra = $("#obras").val();
+        //console.log(obra);
+        td.push({sol_id,productos,cliente,profesional,vendedor,canalventa,obra,observacion});
         var datos = JSON.stringify(td);
         //console.log(datos);
        $.ajax({
@@ -729,17 +704,15 @@ $('#btnAgregar').click(function() {
             url: '{{ route('solicitudes.updatePresupuesto') }}',
             data: datos,
             success: function(data) {
-                location.href='{{ route('solicitudes.index') }}';     
+                location.href="http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data;        
             }
-        })
-        }
-        
+        })       
     });
     $('#imprimirPto').click(function() {
-        window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");     
+        location.href ="http://localhost/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}";     
     });
     $('#imprimirPed').click(function() {
-        window.open("http://localhost/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");     
+        window.open("http://localhost/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");
     });
     $("#senia,#descuento").on("change", function(){
         var total = $("#totalPed").val();  
@@ -753,18 +726,12 @@ $('#btnAgregar').click(function() {
         $("#produccionEst").collapse('hide');
         $("#finalizadoEst").collapse('hide');
         $("#reclamoEst").collapse('hide');
-        $("#AsignacionDeMateriaPrima").prop("checked", false);
-        $("#Medidas").prop("checked", false);
-        $("#Planos").prop("checked", false);
-        $("#DemoraEnObra").prop("checked", false);
-        $("#MaterialesPorParteDelCliente").prop("checked", false);
-        $("#Seña").prop("checked", false);
         $("#MesaDeCorte").prop("checked", false);
         $("#MesaDeCorte").prop("checked", false);
         $("#PulidosyPegados").prop("checked", false);
         $("#Otros").prop("checked", false);
-        $("#Avisar").prop("checked", false);
-        $("#Avisado").prop("checked", false); 
+        $("#avisar").prop("checked", false);
+        $("#avisado").prop("checked", false); 
           
     });
     $("#produccion").on("click", function(){
@@ -777,12 +744,8 @@ $('#btnAgregar').click(function() {
         $("#DemoraEnObra").prop("checked", false);
         $("#MaterialesPorParteDelCliente").prop("checked", false);
         $("#Seña").prop("checked", false);
-        $("#MesaDeCorte").prop("checked", false);
-        $("#MesaDeCorte").prop("checked", false);
-        $("#PulidosyPegados").prop("checked", false);
-        $("#Otros").prop("checked", false);
-        $("#Avisar").prop("checked", false);
-        $("#Avisado").prop("checked", false);
+        $("#avisar").prop("checked", false);
+        $("#avisado").prop("checked", false);
     });
     $("#finalizado").on("click", function(){
         $("#esperaEst").collapse('hide');
@@ -798,13 +761,12 @@ $('#btnAgregar').click(function() {
         $("#MesaDeCorte").prop("checked", false);
         $("#PulidosyPegados").prop("checked", false);
         $("#Otros").prop("checked", false);
-        $("#Avisar").prop("checked", false);
-        $("#Avisado").prop("checked", false);
     });
     $("#reclamo").on("click", function(){
         $("#esperaEst").collapse('hide');
         $("#produccionEst").collapse('hide');
         $("#reclamoEst").collapse('hide'); 
+        $("#finalizadoEst").collapse('hide'); 
         $("#AsignacionDeMateriaPrima").prop("checked", false);
         $("#Medidas").prop("checked", false);
         $("#Planos").prop("checked", false);
@@ -815,8 +777,8 @@ $('#btnAgregar').click(function() {
         $("#MesaDeCorte").prop("checked", false);
         $("#PulidosyPegados").prop("checked", false);
         $("#Otros").prop("checked", false);
-        $("#Avisar").prop("checked", false);
-        $("#Avisado").prop("checked", false);   
+        $("#avisar").prop("checked", false);
+        $("#avisado").prop("checked", false);   
     });
     $('.custom-file-input').on('change',function(){
         var fileName = $(this).val();

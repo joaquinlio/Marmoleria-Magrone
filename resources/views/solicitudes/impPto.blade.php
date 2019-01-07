@@ -144,13 +144,22 @@
             position: absolute;
         } 
         .col-obra {
-            top: 300px;
-            left: 640px; 
+            top: 350px;
             position: absolute;
         } 
         #obra {
+            top: 350px;
+            left: 100px;
+            position: absolute;
+        } 
+        .col-observacion {
             top: 300px;
-            left: 700px;
+            left: 520px; 
+            position: absolute;
+        } 
+        #observacion {
+            top: 300px;
+            left: 650px;
             position: absolute;
         } 
         </style>
@@ -218,7 +227,13 @@
         <strong>Obra:</strong> 
     </div>
     <div id="obra">
-        <input type="text" class="form-control" value="obra">
+            <input type="text" class="form-control" value="{{ $solicitud->obra }}">
+    </div> 
+    <div class="col-observacion">
+        <strong>Observacion:</strong> 
+    </div>
+    <div id="observacion">
+        <textarea class="form-control" rows="3"  style=" width: 450px;">{{ $solicitud->observacion }}</textarea>
     </div> 
     <table id="presupuestos" class="table table-sm table-bordered">
             <thead>
@@ -333,5 +348,5 @@ return this.formatear(num);
             if (opcion4 != 0) {
                 opcion4 = opcion4 + todos;
                 $("#opcion4").html("$"+fNumber.go(opcion4));
-            }           
+            }         
 </script>
