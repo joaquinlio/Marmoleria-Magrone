@@ -670,7 +670,7 @@ $('#btnAgregar').click(function() {
         var seña =  $("#senia").val();
         var saldo = total - descuento ;
         saldo = saldo - seña; 
-        $("#saldo").val(saldo);
+        $("#saldo").val(saldo.toFixed(2));
         $("#nuevoPed").modal('show');
     });
 

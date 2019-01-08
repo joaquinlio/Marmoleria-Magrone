@@ -632,6 +632,7 @@ $('#btnAgregar').click(function() {
         $("#nomCli").val($("#nomCliente").val());
         $("#nomPro").val($("#nomProfesional").val());
         $("#totalPed").val(todos + opcion);
+        $("#saldo").val(todos + opcion);
         $("#nuevoPed").modal('show');
     }
     $("#senia,#descuento").on("change", function(){
@@ -640,7 +641,7 @@ $('#btnAgregar').click(function() {
         var seña =  $("#senia").val();
         var saldo = total - descuento ;
         saldo = saldo - seña; 
-        $("#saldo").val(saldo);       
+        $("#saldo").val(saldo.toFixed(2));       
     });
     $("#espera").on("click", function(){
         $("#produccionEst").collapse('hide');

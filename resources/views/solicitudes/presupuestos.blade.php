@@ -11,13 +11,16 @@
     white-space: nowrap;
 }
 </style>
-@if ($solicitudes->isNotEmpty())
 <table class="table text-center">
     <thead class="thead-light">
         <tr>
             <th class="text-center" scope="col" colspan="9"><h2>{{ $title }}</h2></th>
         </tr>
     </thead>
+</table>
+@if ($solicitudes->isNotEmpty())
+<div class="table-responsive">
+<table class="table table-sm text-center">
     <tbody>
         <tr>
             <th scope="col">Nro Pto</th>
@@ -28,7 +31,7 @@
             <th scope="col">Estado</th>
             <th scope="col">Canal De Venta</th>
             <th scope="col">Obra</th>
-            <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Nuevo Presupuesto</a></th>
+            <th><a class="btn btn-outline-primary" href="{{ route('solicitudes.create') }}">Agregar</a></th>
         </tr>        
     @foreach($solicitudes  as $solicitud)
     <tr>
@@ -49,6 +52,7 @@
     @endforeach
     </tbody>
 </table>
+</div>
 @endif
 <div class="modal fade" id="nuevoPresupuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

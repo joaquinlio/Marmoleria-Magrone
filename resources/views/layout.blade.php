@@ -20,7 +20,7 @@
 
   <body>
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Magrone</a>
+          <a class="navbar-brand" href="{{ route('index')}}">Magrone</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -56,7 +56,7 @@
                   </li>                          
                 </ul>
                 <form class="form-inline my-2 my-lg-0" action="{{ route('solicitudes.buscador') }}" method="GET" class="form-inline">
-                    <div class="form-group">
+                    <div class="form-group mr-2">
                         <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
                     </div>
                     <div class="form-group">

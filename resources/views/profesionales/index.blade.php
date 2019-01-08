@@ -20,13 +20,16 @@
             </th>
         </tr> 
     </thead>
+</table>
+<div class="table-responsive">
+<table class="table table-sm text-center">
     <tbody>
         <tr>
             <th scope="col">N° Prof</th>
             <th scope="col">Nombre</th>
             <th scope="col">Telefono</th>
             <th scope="col">Email</th>
-            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoprofesional">Nuevo profesional</button></th>
+            <th><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoprofesional">Agregar</button></th>
         </tr>    
     @foreach($profesionales as $profesional)
     <tr>
@@ -42,6 +45,7 @@
     @endforeach
     </tbody>
 </table>
+</div>
 <div class="modal fade" id="nuevoprofesional" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">

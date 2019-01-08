@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title','Productos')
 @section('content')
-<table class="table text-center">
+<table class="table table-sm text-center">
     <thead class="thead-light">
         <tr>
             <th class="text-center" scope="col" colspan="4">
@@ -36,7 +36,7 @@
             <th scope="col">N° Producto</th>
             <th scope="col">Nombre</th>
             <th scope="col">Precio</th>
-            <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoProducto">Nuevo Producto</button></th>
+            <th scope="col"><button class="btn btn-primary" data-toggle="modal" data-target="#nuevoProducto">Agregar</button></th>
         </tr>
     @foreach($productos as $producto)
     <tr>

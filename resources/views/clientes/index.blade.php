@@ -24,9 +24,6 @@
 </table>
 <div class="table-responsive">
     <table class="table table-sm text-center">
-        <thead class="thead-light">
-            
-        </thead>
         <tbody>
             <tr>
                 <th scope="col">N°</th>

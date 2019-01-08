@@ -11,8 +11,7 @@
     white-space: nowrap;
 }
 </style>
-<div class="table-responsive">
-<table class="table text-center">
+<table class="table table-sm text-center">
     <thead class="thead-light">
         <tr>
             <th class="text-center" scope="col" colspan="13"><h2>{{ $title }}</h2>
@@ -29,6 +28,9 @@
             </th>
         </tr>
     </thead>
+</table>
+<div class="table-responsive">
+<table class="table text-center">
     <tbody>
         <tr>
             <th scope="col">Nro Sol</th>

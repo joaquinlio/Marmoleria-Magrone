@@ -11,15 +11,16 @@
         white-space: nowrap;
     }
     </style>
-@if ($solicitudes->isNotEmpty())
-<div class="table-responsive">
-<table class="table text-center table-hover">
+<table class="table text-center">
     <thead class="thead-light">
         <tr>
             <th class="text-center" scope="col" colspan="12"><h2>{{ $title }}</h2></th>
         </tr>
-    
     </thead>
+</table>
+@if ($solicitudes->isNotEmpty())
+<div class="table-responsive">
+<table class="table text-center table-hover">
     <tbody>
         <tr>
             <th scope="col">NroPto</th>
