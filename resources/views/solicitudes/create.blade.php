@@ -194,7 +194,7 @@
                             <label for="despacho">Despacho</label>
                                 <select name="despacho" id="despacho" class="custom-select">
                                     <option value="retirar">A Retirar</option>
-                                    <option value="entregar">A Entregar</option>
+                                    <option value="entregar" selected>A Entregar</option>
                                 </select>
                             <legend class="col-form-label">Estado</legend>
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -555,8 +555,9 @@ $('#btnAgregar').click(function() {
             url: '{{ route('solicitudes.insertarPresupuesto') }}',
             data: datos,
             success: function(data) {
-                //console.log(data);         
-                location.href="http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id;     
+                //console.log(data);  
+                window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id);      
+                location.href="{{ route('solicitudes.create') }}";     
             }
         })
     });

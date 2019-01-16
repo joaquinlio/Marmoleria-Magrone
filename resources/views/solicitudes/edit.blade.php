@@ -534,7 +534,7 @@ Number.prototype.format = function(n, x) {
         });
   
 $('#btnAgregar').click(function() {
-    var id = $('#id').val();  
+    var id = $('#id').val();
     var producto = $('#producto').val();
     var precio = $("#precio").val();
     precio = precio.replace(".", "")
@@ -549,8 +549,7 @@ $('#btnAgregar').click(function() {
     }else{
         var clase = "Todos";
     }
-    var i = 0;
-  var fila = '<tr class="producto" id="row'+i+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + i + '" class="far fa-times-circle btn_remove"></i></td></tr>';
+  var fila = '<tr class="producto" id="row'+id+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + id + '" class="far fa-times-circle btn_remove"></i></td></tr>';
   $('#cargar').modal('toggle');
   $('#presupuestos tr:last').after(fila);
   i++;
