@@ -101,7 +101,7 @@
         </div>
         <div class="btn-group-vertical btn-group-lg container">
             <button type="button" id="agregarPto" class="btn btn-outline-info mb-3">Guardar Presupuesto</button>
-            <button type="button" id="imprimirPto" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button>
+            <!--<button type="button" id="imprimirPto" class="btn btn-outline-info mb-3">Guardar/Imprimir PDF</button>-->
             <button type="button" class="btn btn-outline-info" onclick="modalAltaPedido($('#idCli').val(),$('#idPro').val(),$('#vendedorSol').val(),$('#canalventa').val()); return false">Generar Pedido</button>
         </div>          
     </div>
@@ -249,7 +249,7 @@
                             </div>
                         </div>                 
                     <div class="modal-footer">
-                        <button type="submit" id="btnAgregarPdo" class="btn btn-outline-success">Agregar</button>
+                        <button type="button" id="btnAgregarPdo" class="btn btn-outline-success">Agregar</button>
                         <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
@@ -371,8 +371,25 @@
         return $.get(path, { query: query }, function (data) {
                 return process(data);
             });
+        },
+        afterSelect: function (item) {
+            var datos = { nombre : $("#buscador").val() };
+                //console.log(datos);
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('productos.obtenerdetalles') }}',
+                    data: datos,
+                    success: function(data) {
+                        var obj = JSON.parse(data);
+                        //console.log(data);
+                        $("#id").val(obj[0]["id"])                  
+                        $("#producto").val(obj[0]["nombre"])
+                        $("#precio").val(obj[0]["precio"])
+                        $("#cargar").modal('show');
+                    }
+                })
         }
-    }).on('keypress', function(e) {
+    })/*.on('keypress', function(e) {
             if (e.which == 13) {   
                 var datos = { nombre : $("#buscador").val() };
                 //console.log(datos);
@@ -390,7 +407,7 @@
                     }
                 })
             }
-        });
+        });*/
     $('#cargar').on('hidden.bs.modal', function () {
         $('#producto').val('');
         $('#precio').val('');
@@ -406,10 +423,9 @@
     return $.get(path2, { query: query }, function (data) {
             return process(data);
         });
-    }
-    }).on('keypress', function(e) {
-            if (e.which == 13) {   
-                var data = { nombre : $("#buscadorCli").val() };
+    },
+    afterSelect: function (item) {
+        var data = { nombre : $("#buscadorCli").val() };
                 $.ajax({
                     type: "POST",
                     url: '{{ route('clientes.obtenerdetalles') }}',
@@ -420,18 +436,17 @@
                         $("#listadoCli").html('<ul class="list-group lead"><input type="hidden" id="idCli" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomCliente" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono1"] +'</li><li class="list-group-item"><h6 class="my-0">Factura</h6>'+ obj[0]["factura"] +'</li></ul>');
                     }
                 })   
-            }
-        });
+    }
+    })
     var path3 = "{{ route('profesionales.autocomplete') }}";
     $('#buscadorPro').typeahead({
     source:  function (query, process) {
     return $.get(path3, { query: query }, function (data) {
             return process(data);
         });
-    }
-    }).on('keypress', function(e) {
-            if (e.which == 13) {   
-                var data = { nombre : $("#buscadorPro").val() };
+    },
+    afterSelect: function (item) {
+        var data = { nombre : $("#buscadorPro").val() };
                 $.ajax({
                     type: "POST",
                     url: '{{ route('profesionales.obtenerdetalles') }}',
@@ -442,9 +457,8 @@
                         $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomProfesional" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
                     }
                 })   
-            }
-        });
-  
+    }
+    })
 $('#btnAgregar').click(function() {
     var id = $('#id').val();  
     var producto = $('#producto').val();
@@ -464,7 +478,7 @@ $('#btnAgregar').click(function() {
   var fila = '<tr class="producto" id="row'+id+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + id + '" class="far fa-times-circle btn_remove"></i></td></tr>';
   $('#cargar').modal('toggle');
   $('#presupuestos tr:last').after(fila);  
-  });     
+  });      
     $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");
         $('#row' + button_id + '').remove(); 
@@ -561,7 +575,11 @@ $('#btnAgregar').click(function() {
             }
         })
     });
-    $('#imprimirPto').click(function() {
+    $('#btnAgregarPdo').click(function() {
+    $('#pedido').submit();
+    window.open("http://localhost/marmoleria/public/solicitudes/nuevo");
+    });
+    /*$('#imprimirPto').click(function() {
         var td = [];
         var productos = "";
         var elementosTD = document.getElementsByTagName("td");
@@ -593,7 +611,7 @@ $('#btnAgregar').click(function() {
                 location.href = "http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id;     
             }
         })
-    });
+    });*/
     function modalAltaPedido(cliente,profesional,vendedor,canaldeventa){
         var todos = 0 ;
         var opcion = 0;

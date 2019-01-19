@@ -460,10 +460,9 @@ Number.prototype.format = function(n, x) {
         return $.get(path, { query: query }, function (data) {
                 return process(data);
             });
-        }
-    }).on('keypress', function(e) {
-            if (e.which == 13) {   
-                var data = { nombre : $("#buscador").val() };
+        },
+        afterSelect: function (item) {
+            var data = { nombre : $("#buscador").val() };
                 $.ajax({
                     type: "POST",
                     url: '{{ route('productos.obtenerdetalles') }}',
@@ -477,8 +476,8 @@ Number.prototype.format = function(n, x) {
                         $("#cargar").modal('show');
                     }
                 })
-            }
-        });
+        }
+    })
     $('#cargar').on('hidden.bs.modal', function () {
         $('#producto').val('');
         $('#precio').val('');
@@ -494,10 +493,9 @@ Number.prototype.format = function(n, x) {
     return $.get(path2, { query: query }, function (data) {
             return process(data);
         });
-    }
-    }).on('keypress', function(e) {
-            if (e.which == 13) {   
-                var data = { nombre : $("#buscadorCli").val() };
+    },
+    afterSelect: function (item) {
+        var data = { nombre : $("#buscadorCli").val() };
                 $.ajax({
                     type: "POST",
                     url: '{{ route('clientes.obtenerdetalles') }}',
@@ -508,18 +506,17 @@ Number.prototype.format = function(n, x) {
                         $("#listadoCli").html('<ul class="list-group lead"><input type="hidden" id="idCli" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomCliente" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono1"] +'</li><li class="list-group-item"><h6 class="my-0">Factura</h6>'+ obj[0]["factura"] +'</li></ul>');
                     }
                 })   
-            }
-        });
+    }
+    })
     var path3 = "{{ route('profesionales.autocomplete') }}";
     $('#buscadorPro').typeahead({
     source:  function (query, process) {
     return $.get(path3, { query: query }, function (data) {
             return process(data);
         });
-    }
-    }).on('keypress', function(e) {
-            if (e.which == 13) {   
-                var data = { nombre : $("#buscadorPro").val() };
+    },
+    afterSelect: function (item) {
+        var data = { nombre : $("#buscadorPro").val() };
                 $.ajax({
                     type: "POST",
                     url: '{{ route('profesionales.obtenerdetalles') }}',
@@ -530,9 +527,8 @@ Number.prototype.format = function(n, x) {
                         $("#listadoPro").html('<ul class="list-group lead"><input type="hidden" id="idPro" value="'+ obj[0]["id"] +'"><input type="hidden" id="nomProfesional" value="'+ obj[0]["nombre"] +'"><li class="list-group-item"><h6 class="my-0">Nombre</h6>'+ obj[0]["nombre"] +'</li><li class="list-group-item"><h6 class="my-0">Telefono</h6>'+ obj[0]["telefono"] +'</li><li class="list-group-item"><h6 class="my-0">Email</h6>'+ obj[0]["email"] +'</li></ul>');
                     }
                 })   
-            }
-        });
-  
+    }
+    })
 $('#btnAgregar').click(function() {
     var id = $('#id').val();
     var producto = $('#producto').val();
@@ -553,7 +549,7 @@ $('#btnAgregar').click(function() {
   $('#cargar').modal('toggle');
   $('#presupuestos tr:last').after(fila);
   i++;
-  });     
+  });
     $(document).on('click', '.btn_remove', function() {
         var button_id = $(this).attr("id");
         $('#row' + button_id + '').remove(); 
@@ -650,7 +646,10 @@ $('#btnAgregar').click(function() {
         $("#observacion").val($("#observa").val());
         $("#descuento").val({{ $solicitud->descuento }});
         $("#senia").val({{ $solicitud->senia }});
-        $("#despacho").val('{{ $solicitud->despacho }}');
+        var despacho;
+        if ('{{ $solicitud->despacho }}' == '') {despacho ='entregar'}else{despacho ='{{ $solicitud->despacho }}'}
+
+        $("#despacho").val(despacho);
         $("#detalles").val('{{ $solicitud->detalles }}');
         $("#{{ $solicitud->estado }}").prop("checked", true);
         @php
@@ -703,12 +702,12 @@ $('#btnAgregar').click(function() {
             url: '{{ route('solicitudes.updatePresupuesto') }}',
             data: datos,
             success: function(data) {
-                location.href="http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data;        
+                location.href="http://localhost/marmoleria/public/solicitudes/edit/"+data;        
             }
         })       
-    });
-    $('#imprimirPto').click(function() {
-        location.href ="http://localhost/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}";     
+    });    
+    $('#imprimirPto').click(function() { 
+        window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");         
     });
     $('#imprimirPed').click(function() {
         window.open("http://localhost/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");

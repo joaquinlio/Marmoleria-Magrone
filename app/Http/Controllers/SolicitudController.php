@@ -161,7 +161,7 @@ class SolicitudController extends Controller
             $solicitud->fill(['imagen' => asset($path)])->save();
         }
         //dd($request->all());
-        return redirect()->route('solicitudes.index');
+        return redirect()->route('solicitudes.edit',$request->sol_id);
     }
     public function updatePresupuesto(Request $request)
     {
@@ -190,7 +190,7 @@ class SolicitudController extends Controller
             'obra' => "$obra"
             ]);
         return response()->json($solicitud->sol_id);
-        //return redirect()->route('solicitudes.index');
+        //return redirect()->route('solicitudes.edit',$request->sol_id);
     }
     public function destroy(Request $request)
     {
@@ -302,7 +302,8 @@ class SolicitudController extends Controller
         }
         $solicitud = Solicitud::find($post->sol_id);
         $pdf = SnappyPdf::loadView('solicitudes.impPed',compact('solicitud'));
-        return $pdf->inline();
+        return $pdf->stream();
+        //return redirect()->action('SolicitudController@pdfPed',$post->sol_id);
     }
     public function buscador(Request $request)
     {
