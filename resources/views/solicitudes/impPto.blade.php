@@ -19,8 +19,11 @@
   </head>
   <style>
         #presupuesto {
-            left: 350px;
+            left: 370px;
             top: 10px;
+            position: absolute;
+        }
+        .icono{
             position: absolute;
         }
         #datos {
@@ -28,12 +31,12 @@
             position: absolute;
         }
         #numero {
-            left: 200px;
-            top: 80px;
+            left: 250px;
+            top: 90px;
             position: absolute;
         }
         #col-numero {
-            left: 120px;
+            left: 170px;
             top: 90px;
             position: absolute;
         }
@@ -96,77 +99,84 @@
             border-width: 2px;
         }
         .col-colvendedor {
-            top: 160px;
+            top: 210px;
+            left: 450px;
             position: absolute;
         }
         #vendedor {
-            left: 100px;
+            top: 210px;
+            left: 550px;
             position: absolute;
         }
         .col-canaldeventa {
-            top: 160px;
-            left: 330px;
+            top: 210px;
+            left: 770px;
             position: absolute;
         } 
         #canaldeventa {
-            left: 460px;
+            top: 210px;
+            left: 900px;
             position: absolute;
         } 
         #fecha {
+            top: 160px;
             left: 800px;
             position: absolute;
         } 
         .col-cliente {
-            top: 200px;
+            top: 160px;
             position: absolute;
         } 
         #cliente {
-            top: 200px;
+            top: 150px;
             left: 100px;
-            position: absolute;
+            position: absolute;;      
         } 
+        #clienteInput{
+            font-size: 20px;
+        }
         .col-direccion {
-            top: 250px;
+            top: 210px;
             position: absolute;
         } 
         #direccion {
-            top: 250px;
+            top: 210px;
             left: 100px;
             position: absolute;
         } 
         .col-profesional {
-            top: 300px;
+            top: 260px;
             position: absolute;
         } 
         #profesional {
-            top: 300px;
+            top: 260px;
             left: 100px;
             position: absolute;
         } 
         .col-obra {
-            top: 350px;
+            top: 310px;
             position: absolute;
         } 
         #obra {
-            top: 350px;
+            top: 310px;
             left: 100px;
             position: absolute;
         } 
         .col-observacion {
-            top: 300px;
+            top: 260px;
             left: 520px; 
             position: absolute;
         } 
         #observacion {
-            top: 300px;
+            top: 260px;
             left: 650px;
             position: absolute;
-        } 
+        }
         </style>
   <body> 
     <div id="presupuesto">
         <h1 class="display-4">Presupuesto</h1>
-        <em style="margin-left : 10px;">Comprobante (x) no valido como factura</em>
+        <em style="margin-left : 10px;">Comprobante (x) no válido como factura</em>
     </div>
     <div id="datos">
         <p>
@@ -179,15 +189,14 @@
         </p>
     </div>
     <div id="">
-        <h1 class="display-1">M</h1>
+        <img src="http://localhost/marmoleria/public/imagen/icono.png" alt="" class="icono">
     </div>
     <div id="col-numero">
-            <h6 style=" font-weight: bold;">Numero:</h6> 
+            <h6 style=" font-weight: bold;">Número:</h6> 
     </div>
     <div id="numero">
         <input type="text" class="form-control" style=" width: 80px;  font-weight: bold;" value="{{ $solicitud->sol_id }}">    
-    </div>
-    <hr> 
+    </div> 
     <div class="col-colvendedor">
         <strong>Vendedor:</strong> 
     </div>
@@ -205,13 +214,13 @@
         <strong>Cliente:</strong> 
     </div>
     <div id="cliente">
-        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $solicitud->Cliente->nombre }}">
+        <input type="text" id="clienteInput" class="form-control" style=" width: 600px;"  value="{{ $solicitud->Cliente->nombre }}-{{ $solicitud->Cliente->telefono1}}">
     </div>
     <div class="col-direccion">
         <strong>Direccion:</strong> 
     </div>
     <div id="direccion">
-        <input type="text" class="form-control" style=" width: 1000px;" value="{{ $solicitud->Cliente->direccion }}">
+        <input type="text" class="form-control" style=" width: 300px;" value="{{ $solicitud->Cliente->direccion }}">
     </div>
     <div class="col-profesional">
         <strong>Profesional:</strong> 
@@ -283,7 +292,7 @@
             </tbody> 
         </table>
         <h6 id="leyenda">LEYENDA:</h6>
-        <p id="leyendatext">*Presupuesto valido por 10 dias | Presupuesto: sujeto a medicion definitiva en obra | No incluye: acarreo por escalera ni izaje por exterior | Condiciones de venta: Seña por anticipo del 60% y saldo a contra entrega | Stock: a confirmar en el momento del anticipo | Formas de pago: Efectivo,cheques,transferencia,tarjeta de debito y credito*.</p>
+        <p id="leyendatext">*Presupuesto válido por 10 días | Presupuesto: sujeto a medición definitiva en obra | No incluye: acarreo por escalera ni izaje por exterior | Condiciones de venta: Seña por anticipo del 60% y saldo a contra entrega | Stock: a confirmar en el momento del anticipo | Formas de pago: Efectivo,cheques,transferencia,tarjeta de débito y crédito*.</p>
         <div id="firmas">
         <h6 id="confirmacion">Conformidad del Cliente:</h6>
         <h6 id="firma">FIRMA:</h6>
