@@ -189,7 +189,7 @@
         </p>
     </div>
     <div id="">
-        <img src="http://localhost/marmoleria/public/imagen/icono.png" alt="" class="icono">
+        <img src="http://190.105.234.121/marmoleria/public/imagen/icono.png" alt="" class="icono">
     </div>
     <div id="col-numero">
             <h6 style=" font-weight: bold;">Número:</h6> 

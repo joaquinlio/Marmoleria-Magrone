@@ -26,7 +26,7 @@
         <div class="input-group mb-3">
             <input type="text" name="buscador" id="buscador" class="typeahead form-control mb-3"  placeholder="Buscar Producto/Extra">
                 <div class="float-right">
-                    <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoProducto">
+                    <img src="http://190.105.234.121/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoProducto">
                 </div>
             </div>   
         <table id="presupuestos" class="table table-bordered table-sm text-center">
@@ -63,7 +63,7 @@
                     <div class="input-group mb-3">
                         <input type="text" id="buscadorCli" class="typeahead form-control mr-sm-2"  placeholder="Buscar Cliente">
                         <div class="float-right">
-                            <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoCliente">
+                            <img src="http://190.105.234.121/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoCliente">
                         </div>
                     </div>            
                     <div id="listadoCli"></div>           
@@ -73,7 +73,7 @@
                 <div class="input-group mb-3">
                     <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional" autocomplete="off">
                     <div class="float-right">
-                        <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
+                        <img src="http://190.105.234.121/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
                     </div>
                 </div>
                 <div id="listadoPro"></div>                       
@@ -570,14 +570,14 @@ $('#btnAgregar').click(function() {
             data: datos,
             success: function(data) {
                 //console.log(data);  
-                window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id);      
+                window.open("http://190.105.234.121/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id);      
                 location.href="{{ route('solicitudes.create') }}";     
             }
         })
     });
     $('#btnAgregarPdo').click(function() {
     $('#pedido').submit();
-    window.open("http://localhost/marmoleria/public/solicitudes/nuevo");
+    window.open("http://190.105.234.121/marmoleria/public/solicitudes/nuevo");
     });
     /*$('#imprimirPto').click(function() {
         var td = [];
@@ -608,7 +608,7 @@ $('#btnAgregar').click(function() {
             url: '{{ route('solicitudes.insertarPresupuesto') }}',
             data: datos,
             success: function(data) {
-                location.href = "http://localhost/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id;     
+                location.href = "http://190.105.234.121/marmoleria/public/solicitudes/pto/pdf/"+data.sol_id;     
             }
         })
     });*/

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@yield('title')</title>
-    <link rel="shortcut icon" href="http://localhost/marmoleria/public/imagen/icono.png" />
+    <link rel="shortcut icon" href="http://190.105.234.121/marmoleria/public/imagen/icono.png" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/iconos.min.css') }}">

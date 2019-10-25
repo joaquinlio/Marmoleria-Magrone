@@ -36,7 +36,7 @@ $numeros = count($productos);
         <div class="input-group mb-3">
             <input type="text" name="buscador" id="buscador" class="typeahead form-control mb-3"  placeholder="Buscar Producto/Extra">
                 <div class="float-right">
-                    <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoProducto">
+                    <img src="http://190.105.234.121/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoProducto">
                 </div>
             </div>   
         <table id="presupuestos" class="table table-bordered table-sm text-center">
@@ -79,7 +79,7 @@ $numeros = count($productos);
                     <div class="input-group mb-3">
                         <input type="text" id="buscadorCli" class="typeahead form-control mr-sm-2"  placeholder="Buscar Cliente" autocomplete="off">
                         <div class="float-right">
-                            <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoCliente">
+                            <img src="http://190.105.234.121/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoCliente">
                         </div>
                     </div>            
                     <div id="listadoCli">
@@ -98,7 +98,7 @@ $numeros = count($productos);
                 <div class="input-group mb-3">
                     <input type="text" id="buscadorPro" class="typeahead form-control mr-sm-2"  placeholder="Buscar profesional" autocomplete="off">
                     <div class="float-right">
-                        <img src="http://localhost/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
+                        <img src="http://190.105.234.121/marmoleria/public/imagen/add.png" alt="" data-toggle="modal" data-target="#nuevoprofesional">
                     </div>
                 </div>
                 <div id="listadoPro">
@@ -702,15 +702,15 @@ $('#btnAgregar').click(function() {
             url: '{{ route('solicitudes.updatePresupuesto') }}',
             data: datos,
             success: function(data) {
-                location.href="http://localhost/marmoleria/public/solicitudes/edit/"+data;        
+                location.href="http://190.105.234.121/marmoleria/public/solicitudes/edit/"+data;        
             }
         })       
     });    
     $('#imprimirPto').click(function() { 
-        window.open("http://localhost/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");         
+        window.open("http://190.105.234.121/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");         
     });
     $('#imprimirPed').click(function() {
-        window.open("http://localhost/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");
+        window.open("http://190.105.234.121/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");
     });
     $("#senia,#descuento").on("change", function(){
         var total = $("#totalPed").val();  
