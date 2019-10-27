@@ -36,10 +36,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    /*public function login () {
-        auth()->login();
+    public function login () {
+        //auth()->login();
         return redirect('/paneldecontrol');
-    }*/
+    }
     /*public function logout () {
         auth()->logout();
         return redirect('/home');

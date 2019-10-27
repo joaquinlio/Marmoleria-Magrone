@@ -2,6 +2,9 @@
 Route::get('/', function () {
     return view('index');
 })->name('index')->middleware('auth');
+
+Route::get('/login','\App\Http\Controllers\Auth\LoginController@login')->name('login')->middleware('auth');
+
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout')->middleware('auth');
 
 Route::get('/usuarios', 'UserController@index')->name('users.index')->middleware('auth');
