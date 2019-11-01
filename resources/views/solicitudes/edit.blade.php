@@ -707,10 +707,74 @@ $('#btnAgregar').click(function() {
         })       
     });    
     $('#imprimirPto').click(function() { 
-        window.open("http://190.105.234.121/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");         
+        var td = [];
+        var productos = "";
+        var elementosTD = document.getElementsByTagName("td");
+        for(i=0;i<elementosTD.length;i++){
+            productos += elementosTD[i].textContent;
+            productos += ",";
+            if (elementosTD[i].textContent == "Todos"  || elementosTD[i].textContent == "opcion1" || elementosTD[i].textContent == "opcion2" || elementosTD[i].textContent == "opcion3") {
+            productos+= "/";
+            }
+        }
+        productos = productos.slice(0,-2);
+        //console.log(productos);  
+        var sol_id = {{ $solicitud->sol_id }};
+        var cliente = $("#idCli").val();
+        var profesional;
+        (!$("#idPro").val()) ? profesional = null : profesional = $("#idPro").val() ;
+        var vendedor = $("#vendedorSol").val();
+        var canalventa = $("#canalventa").val();
+        var observacion =$("#observa").val();
+        var obra = $("#obras").val();
+        //console.log(obra);
+        td.push({sol_id,productos,cliente,profesional,vendedor,canalventa,obra,observacion});
+        var datos = JSON.stringify(td);
+        //console.log(datos);
+       $.ajax({
+            type: "POST",
+            url: '{{ route('solicitudes.updatePresupuesto') }}',
+            data: datos,
+            success: function(data) {
+                location.href="http://190.105.234.121/marmoleria/public/solicitudes/edit/"+data;        
+                window.open("http://190.105.234.121/marmoleria/public/solicitudes/pto/pdf/{{ $solicitud->sol_id }}");         
+            }
+        })    
     });
     $('#imprimirPed').click(function() {
-        window.open("http://190.105.234.121/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");
+        var td = [];
+        var productos = "";
+        var elementosTD = document.getElementsByTagName("td");
+        for(i=0;i<elementosTD.length;i++){
+            productos += elementosTD[i].textContent;
+            productos += ",";
+            if (elementosTD[i].textContent == "Todos"  || elementosTD[i].textContent == "opcion1" || elementosTD[i].textContent == "opcion2" || elementosTD[i].textContent == "opcion3") {
+            productos+= "/";
+            }
+        }
+        productos = productos.slice(0,-2);
+        //console.log(productos);  
+        var sol_id = {{ $solicitud->sol_id }};
+        var cliente = $("#idCli").val();
+        var profesional;
+        (!$("#idPro").val()) ? profesional = null : profesional = $("#idPro").val() ;
+        var vendedor = $("#vendedorSol").val();
+        var canalventa = $("#canalventa").val();
+        var observacion =$("#observa").val();
+        var obra = $("#obras").val();
+        //console.log(obra);
+        td.push({sol_id,productos,cliente,profesional,vendedor,canalventa,obra,observacion});
+        var datos = JSON.stringify(td);
+        //console.log(datos);
+       $.ajax({
+            type: "POST",
+            url: '{{ route('solicitudes.updatePresupuesto') }}',
+            data: datos,
+            success: function(data) {
+                location.href="http://190.105.234.121/marmoleria/public/solicitudes/edit/"+data;        
+                window.open("http://190.105.234.121/marmoleria/public/solicitudes/ped/pdf/{{ $solicitud->sol_id }}");
+            }
+        })    
     });
     $("#senia,#descuento").on("change", function(){
         var total = $("#totalPed").val();  
