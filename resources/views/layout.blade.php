@@ -60,7 +60,8 @@
                         <input type="text" name="buscadorSol" id="buscadorSol" class="form-control" placeholder="Buscar Solicitud" autocomplete="off">
                     </div>
                     <div class="form-group">
-                      <button class="btn btn-success my-2 my-sm-0"><a class="text-white" href="{{ route('logout') }}">{{{--{{ Auth::user()->name }}--}}}</a></button>
+
+                      
                     </div>
                 </form>
           </div>
