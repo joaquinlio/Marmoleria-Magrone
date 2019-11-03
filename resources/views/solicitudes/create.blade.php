@@ -364,6 +364,45 @@
         </div>
     </div>
     </div>              
+    <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="">Editar Producto</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-row">
+                        <input type="hidden" name="id" id="id">
+                        <label>Producto:</label>
+                        <input type="text" id="producto" name="producto" class="form-control" autocomplete="off">
+                        <label>Precio:</label>
+                        <input type="text" id="precio" name="precio" class="form-control" autocomplete="off">
+                        <label>Cantidad:</label>
+                        <input type="text" id="cantidad" name="cantidad" class="form-control" autocomplete="off">
+                        <label>Total:</label>
+                        <input type="text" id="total" name="total" class="form-control" autocomplete="off">
+                        <label>Aplicacion:</label>
+                        <input type="text" id="aplicacion" name="aplicacion" class="form-control" autocomplete="off">
+                        <label>Opcion:</label>
+                            <select name="opcion" id="opcion" class="custom-select">
+                                <option value="Todos">Todos</option>
+                                <option value="opcion1" selected>Opcion 1</option>
+                                <option value="opcion2">Opcion 2</option>
+                                <option value="opcion3">Opcion 3</option>
+                                <option value="opcion4">Opcion 4</option>
+                            </select>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnAgregar" class="btn btn-outline-success">Agregar</button>
+                        <button type="button" id="btnCancelar" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
 <script type="text/javascript">
     var path = "{{ route('productos.autocomplete') }}";
     $('#buscador').typeahead({
@@ -475,7 +514,7 @@ $('#btnAgregar').click(function() {
     }else{
         var clase = "Todos";
     }
-  var fila = '<tr class="producto" id="row'+id+'"><td class="nombre">' + producto + '</td><td>' + precio + '</td><td class="cantidad">' + cantidad + '</td><td class="total">' + total + '</td><td class="aplicacion"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion">' + opcion + '<i id="' + id + '" class="far fa-times-circle btn_remove"></i></td></tr>';
+  var fila = '<tr class="producto" id="row'+id+'"><td class="nombre productos">' + producto + '</td><td class="productos">' + precio + '</td><td class="cantidad productos">' + cantidad + '</td><td class="total productos">' + total + '</td><td class="aplicacion productos"><span class="text-overflow">' + aplicacion + '</td><td class="'+clase+' opcion productos">' + opcion + '<i id="' + id + '" class="far fa-times-circle btn_remove"></i></td></tr>';
   $('#cargar').modal('toggle');
   $('#presupuestos tr:last').after(fila);  
   });      
@@ -484,6 +523,26 @@ $('#btnAgregar').click(function() {
         $('#row' + button_id + '').remove(); 
         var nFilas = $("#presupuestos tr").length;
     });
+    $(document).on('click', '.productos', function(event) {
+        var texto = event.target.innerHTML;
+        $( this ).html( "<input class='form-control' type='text' value='"+texto+"'><i class='fas fa-check editProducto'></i>" );
+        $( this ).removeClass("productos");
+        td=$(this).closest("td");              
+    });
+    $(document).on('click', '.editProducto', function(event) {
+       var nuevovalor = $(this).closest("td").find("input").val();
+       $(this).closest("td").html(nuevovalor);
+      
+       $("td:not(.id)").addClass("productos");	        
+    });
+    /* $(document).on('click', '.noEdit', function(event) {
+       var nuevovalor = $(this).closest("td").find("input").val();
+       $(this).closest("td").html(nuevovalor);
+      
+       $("td:not(.id)").addClass("productos");	  
+       td.html("<span>"+valor+"</span>");
+			$("td:not(.id)").addClass("editable");      
+    }); */
     $("#cantidad,#precio").on("change", function(){
         var precio = $("#precio").val();
         precio = precio.replace(".", "")
